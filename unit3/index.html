@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="牙寶歷險記第三單元：透過對話、食物分類和生活情境，學習飲食與口腔健康習慣。" />
+  <title>牙寶歷險記｜第三單元：飲食與健康習慣</title>
+  <style>
+    :root { --navy:#173b57; --blue:#245b76; --blue-soft:#e8f2f4; --orange:#d96f2b; --orange-soft:#fff2e5; --green:#397561; --green-soft:#edf7f2; --yellow:#f2c85b; --ink:#20323a; --muted:#5c6d73; --paper:#fffefb; --line:#dce7e4; }
+    * { box-sizing:border-box; }
+    body { margin:0; height:100vh; height:100dvh; overflow:hidden; color:var(--ink); font-family:"Noto Sans TC","Microsoft JhengHei",sans-serif; background:radial-gradient(circle at 10% 0%,#fff2df,transparent 28%),radial-gradient(circle at 95% 85%,#dff3ed,transparent 32%),linear-gradient(135deg,#eef5f4,#e6f0f3); }
+    .app { width:min(1280px,100%); height:100%; margin:auto; padding:clamp(12px,2vw,24px); display:flex; flex-direction:column; gap:12px; }
+    header { display:flex; align-items:center; gap:14px; flex-shrink:0; }
+    .brand { display:flex; align-items:center; gap:10px; color:var(--navy); font-weight:900; text-decoration:none; }
+    .brand-mark { width:42px;height:42px;display:grid;place-items:center;border-radius:14px;background:white;box-shadow:0 6px 18px #173b5715;font-size:1.45rem; }
+    .crumb { color:var(--muted);font-weight:700;font-size:.98rem; }
+    .top-link { margin-left:auto;color:var(--blue);font-weight:900;text-decoration:none;padding:10px 14px;border-radius:14px;background:#ffffffb8; }
+    .unit-label { color:var(--orange);font-size:.82rem;font-weight:900;letter-spacing:.1em; }
+    .layout { min-height:0;flex:1;display:grid;grid-template-columns:minmax(0,1.08fr) minmax(330px,.92fr);gap:16px; }
+    .story,.lesson { min-height:0;border:1px solid #ffffff;border-radius:26px;background:#ffffffdc;box-shadow:0 14px 38px #173b5710; }
+    .story { padding:clamp(20px,3vw,38px);display:flex;flex-direction:column;position:relative;overflow:hidden; }
+    .story::after { content:"";position:absolute;width:230px;height:230px;right:-80px;top:-92px;border-radius:50%;background:#e9f5ef;z-index:0; }
+    .story > * { position:relative;z-index:1; }
+    h1 { margin:7px 0 8px;color:var(--navy);font-size:clamp(2rem,4.2vw,3.4rem);line-height:1.12; }
+    .intro { margin:0;color:var(--muted);font-size:clamp(1rem,1.45vw,1.16rem);line-height:1.65; }
+    .scene { flex:1;min-height:120px;margin:16px 0;display:grid;place-items:center;border-radius:22px;background:linear-gradient(135deg,#eff8f4,#fff1df);overflow:hidden; }
+    .scene-content { display:flex;align-items:center;justify-content:center;gap:clamp(10px,3vw,42px);width:100%;padding:12px; }
+    .character { display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center; }
+    .character img { width:clamp(76px,11vw,132px);height:clamp(76px,11vw,132px);object-fit:contain;filter:drop-shadow(0 8px 8px #173b5714); }
+    .character .emoji { font-size:clamp(3.8rem,8vw,6.5rem);line-height:1; }
+    .character strong { color:var(--navy);font-size:.95rem; }
+    .bubble { max-width:330px;padding:14px 17px;background:white;border:2px solid #f5d79b;border-radius:20px 20px 20px 6px;font-size:clamp(1rem,1.45vw,1.18rem);font-weight:700;line-height:1.6;box-shadow:0 8px 18px #173b570c; }
+    .dialogue-actions { display:flex;align-items:center;gap:12px; }
+    .progress { color:var(--muted);font-weight:800; }
+    button,.button-link { border:0;border-radius:15px;padding:13px 20px;color:white;background:linear-gradient(135deg,#ef9d43,#da6f2e);font:inherit;font-weight:900;cursor:pointer;text-decoration:none;box-shadow:0 7px 0 #b95b29;transition:transform .15s,box-shadow .15s; }
+    button:hover,.button-link:hover { transform:translateY(-2px);box-shadow:0 9px 0 #b95b29; }
+    button:active,.button-link:active { transform:translateY(3px);box-shadow:0 4px 0 #b95b29; }
+    button:focus-visible,.button-link:focus-visible,a:focus-visible { outline:3px solid #23608a;outline-offset:3px; }
+    .lesson { padding:clamp(18px,2.4vw,30px);display:flex;flex-direction:column;overflow:hidden; }
+    .lesson-head { display:flex;align-items:center;gap:12px;margin-bottom:12px; }
+    .step-badge { width:44px;height:44px;flex:0 0 44px;display:grid;place-items:center;border-radius:15px;background:var(--blue-soft);color:var(--blue);font-weight:1000;font-size:1.15rem; }
+    h2 { margin:0;color:var(--navy);font-size:clamp(1.35rem,2vw,1.8rem);line-height:1.25; }
+    .step-caption { margin:2px 0 0;color:var(--muted);font-size:.94rem;font-weight:700; }
+    .panel { min-height:0;flex:1;overflow:auto;padding:2px 4px 6px 1px;scrollbar-color:#bfd4cf transparent; }
+    .panel p { line-height:1.65; }
+    .callout { padding:13px 15px;border-radius:16px;background:var(--green-soft);color:#295b4a;line-height:1.6;font-weight:700; }
+    .fact-grid { display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0; }
+    .fact { padding:13px;border:1px solid var(--line);border-radius:16px;background:white; }
+    .fact b { display:block;color:var(--blue);margin-bottom:4px; }
+    .food-grid { display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:12px 0; }
+    .food { min-height:72px;padding:9px 5px;border-radius:14px;border:2px solid #e6ece8;background:white;color:var(--ink);box-shadow:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:.95rem; }
+    .food .food-emoji { font-size:1.65rem;line-height:1.1; }
+    .food[aria-pressed="true"] { border-color:#5d9d7e;background:#eff8f1;box-shadow:inset 0 0 0 1px #5d9d7e; }
+    .choice-list { display:grid;gap:9px;margin-top:12px; }
+    .choice { text-align:left;width:100%;background:#f5f8f7;color:var(--ink);box-shadow:none;border:2px solid var(--line); }
+    .choice:hover { box-shadow:none; }
+    .choice.correct { border-color:#66a985;background:var(--green-soft); }
+    .choice.try-again { border-color:#e7a06b;background:var(--orange-soft); }
+    .feedback { min-height:34px;margin:10px 0;color:var(--green);font-weight:900;line-height:1.5; }
+    .footer-actions { display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:10px;padding-top:12px;border-top:1px solid var(--line); }
+    .footer-actions .secondary { color:var(--blue);background:#edf4f4;box-shadow:0 5px 0 #c3d4d4; }
+    .footer-actions .secondary:hover { box-shadow:0 7px 0 #c3d4d4; }
+    .sr-only { position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0; }
+    @media(max-width:780px) { body{height:auto;min-height:100vh;overflow:auto}.app{height:auto;min-height:100vh}.layout{grid-template-columns:1fr}.story{min-height:440px}.lesson{min-height:460px}.scene{min-height:150px} }
+    @media(max-height:650px) and (min-width:781px) { .app{padding:10px 16px;gap:8px}.layout{gap:10px}.story,.lesson{padding:16px 20px}.scene{margin:10px 0}.fact{padding:9px}.panel p{margin:8px 0}.footer-actions{margin-top:5px;padding-top:8px} }
+    @media(max-width:430px) { header{gap:8px}.crumb{font-size:.85rem}.top-link{padding:9px;font-size:.88rem}.food-grid{grid-template-columns:repeat(3,1fr)}.story{min-height:410px}.bubble{padding:11px 13px} }
+    @media(prefers-reduced-motion:reduce) { *,*::before,*::after{scroll-behavior:auto!important;transition:none!important} }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <a class="brand" href="../" aria-label="回到牙寶歷險記首頁"><span class="brand-mark" aria-hidden="true">🦷</span><span>牙寶歷險記</span></a>
+      <span class="crumb">／ 第三單元</span>
+      <a class="top-link" href="../">回首頁</a>
+    </header>
+    <main class="layout">
+      <section class="story" aria-labelledby="unit-title">
+        <span class="unit-label">UNIT 03 · 飲食與健康習慣</span>
+        <h1 id="unit-title">牙寶的午餐<br />線索任務</h1>
+        <p class="intro">跟著牙寶和韋登醫師，從一份午餐開始觀察：哪些選擇能幫牙齒維持舒服的環境？</p>
+        <div class="scene" aria-live="polite">
+          <div class="scene-content">
+            <div class="character"><img src="../unit1/images/tooth-happy.png" alt="牙寶" /><strong>牙寶</strong></div>
+            <div class="bubble" id="dialogue">午餐時間到了！我找到一些食物線索，你願意陪我一起看看嗎？</div>
+            <div class="character"><span class="emoji" aria-hidden="true">👨🏻‍⚕️</span><strong>韋登醫師</strong></div>
+          </div>
+        </div>
+        <div class="dialogue-actions"><button id="next-dialogue" type="button">繼續對話</button><span class="progress" id="dialogue-progress">故事 1 / 4</span></div>
+      </section>
+      <section class="lesson" aria-labelledby="lesson-title">
+        <div class="lesson-head"><span class="step-badge" id="step-number">1</span><div><h2 id="lesson-title">先聽聽牙齒怎麼說</h2><p class="step-caption" id="lesson-caption">故事導入 · 約 8 分鐘</p></div></div>
+        <div class="panel" id="lesson-panel" tabindex="0" aria-live="polite"></div>
+        <div class="footer-actions"><button class="secondary" id="prev-step" type="button">上一步</button><button id="next-step" type="button">下一站</button></div>
+      </section>
+    </main>
+  </div>
+  <script>
+    const GENIALLY = 'https://view.genially.com/6a8d238a0ac8f9254dfc9780';
+    const dialogueLines = [
+      ['午餐時間到了！我找到一些食物線索，你願意陪我一起看看嗎？','牙寶'],
+      ['當然。食物不需要分成「好孩子食物」或「壞食物」，我們要學的是怎麼搭配、怎麼安排。','韋登醫師'],
+      ['原來如此！那我來找找看，哪些食物適合常常出現在均衡的一餐裡。','牙寶'],
+      ['觀察得很棒。吃完也別忘了喝水、保持清潔；照顧牙齒是一連串的小習慣。','韋登醫師']
+    ];
+    const steps = [
+      { title:'先聽聽牙齒怎麼說', caption:'故事導入 · 約 8 分鐘', html:`<p>牙寶正在準備午餐，桌上有水果、蔬菜、乳品、甜點和飲料。韋登醫師沒有立刻幫他選答案，而是邀請他一起找出「吃什麼、什麼時候吃、吃完怎麼做」的線索。</p><div class="callout">醫師提醒：沒有哪一種食物需要被貼上標籤。重點是多樣、適量、規律，並減少整天頻繁接觸含糖食物與飲料。</div><p><strong>想一想：</strong>如果嘴巴整個下午都在慢慢喝甜飲，牙齒會比只在一餐中喝完更常遇到糖分嗎？</p><div class="fact-grid"><div class="fact"><b>線索一｜頻率</b>頻繁吃喝含糖點心，會讓牙齒反覆接觸糖。</div><div class="fact"><b>線索二｜搭配</b>正餐搭配不同食物，並以白開水解渴。</div></div><p>在這個單元裡，請用觀察和推理做選擇，不需要追求完美菜單。</p>` },
+      { title:'整理午餐食物線索', caption:'互動分類 · 約 10 分鐘', html:`<p>點選你覺得適合放進<strong>日常均衡餐點</strong>的選項。可以多選；完成後按「檢查我的線索」。</p><div class="food-grid" id="food-grid"><button class="food" data-kind="often" aria-pressed="false"><span class="food-emoji">🥕</span>蔬菜</button><button class="food" data-kind="often" aria-pressed="false"><span class="food-emoji">🍎</span>水果</button><button class="food" data-kind="often" aria-pressed="false"><span class="food-emoji">🥛</span>無糖乳品</button><button class="food" data-kind="often" aria-pressed="false"><span class="food-emoji">🍚</span>全穀主食</button><button class="food" data-kind="water" aria-pressed="false"><span class="food-emoji">💧</span>白開水</button><button class="food" data-kind="sometimes" aria-pressed="false"><span class="food-emoji">🥤</span>含糖飲料</button><button class="food" data-kind="sometimes" aria-pressed="false"><span class="food-emoji">🍬</span>黏甜糖果</button><button class="food" data-kind="sometimes" aria-pressed="false"><span class="food-emoji">🍩</span>甜甜圈</button></div><button type="button" id="check-food">檢查我的線索</button><p class="feedback" id="food-feedback" role="status"></p><div class="callout">小提醒：甜點可以偶爾享用；把含糖食物集中在餐點時間、避免長時間含著或啜飲，並以白開水解渴。</div>` },
+      { title:'幫小安選一個好習慣', caption:'生活情境 · 約 10 分鐘', html:`<p>小安吃完午餐後，準備回教室。他剛喝完果汁，嘴裡有點酸酸的。你會怎麼建議他？</p><div class="choice-list" id="scenario-choices"><button class="choice" data-answer="wrong">立刻用力刷牙，把酸味刷掉。</button><button class="choice" data-answer="right">先用清水漱口或喝水，等一段時間再刷牙，並持續用含氟牙膏早晚刷牙。</button><button class="choice" data-answer="wrong">今天不必再清潔牙齒了。</button></div><p class="feedback" id="scenario-feedback" role="status"></p><div class="fact-grid"><div class="fact"><b>日常清潔</b>每天早晚以含氟牙膏刷牙，並依牙醫建議使用牙線或牙間刷。</div><div class="fact"><b>飲食後</b>喝白開水有助清除口中食物殘留；酸性飲料後避免立刻用力刷牙。</div></div>` },
+      { title:'把照顧牙齒帶回生活', caption:'回顧任務 · 約 7 分鐘', html:`<p>牙寶把大家找到的線索寫進生活小清單。看看哪些是你也想試試看的：</p><div class="choice-list"><div class="callout">☑ 正餐吃得多樣，點心不整天一直吃。</div><div class="callout">☑ 平常以白開水解渴，含糖飲料不當日常飲品。</div><div class="callout">☑ 早晚刷牙、善用含氟牙膏，並定期接受牙科檢查。</div></div><p>健康習慣不是一次就要做到滿分。挑一件最容易開始的小事，今天就試試看；有疑問時，和家人或牙醫師討論最適合自己的做法。</p><div class="callout">牙寶：我知道了！重點不是完全不能吃，而是學會搭配、安排頻率，並且每天照顧牙齒。</div><p><strong>學習目標回顧：</strong>能說出飲食頻率與口腔清潔的關係，並在生活情境中選擇較健康的做法。</p><a class="button-link" href="${GENIALLY}" target="_blank" rel="noopener">開始挑戰 ↗</a>` }
+    ];
+    let dialogueIndex = 0;
+    let stepIndex = 0;
+    const $ = (id) => document.getElementById(id);
+    function renderDialogue() {
+      const [line, speaker] = dialogueLines[dialogueIndex];
+      $('dialogue').textContent = `${speaker}：「${line}」`;
+      $('dialogue-progress').textContent = `故事 ${dialogueIndex + 1} / ${dialogueLines.length}`;
+      $('next-dialogue').textContent = dialogueIndex === dialogueLines.length - 1 ? '再聽一次' : '繼續對話';
+    }
+    function renderStep() {
+      const step = steps[stepIndex];
+      $('step-number').textContent = String(stepIndex + 1);
+      $('lesson-title').textContent = step.title;
+      $('lesson-caption').textContent = step.caption;
+      $('lesson-panel').innerHTML = step.html;
+      $('prev-step').disabled = stepIndex === 0;
+      $('prev-step').style.opacity = stepIndex === 0 ? '.55' : '1';
+      $('next-step').textContent = stepIndex === steps.length - 1 ? '回到課程首頁' : '下一站';
+      bindActivities();
+    }
+    function bindActivities() {
+      document.querySelectorAll('.food').forEach((button) => button.addEventListener('click', () => button.setAttribute('aria-pressed', button.getAttribute('aria-pressed') !== 'true')));
+      const check = $('check-food');
+      if (check) check.addEventListener('click', () => {
+        const selected = [...document.querySelectorAll('.food[aria-pressed="true"]')];
+        const picks = selected.filter((item) => item.dataset.kind === 'often' || item.dataset.kind === 'water').length;
+        const extras = selected.filter((item) => item.dataset.kind === 'sometimes').length;
+        $('food-feedback').textContent = selected.length === 0 ? '先點選幾個你認為適合日常餐點的線索吧！' : picks >= 4 && extras === 0 ? '很棒，你找到了多樣餐點和白開水。甜點也可以偶爾享用，記得留意頻率。' : '不錯的開始！日常餐點可以多樣搭配蔬菜、水果、主食和無糖乳品，平常以水解渴。甜食不用禁止，注意安排頻率就好。';
+      });
+      document.querySelectorAll('.choice').forEach((button) => button.addEventListener('click', () => {
+        document.querySelectorAll('.choice').forEach((item) => item.classList.remove('correct', 'try-again'));
+        const right = button.dataset.answer === 'right';
+        button.classList.add(right ? 'correct' : 'try-again');
+        $('scenario-feedback').textContent = right ? '答對了！酸性飲料後先漱口或喝水，稍後再刷牙；平時維持早晚刷牙。' : '再想一想：喝完酸性飲料後，怎麼做能溫和照顧牙齒？';
+      }));
+    }
+    $('next-dialogue').addEventListener('click', () => { dialogueIndex = (dialogueIndex + 1) % dialogueLines.length; renderDialogue(); });
+    $('next-step').addEventListener('click', () => { if (stepIndex === steps.length - 1) { window.location.href = '../'; return; } stepIndex += 1; renderStep(); });
+    $('prev-step').addEventListener('click', () => { if (stepIndex > 0) { stepIndex -= 1; renderStep(); } });
+    renderDialogue(); renderStep();
+  </script>
+</body>
+</html>

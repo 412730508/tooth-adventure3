@@ -1,0 +1,4492 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="description"
+    content="牙寶歷險記第一單元：透過故事、探索與情境挑戰，陪孩子安心認識看牙醫。"
+  />
+  <title>牙寶歷險記｜安心看牙大冒險</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🦷%3C/text%3E%3C/svg%3E" />
+
+  <style>
+    :root {
+      --blue: #2b579a;
+      --blue-dark: #183f72;
+      --sky: #8edbff;
+      --orange: #ff8a2b;
+      --orange-dark: #d86712;
+      --yellow: #ffd95a;
+      --green: #3ba87b;
+      --green-dark: #23775a;
+      --red: #e96958;
+      --bg: #e6f9ff;
+      --ink: #3b3027;
+      --muted: #60778a;
+      --white: #ffffff;
+      --line: #cce5ef;
+      --shadow: 0 16px 38px rgba(24, 63, 114, 0.14);
+      --shadow-small: 0 8px 20px rgba(24, 63, 114, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 8% 9%, rgba(255, 255, 255, 0.9) 0 48px, transparent 49px),
+        radial-gradient(circle at 92% 16%, rgba(255, 255, 255, 0.7) 0 62px, transparent 63px),
+        linear-gradient(180deg, #bcecff 0%, var(--bg) 48%, #f8fdff 100%);
+      font-family: "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    button:focus-visible {
+      outline: 4px solid rgba(255, 217, 90, 0.95);
+      outline-offset: 4px;
+    }
+
+    .app {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 18px 0 52px;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 10px;
+      z-index: 50;
+      padding: 13px 18px 15px;
+      border: 2px solid rgba(255, 255, 255, 0.92);
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.95);
+      box-shadow: var(--shadow-small);
+      backdrop-filter: blur(12px);
+    }
+
+    .brand-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 11px;
+    }
+
+    .brand {
+      color: var(--blue-dark);
+      font-size: 1rem;
+      font-weight: 950;
+      letter-spacing: 0.03em;
+    }
+
+    .act-label {
+      margin-left: 8px;
+      color: var(--orange-dark);
+    }
+
+    .restart {
+      min-height: 40px;
+      padding: 7px 14px;
+      border: 2px solid #c8dfe9;
+      border-radius: 999px;
+      color: var(--blue-dark);
+      background: #f5fcff;
+      cursor: pointer;
+      font-weight: 850;
+      transition: transform 180ms ease, background 180ms ease;
+    }
+
+    .restart:hover {
+      transform: translateY(-2px);
+      background: #e8f7ff;
+    }
+
+    .progress-wrap {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .progress-track {
+      display: grid;
+      grid-template-columns: repeat(14, 1fr);
+      gap: 6px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .progress-dot {
+      display: grid;
+      min-height: 30px;
+      place-items: center;
+      border-radius: 999px;
+      color: #6f8393;
+      background: #eaf1f5;
+      font-size: 0.82rem;
+      font-weight: 900;
+      transition: background 200ms ease, color 200ms ease, transform 200ms ease;
+    }
+
+    .progress-dot.current {
+      color: #fff;
+      background: var(--orange);
+      transform: translateY(-1px);
+    }
+
+    .progress-dot.done {
+      color: #fff;
+      background: var(--green);
+    }
+
+    .progress-count {
+      min-width: 58px;
+      color: var(--blue);
+      font-weight: 950;
+      text-align: right;
+    }
+
+    main {
+      padding-top: 22px;
+    }
+
+    .screen {
+      display: none;
+      min-height: 620px;
+      animation: screenIn 420ms ease both;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    .panel {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(28px, 5vw, 60px);
+      border: 3px solid rgba(255, 255, 255, 0.94);
+      border-radius: 36px;
+      background: rgba(255, 255, 255, 0.94);
+      box-shadow: var(--shadow);
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0;
+    }
+
+    h1,
+    h2,
+    h3 {
+      color: var(--blue-dark);
+      line-height: 1.25;
+    }
+
+    h1 {
+      margin-bottom: 14px;
+      font-size: clamp(2.6rem, 7vw, 5rem);
+      letter-spacing: -0.055em;
+    }
+
+    h2 {
+      margin-bottom: 12px;
+      font-size: clamp(2rem, 4.5vw, 3.25rem);
+      letter-spacing: -0.04em;
+    }
+
+    h3 {
+      margin-bottom: 9px;
+      font-size: 1.28rem;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      min-height: 35px;
+      align-items: center;
+      margin: 0 0 13px;
+      padding: 5px 14px;
+      border-radius: 999px;
+      color: var(--blue-dark);
+      background: var(--yellow);
+      font-weight: 950;
+    }
+
+    .lead {
+      max-width: 760px;
+      margin-bottom: 25px;
+      color: var(--muted);
+      font-size: clamp(1.04rem, 2vw, 1.22rem);
+      font-weight: 650;
+    }
+
+    .section-head {
+      margin-bottom: 28px;
+      text-align: center;
+    }
+
+    .section-head .lead {
+      margin-right: auto;
+      margin-left: auto;
+    }
+
+    .primary,
+    .secondary,
+    .option,
+    .card-button,
+    .move-button {
+      min-height: 54px;
+      border-radius: 18px;
+      cursor: pointer;
+      font-weight: 900;
+      transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease, filter 180ms ease;
+    }
+
+    .primary {
+      padding: 13px 25px;
+      border: 0;
+      color: #fff;
+      background: linear-gradient(180deg, #ff9d4d, var(--orange));
+      box-shadow: 0 7px 0 var(--orange-dark), 0 14px 24px rgba(255, 138, 43, 0.25);
+      font-size: 1.06rem;
+    }
+
+    .primary:hover {
+      transform: translateY(-3px);
+      filter: brightness(1.03);
+      box-shadow: 0 9px 0 var(--orange-dark), 0 17px 28px rgba(255, 138, 43, 0.28);
+    }
+
+    .primary:active {
+      transform: translateY(4px);
+      box-shadow: 0 3px 0 var(--orange-dark);
+    }
+
+    .primary:disabled {
+      cursor: not-allowed;
+      color: #778792;
+      background: #dce7ec;
+      box-shadow: 0 6px 0 #bdcbd1;
+      filter: none;
+      transform: none;
+    }
+
+    .secondary {
+      padding: 11px 20px;
+      border: 2px solid #bad4e1;
+      color: var(--blue-dark);
+      background: #fff;
+    }
+
+    .secondary:hover {
+      transform: translateY(-2px);
+      background: #eefaff;
+      box-shadow: var(--shadow-small);
+    }
+
+    .center-actions {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .story-layout {
+      display: grid;
+      grid-template-columns: minmax(250px, 0.78fr) minmax(0, 1.22fr);
+      gap: clamp(24px, 5vw, 58px);
+      align-items: center;
+    }
+
+    .clinic-scene {
+      position: relative;
+      display: grid;
+      min-height: 500px;
+      place-items: center;
+      overflow: hidden;
+      border: 4px solid #c7e8f4;
+      border-radius: 32px;
+      background: linear-gradient(#bfeeff 0 63%, #8ed27c 63% 100%);
+      box-shadow: inset 0 0 0 8px rgba(255, 255, 255, 0.35);
+    }
+
+    .clinic-building {
+      position: absolute;
+      top: 40px;
+      right: 28px;
+      width: 245px;
+      padding: 38px 16px 24px;
+      border: 7px solid #fff;
+      border-radius: 25px 25px 14px 14px;
+      color: var(--blue-dark);
+      background: #e4f8ff;
+      box-shadow: var(--shadow-small);
+      text-align: center;
+      font-size: 4.3rem;
+    }
+
+    .clinic-building::before {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 70px;
+      height: 29px;
+      border-radius: 0 0 13px 13px;
+      color: #fff;
+      background: var(--blue);
+      content: "+";
+      font-size: 1.35rem;
+      font-weight: 950;
+      line-height: 29px;
+      transform: translateX(-50%);
+    }
+
+    .clinic-building span {
+      display: block;
+      font-size: 0.95rem;
+      font-weight: 950;
+      letter-spacing: 0.05em;
+    }
+
+    .tooth-character {
+      position: absolute;
+      bottom: 24px;
+      left: 25px;
+      display: grid;
+      width: 175px;
+      height: 198px;
+      place-items: center;
+      border: 8px solid #dceff7;
+      border-radius: 46% 46% 40% 40% / 38% 38% 58% 58%;
+      background: #fff;
+      box-shadow: var(--shadow);
+      font-size: 5.8rem;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .dialogue-stack {
+      display: grid;
+      gap: 14px;
+    }
+
+    .speech {
+      padding: 18px 21px;
+      border: 3px solid #d6eaf2;
+      border-radius: 22px;
+      background: #fff;
+      box-shadow: var(--shadow-small);
+    }
+
+    .speech.npc {
+      border-color: #a8dec9;
+      background: #effbf6;
+    }
+
+    .speaker {
+      display: block;
+      margin-bottom: 3px;
+      color: var(--blue);
+      font-weight: 950;
+    }
+
+    .speech.npc .speaker {
+      color: var(--green-dark);
+    }
+
+    .question-box {
+      margin-top: 24px;
+      padding: 22px;
+      border: 3px solid #ffe29a;
+      border-radius: 24px;
+      background: #fff9e4;
+    }
+
+    .question-box h3 {
+      text-align: center;
+    }
+
+    .emotion-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .emotion-button {
+      min-height: 128px;
+      padding: 14px 10px;
+      border: 3px solid #c9e1eb;
+      border-radius: 22px;
+      color: var(--blue-dark);
+      background: #fff;
+      cursor: pointer;
+      font-weight: 900;
+      transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+    }
+
+    .emotion-button:hover,
+    .emotion-button.selected {
+      transform: translateY(-4px);
+      border-color: var(--orange);
+      box-shadow: var(--shadow-small);
+    }
+
+    .emotion-button.selected {
+      background: #fff5e9;
+    }
+
+    .emotion-face {
+      display: block;
+      margin-bottom: 7px;
+      font-size: 2.8rem;
+      line-height: 1;
+    }
+
+    .response-box {
+      display: none;
+      margin-top: 18px;
+      padding: 16px 19px;
+      border-left: 7px solid var(--green);
+      border-radius: 16px;
+      background: #eaf9f2;
+      font-weight: 750;
+      animation: cardIn 320ms ease both;
+    }
+
+    .response-box.show {
+      display: block;
+    }
+
+    .worry-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 17px;
+    }
+
+    .intro-tool-grid,
+    .intro-review-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .intro-tool {
+      position: relative;
+      min-height: 180px;
+      padding: 21px;
+      border: 3px solid #cde4ee;
+      border-radius: 25px;
+      color: var(--blue-dark);
+      background: #f7fcff;
+      box-shadow: var(--shadow-small);
+      cursor: pointer;
+      font-weight: 900;
+      text-align: center;
+      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+    }
+
+    .intro-tool:hover {
+      transform: translateY(-4px);
+      border-color: var(--orange);
+    }
+
+    .intro-tool.visited {
+      border-color: var(--green);
+      background: #effbf6;
+    }
+
+    .intro-tool.visited::after,
+    .intro-case.viewed::after {
+      position: absolute;
+      top: 11px;
+      right: 11px;
+      display: grid;
+      width: 32px;
+      height: 32px;
+      place-items: center;
+      border-radius: 50%;
+      color: #fff;
+      background: var(--green);
+      content: "✓";
+      font-weight: 950;
+      animation: checkPop 300ms ease both;
+    }
+
+    .intro-tool-icon {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 3.6rem;
+      line-height: 1;
+    }
+
+    .intro-case-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 17px;
+    }
+
+    .intro-case {
+      position: relative;
+      min-height: 250px;
+      padding: 22px;
+      border: 3px solid #cfe5ee;
+      border-radius: 26px;
+      color: var(--blue-dark);
+      background: #f8fdff;
+      box-shadow: var(--shadow-small);
+      cursor: pointer;
+      text-align: left;
+      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+    }
+
+    .intro-case:hover {
+      transform: translateY(-4px);
+      border-color: var(--orange);
+    }
+
+    .intro-case.viewed {
+      border-color: var(--green);
+      background: #effbf6;
+    }
+
+    .intro-case .worry-icon {
+      text-align: center;
+    }
+
+    .intro-review-card {
+      padding: 22px;
+      border: 3px solid #cce5ef;
+      border-radius: 24px;
+      background: #f7fcff;
+      text-align: center;
+      font-weight: 900;
+    }
+
+    .intro-review-card:last-child {
+      grid-column: 1 / -1;
+    }
+
+    .part-transition {
+      margin-top: 25px;
+      padding: 24px;
+      border: 3px solid #f4cf59;
+      border-radius: 25px;
+      background: #fff7d0;
+      text-align: center;
+    }
+
+    .worry-card {
+      position: relative;
+      min-height: 270px;
+      padding: 24px;
+      border: 3px solid #cfe5ee;
+      border-radius: 27px;
+      color: var(--blue-dark);
+      background: #f8fdff;
+      box-shadow: var(--shadow-small);
+      cursor: pointer;
+      text-align: left;
+      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+    }
+
+    .worry-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--orange);
+    }
+
+    .worry-card.viewed {
+      border-color: var(--green);
+      background: #effbf6;
+    }
+
+    .worry-card.viewed::after,
+    .hotspot.visited::after,
+    .shield.opened::after {
+      position: absolute;
+      top: 11px;
+      right: 11px;
+      display: grid;
+      width: 32px;
+      height: 32px;
+      place-items: center;
+      border-radius: 50%;
+      color: #fff;
+      background: var(--green);
+      content: "✓";
+      font-weight: 950;
+      animation: checkPop 300ms ease both;
+    }
+
+    .worry-icon {
+      display: block;
+      margin-bottom: 14px;
+      font-size: 3.6rem;
+      line-height: 1;
+    }
+
+    .worry-card strong {
+      display: block;
+      font-size: 1.18rem;
+      line-height: 1.5;
+    }
+
+    .counter {
+      margin: 18px 0 0;
+      color: var(--blue);
+      font-weight: 950;
+      text-align: center;
+    }
+
+    .answer-panel {
+      min-height: 150px;
+      margin-top: 22px;
+      padding: 22px;
+      border: 3px solid #b9dfd0;
+      border-radius: 24px;
+      background: #f0fbf6;
+    }
+
+    .explore-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.65fr);
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .room {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      min-height: 500px;
+      padding: 22px;
+      border: 4px solid #c2e5f2;
+      border-radius: 30px;
+      background:
+        linear-gradient(180deg, #dff6ff 0 68%, #b9d2db 68% 71%, #e6d2b9 71% 100%);
+    }
+
+    .room-counter {
+      grid-column: 1 / -1;
+      justify-self: start;
+      align-self: start;
+      margin: 0;
+      padding: 6px 14px;
+      border-radius: 999px;
+      color: #fff;
+      background: var(--blue);
+      font-weight: 950;
+    }
+
+    .hotspot {
+      position: relative;
+      display: flex;
+      min-height: 170px;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 15px;
+      border: 3px solid rgba(255, 255, 255, 0.96);
+      border-radius: 23px;
+      color: var(--blue-dark);
+      background: rgba(255, 255, 255, 0.82);
+      box-shadow: var(--shadow-small);
+      cursor: pointer;
+      font-weight: 950;
+      transition: transform 180ms ease, border-color 180ms ease, filter 180ms ease;
+    }
+
+    .hotspot:hover {
+      transform: translateY(-4px) scale(1.02);
+      border-color: var(--yellow);
+      background: #fff;
+    }
+
+    .hotspot.visited {
+      border-color: var(--green);
+      background: #effbf6;
+      animation: glow 650ms ease;
+    }
+
+    .hotspot-icon {
+      font-size: 3.55rem;
+      line-height: 1;
+    }
+
+    .explore-info {
+      display: flex;
+      min-height: 370px;
+      flex-direction: column;
+      justify-content: center;
+      padding: 27px;
+      border: 3px solid #ffe29a;
+      border-radius: 28px;
+      background: #fff9e3;
+      box-shadow: var(--shadow-small);
+    }
+
+    .explore-info.animate {
+      animation: cardIn 330ms ease both;
+    }
+
+    .big-icon {
+      margin-bottom: 13px;
+      font-size: 3.8rem;
+      line-height: 1;
+    }
+
+    .complete-banner {
+      display: none;
+      margin-top: 25px;
+      padding: 22px;
+      border: 3px solid #a9ddc9;
+      border-radius: 24px;
+      background: #edfaf4;
+      text-align: center;
+      animation: cardIn 400ms ease both;
+    }
+
+    .complete-banner.show {
+      display: block;
+    }
+
+    .complete-banner h3 {
+      font-size: 1.55rem;
+    }
+
+    .sort-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 0.55fr);
+      gap: 22px;
+      align-items: start;
+    }
+
+    .sort-area {
+      padding: 22px;
+      border: 3px solid #c8e4ee;
+      border-radius: 28px;
+      background: #f1fbff;
+    }
+
+    .sort-list {
+      display: grid;
+      gap: 11px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .sort-card {
+      display: grid;
+      grid-template-columns: 44px 1fr auto;
+      gap: 12px;
+      align-items: center;
+      min-height: 76px;
+      padding: 11px 13px;
+      border: 3px solid #d0e4ed;
+      border-radius: 18px;
+      background: #fff;
+      box-shadow: var(--shadow-small);
+      cursor: grab;
+      transition: transform 170ms ease, border-color 170ms ease, opacity 170ms ease;
+    }
+
+    .sort-card.dragging {
+      opacity: 0.5;
+      transform: scale(0.98);
+    }
+
+    .sort-card.correct-place {
+      border-color: var(--green);
+      background: #effbf6;
+    }
+
+    .drag-handle {
+      color: var(--blue);
+      font-size: 1.4rem;
+      font-weight: 950;
+      text-align: center;
+    }
+
+    .sort-text {
+      color: var(--blue-dark);
+      font-weight: 900;
+    }
+
+    .sort-actions {
+      display: flex;
+      gap: 6px;
+    }
+
+    .move-button {
+      width: 39px;
+      min-height: 39px;
+      padding: 0;
+      border: 2px solid #c4dce6;
+      color: var(--blue-dark);
+      background: #f7fcff;
+    }
+
+    .move-button:hover {
+      transform: translateY(-2px);
+      border-color: var(--blue);
+    }
+
+    .sort-help {
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .feedback {
+      display: none;
+      margin-top: 16px;
+      padding: 15px 18px;
+      border-radius: 16px;
+      font-weight: 850;
+    }
+
+    .feedback.show {
+      display: block;
+      animation: cardIn 280ms ease both;
+    }
+
+    .feedback.good {
+      border-left: 7px solid var(--green);
+      background: #eaf9f2;
+    }
+
+    .feedback.try {
+      border-left: 7px solid var(--orange);
+      background: #fff0e4;
+    }
+
+    .flow-preview {
+      padding: 24px;
+      border: 3px solid #ffe19a;
+      border-radius: 28px;
+      background: #fff9e5;
+      box-shadow: var(--shadow-small);
+    }
+
+    .flow-placeholder {
+      color: var(--muted);
+      text-align: center;
+      font-weight: 750;
+    }
+
+    .flow-step {
+      display: none;
+      animation: cardIn 330ms ease both;
+    }
+
+    .flow-step.active {
+      display: block;
+    }
+
+    .flow-number {
+      display: grid;
+      width: 62px;
+      height: 62px;
+      margin: 0 auto 14px;
+      place-items: center;
+      border-radius: 50%;
+      color: #fff;
+      background: var(--orange);
+      font-size: 1.35rem;
+      font-weight: 950;
+    }
+
+    .flow-step h3 {
+      text-align: center;
+    }
+
+    .core-message {
+      margin: 19px 0 0;
+      padding: 17px 19px;
+      border-radius: 18px;
+      color: var(--blue-dark);
+      background: var(--yellow);
+      font-size: 1.08rem;
+      font-weight: 950;
+      text-align: center;
+    }
+
+    .guardian-layout {
+      display: grid;
+      grid-template-columns: minmax(250px, 0.65fr) minmax(0, 1.35fr);
+      gap: 28px;
+      align-items: center;
+    }
+
+    .guardian-tooth {
+      display: grid;
+      min-height: 460px;
+      place-items: center;
+      border: 4px solid #c9e8f3;
+      border-radius: 32px;
+      background: radial-gradient(circle, #fff 0 28%, #dff6ff 29% 60%, #bdeafb 61% 100%);
+      font-size: 9rem;
+    }
+
+    .shield-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 15px;
+    }
+
+    .shield {
+      position: relative;
+      min-height: 190px;
+      padding: 21px;
+      border: 3px solid #d2e4eb;
+      border-radius: 26px;
+      color: #72828c;
+      background: #edf2f4;
+      cursor: not-allowed;
+      text-align: left;
+      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+    }
+
+    .shield.unlocked {
+      color: var(--blue-dark);
+      background: #f8fdff;
+      cursor: pointer;
+    }
+
+    .shield.unlocked:hover {
+      transform: translateY(-4px);
+      border-color: var(--orange);
+      box-shadow: var(--shadow-small);
+    }
+
+    .shield.opened {
+      border-color: var(--green);
+      color: var(--blue-dark);
+      background: #effbf6;
+      cursor: default;
+    }
+
+    .shield-icon {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 3rem;
+      line-height: 1;
+    }
+
+    .shield-lock {
+      display: block;
+      margin-top: 8px;
+      font-weight: 900;
+    }
+
+    .shield-text {
+      display: none;
+      margin: 8px 0 0;
+      color: var(--ink);
+    }
+
+    .shield.opened .shield-text {
+      display: block;
+      animation: cardIn 280ms ease both;
+    }
+
+    .reward {
+      display: none;
+      margin-top: 24px;
+      padding: 23px;
+      border: 3px solid #f5cd4e;
+      border-radius: 25px;
+      background: #fff7cf;
+      text-align: center;
+      animation: trophyIn 500ms ease both;
+    }
+
+    .reward.show {
+      display: block;
+    }
+
+    .reward-icon {
+      display: block;
+      margin-bottom: 7px;
+      font-size: 4rem;
+      line-height: 1;
+    }
+
+    .case-nav {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 22px;
+    }
+
+    .case-tab {
+      min-height: 48px;
+      padding: 8px;
+      border: 2px solid #c9dfe8;
+      border-radius: 999px;
+      color: #718493;
+      background: #eef3f5;
+      font-weight: 900;
+    }
+
+    .case-tab.active {
+      color: #fff;
+      border-color: var(--orange);
+      background: var(--orange);
+    }
+
+    .case-tab.done {
+      color: #fff;
+      border-color: var(--green);
+      background: var(--green);
+    }
+
+    .case-stage {
+      display: none;
+      grid-template-columns: minmax(220px, 0.6fr) minmax(0, 1.4fr);
+      gap: 25px;
+      align-items: center;
+      padding: clamp(22px, 4vw, 34px);
+      border: 3px solid #cee6ef;
+      border-radius: 30px;
+      background: #f7fcff;
+      animation: screenIn 350ms ease both;
+    }
+
+    .case-stage.active {
+      display: grid;
+    }
+
+    .case-visual {
+      display: grid;
+      min-height: 290px;
+      place-items: center;
+      border: 4px solid #d7edf5;
+      border-radius: 28px;
+      background: #eaf9ff;
+      font-size: clamp(5rem, 12vw, 8rem);
+      text-align: center;
+    }
+
+    .options {
+      display: grid;
+      gap: 11px;
+    }
+
+    .option {
+      padding: 12px 17px;
+      border: 3px solid #cadfe8;
+      color: var(--blue-dark);
+      background: #fff;
+      text-align: left;
+    }
+
+    .option:hover {
+      transform: translateY(-2px);
+      border-color: var(--blue);
+      box-shadow: var(--shadow-small);
+    }
+
+    .option.correct {
+      border-color: var(--green);
+      background: #eaf9f2;
+    }
+
+    .option.wrong {
+      border-color: var(--orange);
+      background: #fff0e5;
+    }
+
+    .case-explanation {
+      display: none;
+      margin-top: 16px;
+      padding: 17px;
+      border-left: 7px solid var(--green);
+      border-radius: 16px;
+      background: #eaf9f2;
+      font-weight: 750;
+      animation: cardIn 300ms ease both;
+    }
+
+    .case-explanation.show {
+      display: block;
+    }
+
+    .scenario-shell {
+      display: grid;
+      grid-template-columns: minmax(190px, 0.45fr) minmax(0, 1.55fr);
+      gap: 26px;
+      align-items: stretch;
+    }
+
+    .scenario-map {
+      display: grid;
+      gap: 11px;
+      align-content: start;
+      padding: 20px;
+      border: 3px solid #cce5ef;
+      border-radius: 27px;
+      background: #f1fbff;
+    }
+
+    .scenario-dot {
+      display: flex;
+      min-height: 50px;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 13px;
+      border-radius: 16px;
+      color: #718491;
+      background: #e7eff3;
+      font-weight: 900;
+    }
+
+    .scenario-dot::before {
+      display: grid;
+      width: 29px;
+      height: 29px;
+      flex: 0 0 29px;
+      place-items: center;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.65);
+      content: attr(data-number);
+    }
+
+    .scenario-dot.active {
+      color: #fff;
+      background: var(--orange);
+    }
+
+    .scenario-dot.done {
+      color: #fff;
+      background: var(--green);
+    }
+
+    .scenario-card {
+      padding: clamp(24px, 5vw, 38px);
+      border: 3px solid #ffe09a;
+      border-radius: 29px;
+      background: #fff9e5;
+      box-shadow: var(--shadow-small);
+    }
+
+    .scenario-icon {
+      margin-bottom: 12px;
+      font-size: 4.2rem;
+      line-height: 1;
+    }
+
+    .scenario-question {
+      margin-bottom: 19px;
+      font-size: 1.23rem;
+      font-weight: 850;
+    }
+
+    .yabao-quote {
+      display: none;
+      margin-top: 25px;
+      padding: 23px;
+      border: 3px solid #b5dfcf;
+      border-radius: 24px;
+      background: #effbf6;
+      animation: cardIn 350ms ease both;
+    }
+
+    .yabao-quote.show {
+      display: block;
+    }
+
+    .review-feelings {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .learning-cards {
+      display: none;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 15px;
+      margin-top: 26px;
+    }
+
+    .learning-cards.show {
+      display: grid;
+    }
+
+    .learning-card {
+      padding: 21px;
+      border: 3px solid #cde5ef;
+      border-radius: 23px;
+      background: #f7fcff;
+      font-weight: 900;
+      opacity: 0;
+      transform: translateY(14px);
+      animation: learningIn 420ms ease forwards;
+    }
+
+    .learning-card:nth-child(2) {
+      animation-delay: 130ms;
+    }
+
+    .learning-card:nth-child(3) {
+      animation-delay: 260ms;
+    }
+
+    .learning-card:nth-child(4) {
+      animation-delay: 390ms;
+    }
+
+    .final-dialogue {
+      display: none;
+      max-width: 850px;
+      grid-template-columns: 120px 1fr;
+      gap: 18px;
+      align-items: center;
+      margin: 25px auto 0;
+      animation: cardIn 450ms ease both;
+    }
+
+    .final-dialogue.show {
+      display: grid;
+    }
+
+    .happy-tooth {
+      display: grid;
+      width: 120px;
+      height: 134px;
+      place-items: center;
+      border: 6px solid #dceff7;
+      border-radius: 46% 46% 40% 40% / 38% 38% 58% 58%;
+      background: #fff;
+      box-shadow: var(--shadow-small);
+      font-size: 4rem;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .finish-panel {
+      min-height: 650px;
+      text-align: center;
+      background:
+        radial-gradient(circle at 9% 11%, rgba(255, 217, 90, 0.38) 0 82px, transparent 83px),
+        radial-gradient(circle at 91% 86%, rgba(59, 168, 123, 0.22) 0 112px, transparent 113px),
+        linear-gradient(145deg, #fff, #eefbff);
+    }
+
+    .finish-icon {
+      display: grid;
+      width: 145px;
+      height: 145px;
+      margin: 5px auto 24px;
+      place-items: center;
+      border: 6px solid #fff;
+      border-radius: 50%;
+      background: var(--yellow);
+      box-shadow: 0 15px 0 rgba(255, 138, 43, 0.16), var(--shadow);
+      font-size: 5rem;
+      animation: trophyIn 600ms cubic-bezier(0.2, 0.9, 0.3, 1.3) both;
+    }
+
+    .completion-list {
+      display: grid;
+      max-width: 700px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin: 25px auto;
+      padding: 0;
+      list-style: none;
+      text-align: left;
+    }
+
+    .completion-list li {
+      padding: 13px 17px;
+      border: 3px solid #b8dfd0;
+      border-radius: 18px;
+      color: var(--green-dark);
+      background: #effbf6;
+      font-weight: 950;
+    }
+
+    .game-button {
+      min-height: 76px;
+      padding: 16px 36px;
+      border: 0;
+      border-radius: 24px;
+      color: #fff;
+      background: linear-gradient(180deg, #ff9d4d, var(--orange));
+      box-shadow: 0 8px 0 var(--orange-dark), 0 17px 28px rgba(255, 138, 43, 0.28);
+      cursor: pointer;
+      font-size: clamp(1.2rem, 3vw, 1.55rem);
+      font-weight: 950;
+      animation: gentlePulse 2.8s ease-in-out infinite;
+    }
+
+    .game-button:hover {
+      filter: brightness(1.05);
+    }
+
+    .confetti {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .confetti-piece {
+      position: absolute;
+      top: -24px;
+      width: 12px;
+      height: 20px;
+      border-radius: 3px;
+      animation: confettiFall 2.8s ease-in forwards;
+    }
+
+    .toast {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 80;
+      max-width: min(390px, calc(100% - 40px));
+      padding: 14px 18px;
+      border-radius: 16px;
+      color: #fff;
+      background: var(--blue-dark);
+      box-shadow: var(--shadow);
+      font-weight: 850;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(14px);
+      transition: opacity 220ms ease, transform 220ms ease;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes screenIn {
+      from { opacity: 0; transform: translateY(17px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes cardIn {
+      from { opacity: 0; transform: translateY(12px) scale(0.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @keyframes checkPop {
+      0% { opacity: 0; transform: scale(0.35) rotate(-16deg); }
+      70% { transform: scale(1.15) rotate(4deg); }
+      100% { opacity: 1; transform: scale(1) rotate(0); }
+    }
+
+    @keyframes glow {
+      0%, 100% { box-shadow: var(--shadow-small); transform: scale(1); }
+      50% { box-shadow: 0 0 0 10px rgba(255, 217, 90, 0.4); transform: scale(1.05); }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes trophyIn {
+      from { opacity: 0; transform: scale(0.45) rotate(-12deg); }
+      to { opacity: 1; transform: scale(1) rotate(0); }
+    }
+
+    @keyframes learningIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes gentlePulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.025); }
+    }
+
+    @keyframes confettiFall {
+      0% { opacity: 1; transform: translate3d(0, -20px, 0) rotate(0); }
+      100% { opacity: 0.85; transform: translate3d(var(--drift), 720px, 0) rotate(620deg); }
+    }
+
+    @media (max-width: 1000px) {
+      .story-layout,
+      .explore-layout,
+      .sort-layout,
+      .guardian-layout,
+      .scenario-shell {
+        grid-template-columns: 1fr;
+      }
+
+      .clinic-scene {
+        min-height: 410px;
+      }
+
+      .worry-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .intro-case-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .worry-card {
+        min-height: auto;
+      }
+
+      .case-stage {
+        grid-template-columns: 1fr;
+      }
+
+      .case-visual {
+        min-height: 210px;
+      }
+
+      .guardian-tooth {
+        min-height: 280px;
+      }
+
+      .scenario-map {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .scenario-dot {
+        justify-content: center;
+      }
+
+      .scenario-dot span {
+        display: none;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .app {
+        width: min(100% - 20px, 680px);
+        padding-top: 9px;
+      }
+
+      .topbar {
+        top: 5px;
+        padding: 10px 11px 12px;
+        border-radius: 19px;
+      }
+
+      .brand {
+        font-size: 0.82rem;
+      }
+
+      .act-label {
+        display: block;
+        margin-left: 0;
+      }
+
+      .restart {
+        min-height: 37px;
+        padding: 6px 10px;
+        font-size: 0.82rem;
+      }
+
+      .progress-wrap {
+        grid-template-columns: 1fr auto;
+        gap: 8px;
+      }
+
+      .progress-track {
+        gap: 3px;
+      }
+
+      .progress-dot {
+        min-height: 25px;
+        font-size: 0.7rem;
+      }
+
+      .progress-count {
+        min-width: 43px;
+        font-size: 0.78rem;
+      }
+
+      main {
+        padding-top: 14px;
+      }
+
+      .screen {
+        min-height: auto;
+      }
+
+      .panel {
+        padding: 25px 17px;
+        border-radius: 26px;
+      }
+
+      h1 {
+        font-size: clamp(2.5rem, 15vw, 4rem);
+      }
+
+      h2 {
+        font-size: clamp(1.8rem, 9vw, 2.55rem);
+      }
+
+      .lead {
+        font-size: 1.02rem;
+      }
+
+      .clinic-scene {
+        min-height: 340px;
+      }
+
+      .clinic-building {
+        right: 14px;
+        width: 230px;
+      }
+
+      .tooth-character {
+        left: 12px;
+        width: 140px;
+        height: 160px;
+        font-size: 4.5rem;
+      }
+
+      .emotion-grid,
+      .room,
+      .shield-grid,
+      .learning-cards,
+      .completion-list,
+      .intro-tool-grid,
+      .intro-review-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .intro-review-card:last-child {
+        grid-column: auto;
+      }
+
+      .emotion-button {
+        min-height: 82px;
+        text-align: left;
+      }
+
+      .emotion-face {
+        display: inline-block;
+        margin: 0 10px 0 0;
+        vertical-align: middle;
+      }
+
+      .room-counter {
+        grid-column: 1;
+      }
+
+      .hotspot {
+        min-height: 130px;
+      }
+
+      .sort-card {
+        grid-template-columns: 35px 1fr;
+      }
+
+      .sort-actions {
+        grid-column: 1 / -1;
+        justify-content: flex-end;
+      }
+
+      .shield {
+        min-height: 155px;
+      }
+
+      .case-nav {
+        gap: 5px;
+      }
+
+      .case-tab {
+        font-size: 0.78rem;
+      }
+
+      .scenario-map {
+        grid-template-columns: repeat(4, 1fr);
+        padding: 12px;
+      }
+
+      .scenario-dot {
+        padding: 5px;
+      }
+
+      .final-dialogue {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .happy-tooth {
+        margin: 0 auto;
+      }
+
+      .center-actions {
+        flex-direction: column;
+      }
+
+      .primary,
+      .secondary,
+      .game-button {
+        width: 100%;
+        text-align: center;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* Editorial refresh: a practical children's dental-health workbook. */
+    :root {
+      --blue: #245b76;
+      --blue-dark: #173b57;
+      --sky: #dceef2;
+      --orange: #d96f2b;
+      --orange-dark: #a84d1d;
+      --yellow: #f2c85b;
+      --green: #397561;
+      --green-dark: #285646;
+      --red: #b6534d;
+      --bg: #edf3f4;
+      --ink: #20323a;
+      --muted: #5c6d73;
+      --white: #fffefb;
+      --line: #c8d5d9;
+      --shadow: 0 4px 0 rgba(32, 50, 58, 0.08);
+      --shadow-small: 0 2px 0 rgba(32, 50, 58, 0.08);
+    }
+
+    html {
+      background: var(--bg);
+    }
+
+    body {
+      color: var(--ink);
+      font-family: "Noto Sans TC", "Microsoft JhengHei", Arial, sans-serif;
+      background-color: var(--bg);
+      background-image:
+        linear-gradient(rgba(237, 243, 244, 0.88), rgba(237, 243, 244, 0.94)),
+        url("images/unit1-background.jpg");
+      background-position: center;
+      background-size: cover;
+      background-attachment: fixed;
+      line-height: 1.7;
+    }
+
+    .app {
+      width: min(calc(100% - 32px), 1080px);
+      padding: 22px 0 64px;
+    }
+
+    .topbar {
+      top: 8px;
+      padding: 14px 18px 16px;
+      border: 1px solid var(--line);
+      border-top: 5px solid var(--blue-dark);
+      border-radius: 3px;
+      background: rgba(255, 254, 251, 0.97);
+      box-shadow: var(--shadow);
+      backdrop-filter: none;
+    }
+
+    .brand-row {
+      gap: 16px;
+    }
+
+    .brand {
+      color: var(--blue-dark);
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: 0.01em;
+    }
+
+    .act-label {
+      margin-left: 12px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    .restart,
+    .primary,
+    .secondary,
+    .game-button,
+    .move-button,
+    .option {
+      border-radius: 4px;
+      box-shadow: none;
+      font-family: inherit;
+      transform: none;
+    }
+
+    .restart {
+      border: 1px solid #aebfc5;
+      color: var(--blue-dark);
+      background: transparent;
+    }
+
+    .restart:hover,
+    .secondary:hover,
+    .move-button:hover {
+      border-color: var(--blue);
+      color: var(--blue-dark);
+      background: #eef5f6;
+      transform: none;
+    }
+
+    .progress-wrap {
+      gap: 14px;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid #d9e2e5;
+    }
+
+    .progress-track {
+      grid-template-columns: repeat(14, minmax(28px, 1fr));
+      gap: 4px;
+    }
+
+    .progress-dot {
+      min-height: 30px;
+      border: 0;
+      border-bottom: 3px solid #d7e1e4;
+      border-radius: 0;
+      color: #6a7c83;
+      background: transparent;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .progress-dot.current {
+      border-bottom-color: var(--orange);
+      color: var(--orange-dark);
+      background: #fff6ee;
+    }
+
+    .progress-dot.done {
+      border-bottom-color: var(--green);
+      color: var(--green-dark);
+      background: #f1f7f4;
+    }
+
+    .progress-count {
+      min-width: 54px;
+      color: var(--blue-dark);
+      font-size: 0.88rem;
+      font-variant-numeric: tabular-nums;
+    }
+
+    main {
+      padding-top: 22px;
+    }
+
+    .screen {
+      animation: none;
+    }
+
+    .panel {
+      min-height: auto;
+      padding: clamp(28px, 4.5vw, 52px);
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: var(--white);
+      box-shadow: var(--shadow);
+    }
+
+    .section-head {
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .eyebrow {
+      display: block;
+      width: fit-content;
+      margin-bottom: 12px;
+      padding: 1px 0 1px 10px;
+      border-left: 4px solid var(--orange);
+      border-radius: 0;
+      color: #70401f;
+      background: transparent;
+      font-size: 0.88rem;
+      font-weight: 750;
+      letter-spacing: 0.02em;
+    }
+
+    h1,
+    h2,
+    h3 {
+      color: var(--blue-dark);
+      font-family: inherit;
+      letter-spacing: -0.025em;
+    }
+
+    h1 {
+      max-width: 9em;
+      font-size: clamp(2.55rem, 5.5vw, 4.4rem);
+      line-height: 1.08;
+    }
+
+    h2 {
+      font-size: clamp(1.8rem, 3.5vw, 2.65rem);
+      line-height: 1.25;
+    }
+
+    .screen h1[tabindex="-1"]:focus,
+    .screen h2[tabindex="-1"]:focus {
+      outline: none;
+    }
+
+    .lead {
+      max-width: 62ch;
+      color: #4b5f67;
+      font-size: 1.05rem;
+      line-height: 1.85;
+    }
+
+    .primary,
+    .game-button {
+      border: 1px solid var(--blue-dark);
+      color: #fff;
+      background: var(--blue-dark);
+    }
+
+    .primary:hover,
+    .game-button:hover {
+      border-color: #0f2e45;
+      background: #0f2e45;
+      box-shadow: none;
+      transform: none;
+    }
+
+    .secondary,
+    .move-button {
+      border: 1px solid #aebfc5;
+      color: var(--blue-dark);
+      background: #fff;
+    }
+
+    .game-button {
+      border-color: var(--orange-dark);
+      background: var(--orange-dark);
+    }
+
+    .story-layout,
+    .explore-layout,
+    .guardian-layout,
+    .sort-layout {
+      gap: clamp(26px, 4vw, 48px);
+    }
+
+    .clinic-scene,
+    .room,
+    .guardian-tooth,
+    .case-visual,
+    .flow-placeholder {
+      border: 1px solid #b8cdd3;
+      border-radius: 4px;
+      background: #e8f2f4;
+      box-shadow: none;
+    }
+
+    .clinic-scene {
+      background-image:
+        linear-gradient(rgba(232, 242, 244, 0.2), rgba(232, 242, 244, 0.38)),
+        url("images/unit1-background.jpg");
+      background-position: center;
+      background-size: cover;
+    }
+
+    .tooth-character,
+    .happy-tooth {
+      overflow: hidden;
+      padding: 0;
+    }
+
+    .tooth-character img,
+    .happy-tooth img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .case-visual img {
+      width: min(100%, 280px);
+      max-height: 270px;
+      object-fit: contain;
+    }
+
+    .doctor-guide {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      width: fit-content;
+      margin-bottom: 14px;
+      padding: 8px 14px 8px 8px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: #f1f7f4;
+      color: var(--green-dark);
+      font-weight: 800;
+    }
+
+    .doctor-guide img {
+      width: 64px;
+      height: 64px;
+      border-radius: 3px;
+      object-fit: contain;
+    }
+
+    .clinic-building {
+      border: 1px solid #b6c8ce;
+      border-radius: 4px;
+      background: #f8fbfb;
+      box-shadow: none;
+    }
+
+    .tooth-character,
+    .guardian-tooth,
+    .happy-tooth,
+    .finish-icon {
+      animation: none;
+      filter: saturate(0.82);
+    }
+
+    .speech,
+    .question-box,
+    .response-box,
+    .feedback,
+    .core-message,
+    .yabao-quote,
+    .complete-banner,
+    .reward {
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--blue);
+      border-radius: 3px;
+      background: #f8fbfb;
+      box-shadow: none;
+    }
+
+    .intro-tool,
+    .intro-case,
+    .intro-review-card,
+    .emotion-button,
+    .worry-card,
+    .hotspot,
+    .flow-step,
+    .shield,
+    .case-card,
+    .scenario-card,
+    .learning-card,
+    .completion-list li,
+    .option {
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: #fff;
+      box-shadow: none;
+    }
+
+    .intro-tool:hover,
+    .intro-case:hover,
+    .emotion-button:hover,
+    .worry-card:hover,
+    .hotspot:hover,
+    .shield:hover,
+    .option:hover {
+      border-color: #7697a3;
+      background: #f3f8f9;
+      box-shadow: none;
+      transform: none;
+    }
+
+    .intro-tool.selected,
+    .intro-case.selected,
+    .emotion-button.selected,
+    .worry-card.selected,
+    .hotspot.selected,
+    .option.correct,
+    .shield.unlocked {
+      border-color: var(--green);
+      background: #eef6f2;
+      box-shadow: inset 4px 0 0 var(--green);
+    }
+
+    .case-nav,
+    .scenario-map {
+      padding: 0 0 12px;
+      border-bottom: 1px solid var(--line);
+      border-radius: 0;
+      background: transparent;
+    }
+
+    .case-tab,
+    .scenario-dot {
+      border-radius: 2px;
+      box-shadow: none;
+    }
+
+    .part-transition,
+    .finish-panel {
+      background: #fffdf7;
+    }
+
+    .toast {
+      border-radius: 4px;
+      background: var(--blue-dark);
+      box-shadow: var(--shadow);
+    }
+
+    button,
+    [role="button"] {
+      transition: background-color 140ms ease, border-color 140ms ease, color 140ms ease;
+    }
+
+    @media (max-width: 720px) {
+      .app {
+        width: min(calc(100% - 18px), 680px);
+        padding-top: 8px;
+      }
+
+      .topbar {
+        top: 4px;
+        padding: 11px 12px 13px;
+      }
+
+      .brand-row {
+        align-items: flex-start;
+      }
+
+      .brand {
+        display: grid;
+        gap: 2px;
+      }
+
+      .act-label {
+        margin-left: 0;
+        font-size: 0.82rem;
+      }
+
+      .progress-track {
+        grid-template-columns: repeat(7, 1fr);
+        row-gap: 7px;
+      }
+
+      .progress-dot {
+        min-height: 27px;
+      }
+
+      .panel {
+        padding: 24px 20px 28px;
+      }
+
+      .story-layout,
+      .explore-layout,
+      .guardian-layout,
+      .sort-layout {
+        gap: 24px;
+      }
+
+      h1 {
+        font-size: clamp(2.25rem, 12vw, 3.2rem);
+      }
+    }
+
+    /* One scene always fits inside the browser viewport. */
+    html,
+    body {
+      height: 100%;
+      overflow: hidden;
+    }
+
+    body {
+      min-height: 0;
+    }
+
+    .app {
+      display: flex;
+      height: 100dvh;
+      min-height: 0;
+      flex-direction: column;
+      padding-top: 8px;
+      padding-bottom: 8px;
+    }
+
+    .topbar {
+      position: relative;
+      top: 0;
+      flex: 0 0 auto;
+    }
+
+    main {
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow: hidden;
+      padding-top: 8px;
+    }
+
+    .screen {
+      height: 100%;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    .panel {
+      height: 100%;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    .screen-fit {
+      width: 100%;
+      transform-origin: top center;
+      will-change: transform;
+    }
+
+    .story-chat-row {
+      display: flex;
+      justify-content: center;
+      margin: 14px 0 6px;
+    }
+
+    .story-chat-button {
+      min-height: 48px;
+      padding: 11px 18px;
+      border: 2px solid #7fb8ad;
+      border-radius: 999px;
+      color: #184d59;
+      background: #effaf6;
+      font-weight: 900;
+      box-shadow: 0 6px 16px rgba(20, 70, 80, 0.12);
+    }
+
+    .story-chat-button:hover,
+    .story-chat-button:focus-visible {
+      border-color: #ec8c52;
+      background: #fff8ed;
+      transform: translateY(-1px);
+    }
+
+    .story-chat-button.completed {
+      border-color: #5da988;
+      background: #e8f7ef;
+    }
+
+    .story-chat-button.completed::after {
+      content: "  ✓ 已聊過";
+      color: #2c765d;
+      font-size: 0.85em;
+    }
+
+    .story-dialogue-overlay {
+      position: fixed;
+      z-index: 120;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 18px;
+      background: rgba(17, 43, 55, 0.7);
+      backdrop-filter: blur(5px);
+    }
+
+    .story-dialogue-overlay[hidden] { display: none; }
+
+    .story-dialogue-card {
+      position: relative;
+      width: min(780px, 96vw);
+      max-height: calc(100dvh - 36px);
+      padding: clamp(20px, 4vw, 34px);
+      overflow: auto;
+      border: 4px solid #fff;
+      border-radius: 28px;
+      background: linear-gradient(145deg, #fffef9, #eff9f5);
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.28);
+    }
+
+    .story-dialogue-close {
+      position: absolute;
+      z-index: 2;
+      top: 12px;
+      right: 12px;
+      width: 42px;
+      height: 42px;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      color: #184d59;
+      background: #fff;
+      font-size: 1.35rem;
+      box-shadow: 0 4px 14px rgba(20, 70, 80, 0.16);
+    }
+
+    .story-dialogue-scene {
+      display: grid;
+      grid-template-columns: minmax(120px, 170px) 1fr;
+      align-items: center;
+      gap: clamp(16px, 4vw, 30px);
+    }
+
+    .story-dialogue-portrait {
+      display: grid;
+      min-height: 190px;
+      place-items: center;
+      overflow: hidden;
+      border-radius: 24px;
+      background: #dff3ee;
+    }
+
+    .story-dialogue-portrait img {
+      width: 100%;
+      height: 190px;
+      object-fit: contain;
+    }
+
+    .story-dialogue-kicker {
+      margin: 0 0 5px;
+      color: #c56835;
+      font-size: 0.84rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+    }
+
+    .story-dialogue-content h3 {
+      margin: 0 44px 8px 0;
+      color: #184d59;
+      font-size: clamp(1.35rem, 3vw, 1.8rem);
+    }
+
+    .story-dialogue-lead {
+      margin: 0 0 8px;
+      color: #75818a;
+      font-size: 0.92rem;
+      font-weight: 800;
+    }
+
+    .story-dialogue-text {
+      margin: 0;
+      color: #263b42;
+      font-size: clamp(1.02rem, 2.4vw, 1.18rem);
+      font-weight: 700;
+      line-height: 1.75;
+    }
+
+    .story-dialogue-choices {
+      display: grid;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .story-dialogue-choice {
+      width: 100%;
+      min-height: 50px;
+      padding: 12px 16px;
+      border: 2px solid #bddbd3;
+      border-radius: 14px;
+      color: #184d59;
+      background: #fff;
+      text-align: left;
+      font-weight: 900;
+    }
+
+    .story-dialogue-choice:hover,
+    .story-dialogue-choice:focus-visible {
+      border-color: #ec8c52;
+      background: #fff8ed;
+    }
+
+    .story-dialogue-choice.continue-choice {
+      border-color: #267f73;
+      color: #fff;
+      background: #267f73;
+      text-align: center;
+    }
+
+    @media (max-width: 620px) {
+      .story-dialogue-card { padding: 58px 18px 20px; }
+      .story-dialogue-scene { grid-template-columns: 1fr; text-align: center; }
+      .story-dialogue-portrait { min-height: 125px; }
+      .story-dialogue-portrait img { width: min(170px, 55vw); height: 125px; }
+      .story-dialogue-content h3 { margin-right: 0; }
+      .story-dialogue-choice { text-align: center; }
+    }
+
+    /* Readable one-viewport layout: keep the words large by making each scene compact. */
+    @media (min-width: 721px) {
+      body {
+        font-size: 18px;
+        line-height: 1.55;
+      }
+
+      .app {
+        width: min(1240px, calc(100% - 20px));
+        padding-top: 6px;
+        padding-bottom: 6px;
+      }
+
+      .topbar {
+        padding: 6px 12px 7px;
+        border-radius: 12px;
+      }
+
+      .brand-row {
+        margin-bottom: 3px;
+      }
+
+      .brand {
+        font-size: 0.92rem;
+      }
+
+      .restart {
+        min-height: 34px;
+        padding: 3px 12px;
+        font-size: 0.88rem;
+      }
+
+      .progress-wrap {
+        gap: 8px;
+      }
+
+      .progress-track {
+        gap: 4px;
+      }
+
+      .progress-dot {
+        min-height: 23px;
+        font-size: 0.76rem;
+      }
+
+      .progress-count {
+        min-width: 54px;
+        font-size: 0.86rem;
+      }
+
+      main {
+        padding-top: 6px;
+      }
+
+      .panel {
+        padding: 20px 24px;
+        border-radius: 20px;
+      }
+
+      h1 {
+        margin-bottom: 8px;
+        font-size: clamp(3rem, 5vw, 4rem);
+      }
+
+      h2 {
+        margin-bottom: 6px;
+        font-size: clamp(1.9rem, 3vw, 2.45rem);
+      }
+
+      h3 {
+        margin-bottom: 5px;
+        font-size: 1.15rem;
+      }
+
+      .eyebrow {
+        min-height: 0;
+        margin-bottom: 6px;
+        padding: 1px 0 1px 9px;
+        font-size: 0.84rem;
+      }
+
+      .lead,
+      .section-head .lead {
+        margin: 0;
+        font-size: 1.02rem;
+        line-height: 1.5;
+      }
+
+      .section-head {
+        margin-bottom: 12px;
+        padding-bottom: 8px;
+        text-align: left;
+      }
+
+      .section-head .lead {
+        margin-right: 0;
+        margin-left: 0;
+      }
+
+      .story-layout,
+      .explore-layout,
+      .guardian-layout,
+      .sort-layout,
+      .scenario-shell {
+        gap: 16px;
+      }
+
+      .clinic-scene {
+        height: 355px;
+        min-height: 0;
+      }
+
+      .clinic-building {
+        top: 22px;
+        right: 20px;
+        width: 200px;
+        padding: 30px 12px 15px;
+        font-size: 3.2rem;
+      }
+
+      .tooth-character {
+        bottom: 16px;
+        left: 18px;
+        width: 132px;
+        height: 148px;
+        border-width: 5px;
+      }
+
+      .dialogue-stack {
+        gap: 8px;
+      }
+
+      .speech {
+        padding: 11px 14px;
+      }
+
+      .doctor-guide {
+        margin-bottom: 8px;
+        padding: 5px 11px 5px 5px;
+      }
+
+      .doctor-guide img {
+        width: 48px;
+        height: 48px;
+      }
+
+      .question-box {
+        margin-top: 12px;
+        padding: 13px 15px;
+      }
+
+      .question-box h3 {
+        margin-bottom: 8px;
+      }
+
+      .center-actions {
+        margin-top: 10px;
+      }
+
+      .primary,
+      .secondary,
+      .option,
+      .card-button {
+        min-height: 46px;
+      }
+
+      .primary {
+        padding: 9px 19px;
+        font-size: 1rem;
+      }
+
+      .emotion-grid,
+      .worry-grid,
+      .intro-case-grid {
+        gap: 10px;
+      }
+
+      .emotion-button {
+        min-height: 82px;
+        padding: 10px;
+      }
+
+      .emotion-face {
+        font-size: 2.35rem;
+      }
+
+      .intro-tool-grid,
+      .intro-review-grid {
+        gap: 10px;
+      }
+
+      .intro-tool {
+        min-height: 108px;
+        padding: 11px;
+      }
+
+      .intro-tool-icon {
+        margin-bottom: 5px;
+        font-size: 2.4rem;
+      }
+
+      .intro-case,
+      .worry-card {
+        min-height: 145px;
+        padding: 13px;
+      }
+
+      .worry-icon {
+        margin-bottom: 7px;
+        font-size: 2.45rem;
+      }
+
+      .intro-review-card,
+      .learning-card {
+        padding: 11px 13px;
+      }
+
+      .counter {
+        margin-top: 8px;
+      }
+
+      .answer-panel {
+        min-height: 84px;
+        margin-top: 9px;
+        padding: 11px 14px;
+      }
+
+      .part-transition,
+      .complete-banner,
+      .reward {
+        margin-top: 10px;
+        padding: 12px 15px;
+      }
+
+      #screen5 .screen-fit {
+        display: grid;
+        grid-template-columns: 0.9fr 1.1fr;
+        gap: 10px 16px;
+      }
+
+      #screen5 .section-head,
+      #screen5 .part-transition {
+        grid-column: 1 / -1;
+      }
+
+      #screen5 .final-dialogue {
+        margin: 0;
+      }
+
+      #screen5 .part-transition {
+        margin-top: 0;
+      }
+
+      .room {
+        height: 330px;
+        min-height: 0;
+        gap: 8px;
+        padding: 12px;
+      }
+
+      .hotspot {
+        min-height: 102px;
+        gap: 5px;
+        padding: 8px;
+      }
+
+      .hotspot-icon {
+        font-size: 2.3rem;
+      }
+
+      .explore-info {
+        min-height: 330px;
+        padding: 17px;
+      }
+
+      .big-icon {
+        margin-bottom: 7px;
+        font-size: 2.7rem;
+      }
+
+      #screen3:has(#introToolsComplete.show) .explore-layout,
+      #screen8:has(#roomComplete.show) .explore-layout,
+      #screen10:has(#shieldReward.show) .guardian-layout,
+      #screen11:has(#detectiveReward.show) .case-nav,
+      #screen11:has(#detectiveReward.show) .case-stage,
+      #screen12:has(#scenarioFinish.show) .scenario-shell {
+        display: none;
+      }
+
+      #screen4:has(#introQuiz:not(.hidden)) .intro-case-grid,
+      #screen4:has(#introQuiz:not(.hidden)) #introCaseCounter,
+      #screen4:has(#introQuiz:not(.hidden)) #introCaseAnswer {
+        display: none;
+      }
+
+      .sort-area,
+      .flow-preview {
+        padding: 13px;
+      }
+
+      .sort-list {
+        gap: 6px;
+      }
+
+      .sort-card {
+        min-height: 50px;
+        padding: 5px 8px;
+      }
+
+      .move-button {
+        width: 35px;
+        min-height: 34px;
+      }
+
+      .sort-help {
+        margin-bottom: 7px;
+      }
+
+      .flow-number {
+        width: 48px;
+        height: 48px;
+        margin-bottom: 8px;
+      }
+
+      .guardian-tooth {
+        height: 305px;
+        min-height: 0;
+        font-size: 7rem;
+      }
+
+      .shield-grid {
+        gap: 9px;
+      }
+
+      .shield {
+        min-height: 137px;
+        padding: 11px;
+      }
+
+      .shield-icon {
+        margin-bottom: 5px;
+        font-size: 2.25rem;
+      }
+
+      .shield-lock,
+      .shield-text {
+        margin-top: 4px;
+      }
+
+      .reward-icon {
+        font-size: 2.8rem;
+      }
+
+      .case-nav {
+        margin-bottom: 9px;
+      }
+
+      .case-tab {
+        min-height: 38px;
+        padding: 4px 7px;
+      }
+
+      .case-stage {
+        gap: 16px;
+        padding: 15px;
+      }
+
+      .case-visual {
+        height: 205px;
+        min-height: 0;
+      }
+
+      .case-visual img {
+        max-height: 195px;
+      }
+
+      .options {
+        gap: 7px;
+      }
+
+      .option {
+        padding: 8px 12px;
+      }
+
+      .scenario-map,
+      .scenario-card {
+        padding: 14px;
+      }
+
+      .scenario-dot {
+        min-height: 42px;
+        padding: 6px 9px;
+      }
+
+      .scenario-icon {
+        margin-bottom: 7px;
+        font-size: 3rem;
+      }
+
+      #screen13 .review-feelings {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px 14px;
+        max-width: none;
+      }
+
+      #screen13 #closingEmotions,
+      #screen13 #closingResponse,
+      #screen13 #reviewContinue {
+        grid-column: 1 / -1;
+      }
+
+      #screen13:has(#learningCards.show) #closingEmotions {
+        display: none;
+      }
+
+      #screen13 .learning-cards {
+        margin-top: 0;
+      }
+
+      #screen13 .learning-cards.show {
+        grid-template-columns: 1fr;
+      }
+
+      #screen13 .final-dialogue {
+        grid-template-columns: 92px 1fr;
+        margin: 0;
+      }
+
+      #screen13 .happy-tooth {
+        width: 92px;
+        height: 104px;
+      }
+
+      .finish-panel {
+        min-height: 0;
+      }
+
+      .finish-icon {
+        width: 86px;
+        height: 86px;
+        margin: 0 auto 10px;
+        font-size: 3rem;
+      }
+
+      .completion-list {
+        max-width: none;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 8px;
+        margin: 12px auto;
+      }
+
+      .completion-list li {
+        padding: 8px 10px;
+        text-align: center;
+      }
+
+      .game-button {
+        min-height: 58px;
+        padding: 11px 28px;
+      }
+    }
+
+    @media (max-width: 720px) {
+      body { font-size: 18px; }
+      .progress-track { display: none; }
+      .progress-wrap { display: flex; justify-content: flex-end; margin-top: 2px; }
+      main { padding-top: 5px; }
+      .panel { padding: 16px; }
+      .section-head { margin-bottom: 10px; }
+      .section-head .lead { margin-bottom: 0; }
+      .intro-tool-grid,
+      .intro-review-grid,
+      .emotion-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .clinic-scene,
+      .room,
+      .guardian-tooth { min-height: 260px; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand-row">
+        <div class="brand">
+          牙寶歷險記｜第一單元
+          <span class="act-label" id="actLabel">第一段・單元首頁</span>
+        </div>
+        <button class="restart" id="restartButton" type="button">↻ 重新開始</button>
+      </div>
+
+      <div class="progress-wrap">
+        <ol class="progress-track" aria-label="完整學習進度">
+          <li class="progress-dot current" data-dot="1">1</li>
+          <li class="progress-dot" data-dot="2">2</li>
+          <li class="progress-dot" data-dot="3">3</li>
+          <li class="progress-dot" data-dot="4">4</li>
+          <li class="progress-dot" data-dot="5">5</li>
+          <li class="progress-dot" data-dot="6">6</li>
+          <li class="progress-dot" data-dot="7">7</li>
+          <li class="progress-dot" data-dot="8">8</li>
+          <li class="progress-dot" data-dot="9">9</li>
+          <li class="progress-dot" data-dot="10">10</li>
+          <li class="progress-dot" data-dot="11">11</li>
+          <li class="progress-dot" data-dot="12">12</li>
+          <li class="progress-dot" data-dot="13">13</li>
+          <li class="progress-dot" data-dot="14">14</li>
+        </ol>
+        <div class="progress-count" id="progressCount">1 / 14</div>
+      </div>
+    </header>
+
+    <main id="mainContent">
+      <!-- 第一段 01：單元首頁 -->
+      <section class="screen active" id="screen1" data-screen="1" aria-labelledby="introTitle1">
+        <div class="panel">
+          <div class="story-layout">
+            <div>
+              <p class="eyebrow">第一段｜安心看牙大冒險</p>
+              <h1 id="introTitle1">牙寶歷險記</h1>
+              <p class="lead">
+                今天牙寶要去看牙醫，可是他好像有一點緊張。你願意成為他的「安心夥伴」，陪他一起認識牙醫嗎？
+              </p>
+              <button class="primary" type="button" data-go="2">開始第一段冒險 →</button>
+            </div>
+            <div class="clinic-scene" aria-label="牙寶站在韋登牙醫診所前">
+              <div class="clinic-building" aria-hidden="true">
+                🏥
+                <span>韋登牙醫診所</span>
+              </div>
+              <div class="tooth-character"><img src="images/tooth-hero.png" alt="牙寶鼓起勇氣準備出發" /></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 第一段 02：故事對話 -->
+      <section class="screen" id="screen2" data-screen="2" aria-labelledby="introTitle2">
+        <div class="panel">
+          <div class="section-head">
+            <p class="eyebrow">第一段｜故事情境</p>
+            <h2 id="introTitle2">牙寶有點緊張</h2>
+          </div>
+
+          <div class="story-layout">
+            <div class="clinic-scene" aria-label="牙寶站在牙醫診所門口">
+              <div class="clinic-building" aria-hidden="true">
+                🏥
+                <span>診所門口</span>
+              </div>
+              <div class="tooth-character"><img src="images/tooth-angry.png" alt="牙寶有點擔心的樣子" /></div>
+            </div>
+            <div>
+              <div class="doctor-guide"><img src="images/dentist.png" alt="韋登牙醫" /><span>韋登牙醫陪你慢慢了解</span></div>
+              <div class="dialogue-stack">
+                <div class="speech">
+                  <span class="speaker">牙寶：</span>
+                  「今天要檢查牙齒……可是我不知道進去之後會發生什麼耶。」
+                </div>
+                <div class="speech npc">
+                  <span class="speaker">🧑‍⚕️ 韋登牙醫：</span>
+                  「不知道會發生什麼，的確容易讓人緊張。沒關係，我們先不急著開始，你可以先看看牙醫到底是怎麼幫助牙齒的。」
+                </div>
+              </div>
+
+              <div class="question-box">
+                <h3>你想怎麼回答韋登牙醫？</h3>
+                <div class="options">
+                  <button class="option intro-story-choice" type="button" data-intro-story="look">😊 好，我想看看！</button>
+                  <button class="option intro-story-choice" type="button" data-intro-story="afraid">🤔 牙醫真的不可怕嗎？</button>
+                </div>
+                <div class="response-box" id="introStoryResponse" role="status" aria-live="polite"></div>
+                <div class="center-actions hidden" id="introStoryContinue">
+                  <button class="primary" type="button" data-go="3">一起進去看看 →</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 第一段 03：四項診間探索 -->
+      <section class="screen" id="screen3" data-screen="3" aria-labelledby="introTitle3">
+        <div class="panel">
+          <div class="section-head">
+            <p class="eyebrow">第一段｜認識牙醫</p>
+            <h2 id="introTitle3">牙醫到底在做什麼？</h2>
+            <p class="lead">點點看四個項目，了解牙醫如何幫助我們的牙齒。</p>
+          </div>
+
+          <div class="explore-layout">
+            <div class="intro-tool-grid">
+              <button class="intro-tool" type="button" data-intro-tool="light">
+                <span class="intro-tool-icon" aria-hidden="true">🔦</span>診療燈
+              </button>
+              <button class="intro-tool" type="button" data-intro-tool="mirror">
+                <span class="intro-tool-icon" aria-hidden="true">🪞</span>牙科小鏡子
+              </button>
+              <button class="intro-tool" type="button" data-intro-tool="check">
+                <span class="intro-tool-icon" aria-hidden="true">🦷</span>牙齒檢查
+              </button>
+              <button class="intro-tool" type="button" data-intro-tool="clean">
+                <span class="intro-tool-icon" aria-hidden="true">✨</span>清潔牙齒
+              </button>
+            </div>
+
+            <aside class="explore-info" id="introToolInfo" aria-live="polite">
+              <div class="big-icon" id="introToolIcon" aria-hidden="true">👆</div>
+              <h3 id="introToolTitle">選一個項目看看</h3>
+              <p id="introToolText">每一項都有不同的用途，四個全部看完才能繼續。</p>
+              <p class="counter" id="introToolCounter">已探索 0 / 4</p>
+            </aside>
+          </div>
+
+          <div class="complete-banner" id="introToolsComplete">
+            <h3>原來牙醫可以……</h3>
+            <div class="intro-review-grid">
+              <div class="intro-review-card">🔍 幫牙齒做檢查</div>
+              <div class="intro-review-card">✨ 幫助保持牙齒乾淨</div>
+              <div class="intro-review-card">🛡️ 提早發現牙齒問題</div>
+            </div>
+            <p class="core-message">看牙醫不是只有牙齒痛的時候才需要喔！</p>
+            <div class="story-chat-row">
+              <button class="story-chat-button" type="button" data-story-dialogue="early-check" aria-pressed="false">💬 聽聽牙寶的小問題</button>
+            </div>
+            <button class="primary" type="button" data-go="4">繼續第一段冒險 →</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 第一段 04：常見牙齒問題 -->
+      <section class="screen" id="screen4" data-screen="4" aria-labelledby="introTitle4">
+        <div class="panel">
+          <div class="section-head">
+            <p class="eyebrow">第一段｜牙齒偵探時間</p>
+            <h2 id="introTitle4">牙醫可以幫我發現什麼？</h2>
+            <p class="lead">三張牙齒問題卡都點點看，再回答牙寶的問題。</p>
+          </div>
+
+          <div class="intro-case-grid">
+            <button class="intro-case" type="button" data-intro-case="cavity">
+              <span class="worry-icon" aria-hidden="true">🦷⚫</span>
+              <h3>蛀牙</h3>
+              <p>牙齒怎麼有一個小黑點？</p>
+            </button>
+            <button class="intro-case" type="button" data-intro-case="calculus">
+              <span class="worry-icon" aria-hidden="true">🦷🟡</span>
+              <h3>牙結石</h3>
+              <p>牙齒旁邊怎麼有黃色硬塊？</p>
+            </button>
+            <button class="intro-case" type="button" data-intro-case="gum">
+              <span class="worry-icon" aria-hidden="true">🦷🔴</span>
+              <h3>牙齦紅紅的</h3>
+              <p>牙齦看起來紅紅的或容易流血。</p>
+            </button>
+          </div>
+
+          <p class="counter" id="introCaseCounter">已查看 0 / 3 張牙齒問題卡</p>
+          <div class="answer-panel" id="introCaseAnswer" aria-live="polite">
+            <h3>先選一張卡片</h3>
+            <p>牙醫可以幫忙檢查牙齒與牙齦，提早注意需要處理的地方。</p>
+          </div>
+
+          <div class="question-box hidden" id="introQuiz">
+            <h3>牙寶有一個問題！</h3>
+            <p style="text-align:center;font-weight:850;">所以一定要牙齒很痛，才能去看牙醫嗎？</p>
+            <div class="options">
+              <button class="option intro-quiz-option" type="button" data-intro-answer="wrong">A. 對，牙齒痛才需要去</button>
+              <button class="option intro-quiz-option" type="button" data-intro-answer="correct">B. 不一定，平常也可以定期檢查</button>
+            </div>
+            <div class="feedback" id="introQuizFeedback" role="status" aria-live="polite"></div>
+            <div class="center-actions hidden" id="introQuizContinue">
+              <button class="primary" type="button" data-go="5">完成第一段學習 →</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 第一段 05：回顧與銜接 -->
+      <section class="screen" id="screen5" data-screen="5" aria-labelledby="introTitle5">
+        <div class="panel">
+          <div class="section-head">
+            <p class="eyebrow">第一段｜學習回顧</p>
+            <h2 id="introTitle5">牙寶學會了！</h2>
+            <p class="lead">進入第二段以前，先記住三件重要的事。</p>
+          </div>
+
+          <div class="intro-review-grid">
+            <div class="intro-review-card">🔍 牙醫可以幫忙檢查牙齒。</div>
+            <div class="intro-review-card">🦷 蛀牙、牙結石和牙齦問題都可以提早注意。</div>
+            <div class="intro-review-card">🛡️ 不用等牙齒很痛，平常也可以進行牙齒檢查。</div>
+          </div>
+
+          <div class="final-dialogue show">
+            <div class="happy-tooth"><img src="images/tooth-happy.png" alt="牙寶露出安心的笑容" /></div>
+            <div class="dialogue-stack">
+              <div class="speech">
+                <span class="speaker">牙寶：</span>
+                「原來知道牙醫在做什麼之後，好像就沒有剛剛那麼可怕了！」
+              </div>
+              <div class="speech npc">
+                <span class="speaker">🧑‍⚕️ 韋登牙醫：</span>
+                「沒錯！如果看牙的時候覺得緊張，也可以告訴牙醫你的感覺。」
+              </div>
+            </div>
+          </div>
+
+          <div class="part-transition">
+            <h3>第一段完成！接著進入第二段</h3>
+            <p>接下來會更深入體驗看牙流程、牙齒守護知識與生活情境。遊戲會在兩段內容全部完成後解鎖。</p>
+            <button class="primary" type="button" data-go="6">開始第二段 →</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 第二段・第一幕 -->
+      <section class="screen" id="screen6" data-screen="6" aria-labelledby="title1">
+        <div class="panel">
+          <div class="story-layout">
+            <div class="clinic-scene" aria-label="牙寶站在牙醫診所門口，表情有點猶豫">
+              <div class="clinic-building" aria-hidden="true">
+                🏥
+                <span>韋登牙醫診所</span>
+              </div>
+              <div class="tooth-character"><img src="images/tooth-angry.png" alt="牙寶站在診所前思考" /></div>
+            </div>
+
+            <div>
+              <p class="eyebrow">第二段｜第一幕・故事開始</p>
+              <h1 id="title1">今天要看牙醫？</h1>
+              <div class="dialogue-stack">
+                <div class="speech">
+                  <span class="speaker">牙寶：</span>
+                  「媽媽說今天要帶我檢查牙齒……可是我從來沒有仔細看過牙醫到底在做什麼。」
+                </div>
+                <div class="speech">
+                  <span class="speaker">牙寶：</span>
+                  「裡面會不會有很多奇怪的東西啊？」
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="question-box">
+            <h3>如果今天換成你要看牙醫，你現在是什麼感覺？</h3>
+            <div class="emotion-grid" id="openingEmotions">
+              <button class="emotion-button" type="button" data-feeling="完全不緊張">
+                <span class="emotion-face" aria-hidden="true">😄</span>完全不緊張
+              </button>
+              <button class="emotion-button" type="button" data-feeling="有一點緊張">
+                <span class="emotion-face" aria-hidden="true">🙂</span>有一點緊張
+              </button>
+              <button class="emotion-button" type="button" data-feeling="有點害怕">
+                <span class="emotion-face" aria-hidden="true">😟</span>有點害怕
+              </button>
+              <button class="emotion-button" type="button" data-feeling="很害怕">
+                <span class="emotion-face" aria-hidden="true">😣</span>很害怕
+              </button>
+            </div>
+            <div class="response-box" id="openingResponse" role="status" aria-live="polite">
+              <strong>韋登牙醫：</strong>
+              收到！每個人的感覺都不一樣。今天我們就陪牙寶一起看看，牙醫診所裡到底會發生什麼。
+            </div>
+            <div class="center-actions hidden" id="openingContinue">
+              <button class="primary" type="button" data-go="7">陪牙寶走進診所 →</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 第二段・第二幕 -->
+      <section class="screen" id="screen7" data-screen="7" aria-labelledby="title2">
+        <div class="panel">
+          <div class="section-head">
+            <p class="eyebrow">第二段｜第二幕・候診室</p>
+            <h2 id="title2">牙寶的疑問</h2>
+            <p class="lead">牙寶腦中有好多問題。三張擔心卡都點點看，聽聽韋登牙醫怎麼說。</p>
+          </div>
+
+          <div class="worry-grid">
+            <button class="worry-card" type="button" data-worry="unknown">
+              <span class="worry-icon" aria-hidden="true">😰</span>
+              <strong>我不知道等等會做什麼</strong>
+            </button>
+            <button class="worry-card" type="button" data-worry="hurt">
+              <span class="worry-icon" aria-hidden="true">😖</span>
+              <strong>我怕會不舒服</strong>
+            </button>
+            <button class="worry-card" type="button" data-worry="why">
+              <span class="worry-icon" aria-hidden="true">🤔</span>
+              <strong>我的牙齒又沒有痛，為什麼還要來？</strong>
+            </button>
+          </div>
+
+          <p class="counter" id="worryCounter">已了解 0 / 3 個疑問</p>
+          <div class="answer-panel" id="worryAnswer" aria-live="polite">
+            <h3>🧑‍⚕️ 韋登牙醫</h3>
+            <p>選一張牙寶的擔心卡，我們一起找答案。</p>
+          </div>
+          <div class="center-actions hidden" id="worryContinue">
+            <button class="primary" type="button" data-go="8">進入診間探索 →</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 第二段・第三幕 -->
+      <section class="screen" id="screen8" data-screen="8" aria-labelledby="title3">
+        <div class="panel">
+          <div class="section-head">
+            <p class="eyebrow">第二段｜第三幕・大型探索</p>
+            <h2 id="title3">探索牙醫診間</h2>
+            <p class="lead">找出六個互動物件。每個物件都有自己的用途，全部探索才能繼續。</p>
+          </div>
+
+          <div class="explore-layout">
+            <div class="room" aria-label="牙醫診間六個互動物件">
+              <p class="room-counter" id="roomCounter">診間探索：0 / 6</p>
+              <button class="hotspot" type="button" data-tool="chair">
+                <span class="hotspot-icon" aria-hidden="true">💺</span><span>診療椅</span>
+              </button>
+              <button class="hotspot" type="button" data-tool="light">
+                <span class="hotspot-icon" aria-hidden="true">🔦</span><span>診療燈</span>
+              </button>
+              <button class="hotspot" type="button" data-tool="mirror">
+                <span class="hotspot-icon" aria-hidden="true">🪞</span><span>牙科小鏡子</span>
+              </button>
+              <button class="hotspot" type="button" data-tool="clean">
+                <span class="hotspot-icon" aria-hidden="true">😷</span><span>手套口罩</span>
+              </button>
+              <button class="hotspot" type="button" data-tool="suction">
+                <span class="hotspot-icon" aria-hidden="true">🥤</span><span>吸唾管</span>
+              </button>
+              <button class="hotspot" type="button" data-tool="model">
+                <span class="hotspot-icon" aria-hidden="true">🦷</span><span>牙齒模型</span>
+              </button>
+            </div>
+
+            <aside class="explore-info" id="toolInfo" aria-live="polite">
+              <div class="big-icon" id="toolIcon" aria-hidden="true">👆</div>
+              <h3 id="toolTitle">先找一個物件</h3>
+              <p id="toolYabao"><strong>牙寶：</strong>「診間裡有好多東西，原來都可以點點看！」</p>
+              <p id="toolDentist"><strong>韋登牙醫：</strong>「慢慢探索，知道用途以後，就不會那麼陌生了。」</p>
+            </aside>
+          </div>
+
+          <div class="complete-banner" id="roomComplete">
+            <h3>🎉 診所探索完成！</h3>
+            <p>牙寶：「原來這些東西都有自己的用途，好像沒有想像中那麼神祕了。」</p>
+            <div class="story-chat-row">
+              <button class="story-chat-button" type="button" data-story-dialogue="chair-signal" aria-pressed="false">💬 和韋登牙醫約定安心暗號</button>
+            </div>
+            <button class="primary" type="button" data-go="9">看看真正的看牙流程 →</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 第二段・第四幕 -->
+      <section class="screen" id="screen9" data-screen="9" aria-labelledby="title4">
+        <div class="panel">
+          <div class="section-head">
+            <p class="eyebrow">第二段｜第四幕・流程挑戰</p>
+            <h2 id="title4">真正看牙時會發生什麼？</h2>
+            <p class="lead">把五張卡排成正確順序。可以拖曳卡片，也可以用卡片旁的上下按鈕。</p>
+          </div>
+
+          <div class="sort-layout">
+            <div class="sort-area">
+              <p class="sort-help">想一想：從走進診所，到完成檢查，依序會發生什麼？</p>
+              <ol class="sort-list" id="sortList" aria-label="可排序的看牙流程"></ol>
+              <div class="center-actions">
+                <button class="primary" id="checkOrderButton" type="button">檢查看看</button>
+              </div>
+              <div class="feedback" id="sortFeedback" role="status" aria-live="polite"></div>
+            </div>
+
+            <aside class="flow-preview" id="flowPreview">
+              <div class="flow-placeholder" id="flowPlaceholder">
+                <div class="big-icon" aria-hidden="true">🗺️</div>
+                排列正確後，牙寶會一步一步帶你看看完整流程。
+              </div>
+              <div id="flowContent"></div>
+              <div class="center-actions hidden" id="flowAction"></div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <!-- 第二段・第五幕 -->
+      <section class="screen" id="screen10" data-screen="10" aria-labelledby="title5">
+        <div class="panel">
+          <div class="section-head">
+            <p class="eyebrow">第二段｜第五幕・牙齒守護中心</p>
+            <h2 id="title5">為什麼要看牙醫？</h2>
+            <p class="lead">依序解鎖四面守護盾，看看牙醫能怎麼幫助牙齒。</p>
+          </div>
+
+          <div class="guardian-layout">
+            <div class="guardian-tooth" aria-hidden="true">🦷</div>
+            <div class="shield-grid">
+              <button class="shield unlocked" type="button" data-shield="0">
+                <span class="shield-icon" aria-hidden="true">🔍</span>
+                <strong>牙齒健康檢查</strong>
+                <span class="shield-lock">點擊解鎖</span>
+                <span class="shield-text">牙醫可以檢查看看牙齒和牙齦目前的健康狀況。</span>
+              </button>
+              <button class="shield" type="button" data-shield="1" disabled>
+                <span class="shield-icon" aria-hidden="true">🔎</span>
+                <strong>提早發現問題</strong>
+                <span class="shield-lock">🔒 尚未解鎖</span>
+                <span class="shield-text">有些牙齒問題剛開始不一定會痛，檢查可以幫忙提早注意。</span>
+              </button>
+              <button class="shield" type="button" data-shield="2" disabled>
+                <span class="shield-icon" aria-hidden="true">✨</span>
+                <strong>專業清潔</strong>
+                <span class="shield-lock">🔒 尚未解鎖</span>
+                <span class="shield-text">有些自己不容易清除的牙齒髒污，可以由牙科專業人員判斷及處理。</span>
+              </button>
+              <button class="shield" type="button" data-shield="3" disabled>
+                <span class="shield-icon" aria-hidden="true">📅</span>
+                <strong>定期追蹤</strong>
+                <span class="shield-lock">🔒 尚未解鎖</span>
+                <span class="shield-text">不一定要等到牙痛才看牙，定期檢查也是照顧牙齒的一種方式。</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="reward" id="shieldReward">
+            <span class="reward-icon" aria-hidden="true">🛡️</span>
+            <h3>獲得「牙齒守護盾」！</h3>
+            <p>牙寶已經知道：看牙醫不只是處理牙痛，也是在平常保護牙齒。</p>
+            <div class="story-chat-row">
+              <button class="story-chat-button" type="button" data-story-dialogue="not-a-punishment" aria-pressed="false">💬 解開牙寶最後一個心結</button>
+            </div>
+            <button class="primary" type="button" data-go="11">前往牙齒偵探事務所 →</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 第二段・第六幕 -->
+      <section class="screen" id="screen11" data-screen="11" aria-labelledby="title6">
+        <div class="panel">
+          <div class="section-head">
+            <p class="eyebrow">第二段｜第六幕・三個案件</p>
+            <h2 id="title6">牙齒偵探事務所</h2>
+            <p class="lead">觀察線索、選出最適合的答案，完成三個牙齒案件。</p>
+          </div>
+
+          <div class="case-nav" aria-label="案件進度">
+            <div class="case-tab active" data-case-tab="0">案件 01</div>
+            <div class="case-tab" data-case-tab="1">案件 02</div>
+            <div class="case-tab" data-case-tab="2">案件 03</div>
+          </div>
+
+          <article class="case-stage active" data-case-stage="0">
+            <div class="case-visual"><img src="images/tooth-cavity-brushing.png" alt="牙齒上出現蛀牙與髒污" /></div>
+            <div>
+              <h3>案件 01：牙齒上的黑點</h3>
+              <p class="scenario-question">你覺得牙寶的牙齒發生什麼事了？</p>
+              <div class="options">
+                <button class="option" type="button" data-case-answer="correct">蛀牙</button>
+                <button class="option" type="button" data-case-answer="wrong">換牙</button>
+                <button class="option" type="button" data-case-answer="wrong">牙齒變黑色新品種 😆</button>
+              </div>
+              <div class="feedback case-feedback" role="status" aria-live="polite"></div>
+              <div class="case-explanation">
+                如果牙齒長時間沒有好好清潔，加上常吃含糖食物，就可能增加蛀牙的機會。牙醫可以幫忙檢查牙齒有沒有蛀牙。
+              </div>
+              <div class="center-actions hidden case-next">
+                <button class="primary" type="button" data-next-case="1">前往案件 02 →</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="case-stage" data-case-stage="1">
+            <div class="case-visual"><img src="images/tooth-cavity.png" alt="需要接受牙科檢查的牙齒" /></div>
+            <div>
+              <h3>案件 02：牙齒旁邊硬硬的東西</h3>
+              <p>牙齒上的牙菌斑如果長時間累積，可能慢慢形成比較硬的牙結石。</p>
+              <p class="scenario-question">哪一個方法比較適合？</p>
+              <div class="options">
+                <button class="option" type="button" data-case-answer="wrong">用手把它挖掉</button>
+                <button class="option" type="button" data-case-answer="wrong">都不要管</button>
+                <button class="option" type="button" data-case-answer="correct">請牙科專業人員檢查</button>
+              </div>
+              <div class="feedback case-feedback" role="status" aria-live="polite"></div>
+              <div class="case-explanation">
+                牙結石很硬，不適合自己亂挖。可以請牙科專業人員檢查，再判斷是否需要專業清潔。
+              </div>
+              <div class="center-actions hidden case-next">
+                <button class="primary" type="button" data-next-case="2">前往案件 03 →</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="case-stage" data-case-stage="2">
+            <div class="case-visual"><img src="images/child-toothache.png" alt="孩子感覺牙齒不舒服並摸著臉頰" /></div>
+            <div>
+              <h3>案件 03：牙齦紅紅的</h3>
+              <p>牙齒周圍如果沒有清潔乾淨，牙齦有時可能紅腫或容易流血。</p>
+              <p class="scenario-question">如果刷牙常常看到牙齦出血，最好的做法是？</p>
+              <div class="options">
+                <button class="option" type="button" data-case-answer="wrong">什麼都不說</button>
+                <button class="option" type="button" data-case-answer="correct">告訴家長並注意清潔，需要時接受牙醫檢查</button>
+                <button class="option" type="button" data-case-answer="wrong">再也不要刷牙</button>
+              </div>
+              <div class="feedback case-feedback" role="status" aria-live="polite"></div>
+              <div class="case-explanation">
+                如果牙齦常常出血或不舒服，可以告訴家長，持續注意正確清潔，並在需要時請牙醫檢查。
+              </div>
+              <div class="center-actions hidden case-next">
+                <button class="primary" type="button" id="finishCases">完成案件</button>
+              </div>
+            </div>
+          </article>
+
+          <div class="reward" id="detectiveReward">
+            <span class="reward-icon" aria-hidden="true">🎖️</span>
+            <h3>「牙齒小偵探」徽章獲得！</h3>
+            <p>三個案件都破解了，接著看看生活中遇到這些情況時可以怎麼做。</p>
+            <button class="primary" type="button" data-go="12">接受情境挑戰 →</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 第二段・第七幕 -->
+      <section class="screen" id="screen12" data-screen="12" aria-labelledby="title7">
+        <div class="panel">
+          <div class="section-head">
+            <p class="eyebrow">第二段｜第七幕・故事選擇</p>
+            <h2 id="title7">如果是你，你會怎麼做？</h2>
+            <p class="lead">完成四個生活情境。這不是考試，而是練習找到可以幫助自己的做法。</p>
+          </div>
+
+          <div class="scenario-shell">
+            <div class="scenario-map" aria-label="四個情境的進度">
+              <div class="scenario-dot active" data-scenario-dot="0" data-number="1"><span>情境一</span></div>
+              <div class="scenario-dot" data-scenario-dot="1" data-number="2"><span>情境二</span></div>
+              <div class="scenario-dot" data-scenario-dot="2" data-number="3"><span>情境三</span></div>
+              <div class="scenario-dot" data-scenario-dot="3" data-number="4"><span>情境四</span></div>
+            </div>
+
+            <div class="scenario-card">
+              <div class="scenario-icon" id="scenarioIcon" aria-hidden="true">😟</div>
+              <h3 id="scenarioTitle">情境一</h3>
+              <p class="scenario-question" id="scenarioQuestion">明天要看牙醫，你有點緊張。你會怎麼做？</p>
+              <div class="options" id="scenarioOptions"></div>
+              <div class="feedback" id="scenarioFeedback" role="status" aria-live="polite"></div>
+              <div class="center-actions hidden" id="scenarioNextArea"></div>
+            </div>
+          </div>
+
+          <div class="yabao-quote" id="scenarioFinish">
+            <h3>牙寶也想通了！</h3>
+            <p>「原來看牙醫不是只能乖乖什麼都不說，我也可以把自己的感覺告訴牙醫！」</p>
+            <button class="primary" type="button" data-go="13">進行安心回顧 →</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 第二段・第八幕 -->
+      <section class="screen" id="screen13" data-screen="13" aria-labelledby="title8">
+        <div class="panel">
+          <div class="section-head">
+            <p class="eyebrow">第二段｜第八幕・安心回顧</p>
+            <h2 id="title8">現在再想到看牙醫，你是什麼感覺？</h2>
+            <p class="lead">每一種感覺都可以。選出最接近你現在心情的表情。</p>
+          </div>
+
+          <div class="review-feelings">
+            <div class="emotion-grid" id="closingEmotions">
+              <button class="emotion-button" type="button" data-feeling="完全不緊張">
+                <span class="emotion-face" aria-hidden="true">😄</span>完全不緊張
+              </button>
+              <button class="emotion-button" type="button" data-feeling="有一點緊張">
+                <span class="emotion-face" aria-hidden="true">🙂</span>有一點緊張
+              </button>
+              <button class="emotion-button" type="button" data-feeling="有點害怕">
+                <span class="emotion-face" aria-hidden="true">😟</span>有點害怕
+              </button>
+              <button class="emotion-button" type="button" data-feeling="很害怕">
+                <span class="emotion-face" aria-hidden="true">😣</span>很害怕
+              </button>
+            </div>
+
+            <div class="response-box" id="closingResponse" role="status" aria-live="polite">
+              謝謝你說出自己的感覺！不管現在是哪一種心情，都可以慢慢認識、慢慢準備。
+            </div>
+
+            <div class="learning-cards" id="learningCards">
+              <div class="learning-card">🪞 我知道診間工具在做什麼</div>
+              <div class="learning-card">🗺️ 我知道看牙大概有哪些步驟</div>
+              <div class="learning-card">🦷 我知道牙醫可以幫忙檢查牙齒</div>
+              <div class="learning-card">💬 我知道緊張或不舒服時可以說出來</div>
+            </div>
+
+            <div class="final-dialogue" id="reviewDialogue">
+              <div class="happy-tooth"><img src="images/tooth-happy.png" alt="牙寶完成學習後開心微笑" /></div>
+              <div class="speech">
+                <span class="speaker">牙寶：</span>
+                「一開始我只是因為不知道會發生什麼，所以很緊張。」<br />
+                「現在我知道牙醫在做什麼，也知道如果緊張可以說出來。」<br />
+                <strong>「我準備好了！」</strong>
+              </div>
+            </div>
+
+            <div class="center-actions hidden" id="reviewContinue">
+              <button class="primary" type="button" data-go="14">完成全部學習 →</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 最終遊戲連結 -->
+      <section class="screen" id="screen14" data-screen="14" aria-labelledby="title9">
+        <div class="panel finish-panel">
+          <div class="confetti" id="confetti" aria-hidden="true"></div>
+          <div class="finish-icon" aria-hidden="true">🎉</div>
+          <p class="eyebrow">全部完成｜遊戲解鎖</p>
+          <h2 id="title9">第一單元學習完成</h2>
+          <p class="lead" style="margin-right:auto;margin-left:auto;">
+            牙寶已經不再只是面對未知，而是知道流程、工具、牙齒知識，也知道可以說出自己的感覺。
+          </p>
+
+          <ul class="completion-list">
+            <li>✓ 診間探索</li>
+            <li>✓ 看牙流程</li>
+            <li>✓ 牙齒守護知識</li>
+            <li>✓ 牙齒偵探</li>
+            <li>✓ 情境挑戰</li>
+          </ul>
+
+          <button class="game-button" id="gameButton" type="button">🎮 開始挑戰</button>
+          <div class="center-actions">
+            <button class="secondary" type="button" id="learnAgainButton">再體驗一次</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="story-dialogue-overlay" id="storyDialogueOverlay" role="dialog" aria-modal="true" aria-labelledby="storyDialogueSpeaker" hidden>
+    <div class="story-dialogue-card">
+      <button class="story-dialogue-close" id="storyDialogueClose" type="button" aria-label="關閉對話">×</button>
+      <div class="story-dialogue-scene">
+        <div class="story-dialogue-portrait"><img id="storyDialogueImage" src="images/dentist.png" alt="對話角色"></div>
+        <div class="story-dialogue-content">
+          <p class="story-dialogue-kicker" id="storyDialogueKicker">故事對話</p>
+          <h3 id="storyDialogueSpeaker">韋登牙醫</h3>
+          <p class="story-dialogue-lead" id="storyDialogueLead">選一個你想說的回答</p>
+          <p class="story-dialogue-text" id="storyDialogueText"></p>
+        </div>
+      </div>
+      <div class="story-dialogue-choices" id="storyDialogueChoices"></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    const GAME_URL = "https://view.genially.com/6a8d238a0ac8f9254dfc9780";
+
+    const actNames = [
+      "第一段・單元首頁",
+      "第一段・牙寶有點緊張",
+      "第一段・牙醫到底在做什麼？",
+      "第一段・牙醫可以發現什麼？",
+      "第一段・學習回顧",
+      "第二段・今天要看牙醫？",
+      "第二段・牙寶的疑問",
+      "第二段・探索牙醫診間",
+      "第二段・真正看牙時會發生什麼？",
+      "第二段・為什麼要看牙醫？",
+      "第二段・牙齒偵探事務所",
+      "第二段・如果是你，你會怎麼做？",
+      "第二段・安心看牙回顧",
+      "全部完成・解鎖遊戲"
+    ];
+
+    const screens = Array.from(document.querySelectorAll(".screen"));
+    const progressDots = Array.from(document.querySelectorAll(".progress-dot"));
+    const actLabel = document.getElementById("actLabel");
+    const progressCount = document.getElementById("progressCount");
+    const toast = document.getElementById("toast");
+
+    const storyDialogues = {
+      "early-check": {
+        kicker: "診間探索後的小對話",
+        speaker: "牙寶",
+        image: "images/tooth-hero.png",
+        text: "牙寶悄悄問：『如果牙齒現在不痛，還需要來檢查嗎？』",
+        choices: [
+          {
+            label: "我也想知道定期檢查有什麼用",
+            speaker: "韋登牙醫",
+            image: "images/dentist.png",
+            reply: "有些小問題剛開始不一定會痛。定期檢查能早一點發現，也能知道平常哪些地方需要多照顧。"
+          },
+          {
+            label: "可是我一走進診間還是會緊張",
+            speaker: "韋登牙醫",
+            image: "images/dentist.png",
+            reply: "緊張也沒關係。你可以先說出最擔心的事；檢查時若想停一下，也可以舉手告訴我。"
+          }
+        ]
+      },
+      "chair-signal": {
+        kicker: "看診前的安心約定",
+        speaker: "牙寶",
+        image: "images/tooth-hero.png",
+        text: "診療椅慢慢往後倒，牙寶抓緊扶手：『我不知道下一步會發生什麼……』",
+        choices: [
+          {
+            label: "先請牙醫告訴我下一步",
+            speaker: "韋登牙醫",
+            image: "images/dentist.png",
+            reply: "當然可以。我會先說明再開始，讓你知道現在做到哪裡、接下來要做什麼。"
+          },
+          {
+            label: "我們可以約定一個暫停暗號嗎？",
+            speaker: "韋登牙醫",
+            image: "images/dentist.png",
+            reply: "可以，我們就約定『舉手』。需要休息或有不舒服時就舉手，我看見後會先停下來聽你說。"
+          }
+        ]
+      },
+      "not-a-punishment": {
+        kicker: "守護盾完成後的真心話",
+        speaker: "牙寶",
+        image: "images/tooth-happy.png",
+        text: "牙寶問：『來看牙醫，是不是代表我做錯事，或是牙齒一定很糟？』",
+        choices: [
+          {
+            label: "我想把檢查看成平常保養",
+            speaker: "韋登牙醫",
+            image: "images/dentist.png",
+            reply: "這個想法很棒。看牙不是處罰，而是像幫牙齒做健康巡邏，確認它們現在需要什麼照顧。"
+          },
+          {
+            label: "如果真的發現問題怎麼辦？",
+            speaker: "韋登牙醫",
+            image: "images/dentist.png",
+            reply: "先知道發生什麼，再一起想適合的處理方式。越早注意，就越能從小地方開始照顧，不用一個人猜或害怕。"
+          }
+        ]
+      }
+    };
+
+    const storyDialogueOverlay = document.getElementById("storyDialogueOverlay");
+    const storyDialogueClose = document.getElementById("storyDialogueClose");
+    const storyDialogueImage = document.getElementById("storyDialogueImage");
+    const storyDialogueKicker = document.getElementById("storyDialogueKicker");
+    const storyDialogueSpeaker = document.getElementById("storyDialogueSpeaker");
+    const storyDialogueLead = document.getElementById("storyDialogueLead");
+    const storyDialogueText = document.getElementById("storyDialogueText");
+    const storyDialogueChoices = document.getElementById("storyDialogueChoices");
+    let activeStoryTrigger = null;
+
+    function closeStoryDialogue(completed) {
+      if (completed && activeStoryTrigger) {
+        activeStoryTrigger.classList.add("completed");
+        activeStoryTrigger.setAttribute("aria-pressed", "true");
+      }
+      storyDialogueOverlay.hidden = true;
+      const returnTarget = activeStoryTrigger;
+      activeStoryTrigger = null;
+      if (returnTarget) returnTarget.focus();
+    }
+
+    function showStoryReply(choice) {
+      storyDialogueSpeaker.textContent = choice.speaker;
+      storyDialogueImage.src = choice.image;
+      storyDialogueImage.alt = choice.speaker;
+      storyDialogueLead.textContent = "你選擇：『" + choice.label + "』";
+      storyDialogueText.textContent = choice.reply;
+      storyDialogueChoices.innerHTML = "";
+      const continueButton = document.createElement("button");
+      continueButton.type = "button";
+      continueButton.className = "story-dialogue-choice continue-choice";
+      continueButton.textContent = "我懂了，繼續探索 →";
+      continueButton.addEventListener("click", function () { closeStoryDialogue(true); });
+      storyDialogueChoices.appendChild(continueButton);
+      continueButton.focus();
+    }
+
+    function openStoryDialogue(key, trigger) {
+      const story = storyDialogues[key];
+      if (!story) return;
+      activeStoryTrigger = trigger;
+      storyDialogueKicker.textContent = story.kicker;
+      storyDialogueSpeaker.textContent = story.speaker;
+      storyDialogueImage.src = story.image;
+      storyDialogueImage.alt = story.speaker;
+      storyDialogueLead.textContent = "如果是你，會怎麼接話？";
+      storyDialogueText.textContent = story.text;
+      storyDialogueChoices.innerHTML = "";
+      story.choices.forEach(function (choice) {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "story-dialogue-choice";
+        button.textContent = choice.label;
+        button.addEventListener("click", function () { showStoryReply(choice); });
+        storyDialogueChoices.appendChild(button);
+      });
+      storyDialogueOverlay.hidden = false;
+      window.requestAnimationFrame(function () {
+        const firstChoice = storyDialogueChoices.querySelector("button");
+        if (firstChoice) firstChoice.focus();
+      });
+    }
+
+    document.querySelectorAll("[data-story-dialogue]").forEach(function (button) {
+      button.addEventListener("click", function () { openStoryDialogue(button.dataset.storyDialogue, button); });
+    });
+    storyDialogueClose.addEventListener("click", function () { closeStoryDialogue(false); });
+    storyDialogueOverlay.addEventListener("click", function (event) {
+      if (event.target === storyDialogueOverlay) closeStoryDialogue(false);
+    });
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && !storyDialogueOverlay.hidden) closeStoryDialogue(false);
+    });
+
+    function prepareViewportScreens() {
+      screens.forEach(function (screen) {
+        const panel = screen.querySelector(":scope > .panel");
+        if (!panel || panel.querySelector(":scope > .screen-fit")) return;
+        const content = document.createElement("div");
+        content.className = "screen-fit";
+        while (panel.firstChild) content.appendChild(panel.firstChild);
+        panel.appendChild(content);
+      });
+    }
+
+    let fitFrame = 0;
+    function fitActiveScreen() {
+      window.cancelAnimationFrame(fitFrame);
+      fitFrame = window.requestAnimationFrame(function () {
+        const screen = document.querySelector(".screen.active");
+        const panel = screen && screen.querySelector(":scope > .panel");
+        const content = panel && panel.querySelector(":scope > .screen-fit");
+        if (!panel || !content) return;
+
+        content.style.transform = "scale(1)";
+        const panelStyle = window.getComputedStyle(panel);
+        const availableHeight = panel.clientHeight - parseFloat(panelStyle.paddingTop) - parseFloat(panelStyle.paddingBottom);
+        const availableWidth = panel.clientWidth - parseFloat(panelStyle.paddingLeft) - parseFloat(panelStyle.paddingRight);
+        const scale = Math.min(1, availableHeight / content.scrollHeight, availableWidth / content.scrollWidth);
+        content.style.transform = "scale(" + scale + ")";
+      });
+    }
+
+    const state = {
+      screen: 1,
+      introTools: new Set(),
+      introCases: new Set(),
+      introQuizPassed: false,
+      openingFeeling: "",
+      closingFeeling: "",
+      worries: new Set(),
+      tools: new Set(),
+      flowSolved: false,
+      flowStep: 0,
+      shields: 0,
+      cases: new Set(),
+      scenarioIndex: 0,
+      completedScenarios: new Set()
+    };
+
+    function showScreen(number) {
+      const focusedElement = document.activeElement;
+      if (focusedElement instanceof HTMLElement) {
+        focusedElement.blur();
+      }
+
+      state.screen = number;
+      screens.forEach(function (screen) {
+        const active = Number(screen.dataset.screen) === number;
+        screen.classList.toggle("active", active);
+        screen.inert = !active;
+      });
+
+      progressDots.forEach(function (dot, index) {
+        dot.classList.toggle("done", index < number - 1);
+        dot.classList.toggle("current", index === number - 1);
+        dot.textContent = index < number - 1 ? "✓" : String(index + 1);
+      });
+
+      actLabel.textContent = actNames[number - 1];
+      progressCount.textContent = number + " / 14";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      fitActiveScreen();
+
+      const heading = document.querySelector("#screen" + number + " h1, #screen" + number + " h2");
+      if (heading) {
+        heading.setAttribute("tabindex", "-1");
+        window.setTimeout(function () {
+          heading.focus({ preventScroll: true });
+        }, 100);
+      }
+
+      if (number === 14) createConfetti();
+    }
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add("show");
+      window.clearTimeout(showToast.timer);
+      showToast.timer = window.setTimeout(function () {
+        toast.classList.remove("show");
+      }, 2500);
+    }
+
+    document.addEventListener("click", function (event) {
+      const goButton = event.target.closest("[data-go]");
+      if (goButton) showScreen(Number(goButton.dataset.go));
+    });
+
+    document.querySelectorAll(".intro-story-choice").forEach(function (button) {
+      button.addEventListener("click", function () {
+        const response = document.getElementById("introStoryResponse");
+        document.querySelectorAll(".intro-story-choice").forEach(function (choice) {
+          choice.classList.remove("correct");
+          choice.setAttribute("aria-pressed", String(choice === button));
+        });
+        button.classList.add("correct");
+
+        if (button.dataset.introStory === "afraid") {
+          response.textContent =
+            "韋登牙醫：有時候治療可能會有不舒服的感覺，但牙醫會先檢查、說明。你也可以把自己的感覺告訴牙醫，知道等等要做什麼，就會安心很多。";
+        } else {
+          response.textContent =
+            "韋登牙醫：太好了！我們慢慢看，有任何不明白或不舒服的地方，都可以提出來。";
+        }
+        response.classList.add("show");
+        document.getElementById("introStoryContinue").classList.remove("hidden");
+      });
+    });
+
+    const introToolData = {
+      light: {
+        icon: "🔦",
+        title: "診療燈",
+        text: "診療燈會照亮嘴巴，幫助牙醫把牙齒看清楚。"
+      },
+      mirror: {
+        icon: "🪞",
+        title: "牙科小鏡子",
+        text: "小鏡子可以幫助牙醫看到牙齒後面，還有平常不容易看到的地方。"
+      },
+      check: {
+        icon: "🦷",
+        title: "牙齒檢查",
+        text: "牙醫會仔細看看牙齒和牙齦，確認它們是不是健康。"
+      },
+      clean: {
+        icon: "✨",
+        title: "清潔牙齒",
+        text: "牙醫可以幫忙處理一些自己刷牙時不容易清除的髒東西。"
+      }
+    };
+
+    document.querySelectorAll(".intro-tool").forEach(function (button) {
+      button.addEventListener("click", function () {
+        const key = button.dataset.introTool;
+        const data = introToolData[key];
+        state.introTools.add(key);
+        button.classList.add("visited");
+        button.setAttribute("aria-pressed", "true");
+        document.getElementById("introToolIcon").textContent = data.icon;
+        document.getElementById("introToolTitle").textContent = data.title;
+        document.getElementById("introToolText").textContent = data.text;
+        document.getElementById("introToolCounter").textContent =
+          "已探索 " + state.introTools.size + " / 4";
+
+        const info = document.getElementById("introToolInfo");
+        info.classList.remove("animate");
+        void info.offsetWidth;
+        info.classList.add("animate");
+
+        if (state.introTools.size === 4) {
+          document.getElementById("introToolsComplete").classList.add("show");
+          showToast("第一段的四個項目全部探索完成！");
+        }
+      });
+    });
+
+    const introCaseData = {
+      cavity: {
+        title: "蛀牙",
+        text: "如果牙齒長時間沒有好好清潔，加上常吃含糖食物，就可能增加蛀牙的機會。牙醫可以幫忙檢查牙齒有沒有蛀牙。"
+      },
+      calculus: {
+        title: "牙結石",
+        text: "牙齒上的牙菌斑如果長時間沒有清潔乾淨，可能慢慢形成較硬的牙結石。牙醫可以判斷是不是需要專業清潔。"
+      },
+      gum: {
+        title: "牙齦紅紅的",
+        text: "如果牙齒周圍沒有清潔乾淨，牙齦有時可能紅紅的或容易流血。發現不舒服時可以告訴家長，再請牙醫看看。"
+      }
+    };
+
+    document.querySelectorAll(".intro-case").forEach(function (button) {
+      button.addEventListener("click", function () {
+        const key = button.dataset.introCase;
+        const data = introCaseData[key];
+        state.introCases.add(key);
+        button.classList.add("viewed");
+        button.setAttribute("aria-pressed", "true");
+        document.getElementById("introCaseCounter").textContent =
+          "已查看 " + state.introCases.size + " / 3 張牙齒問題卡";
+        document.getElementById("introCaseAnswer").innerHTML =
+          "<h3>" + data.title + "</h3><p>" + data.text + "</p>";
+
+        if (state.introCases.size === 3) {
+          document.getElementById("introQuiz").classList.remove("hidden");
+          showToast("三張牙齒問題卡都看完了！");
+        }
+      });
+    });
+
+    const introQuizOptions = Array.from(document.querySelectorAll(".intro-quiz-option"));
+    introQuizOptions.forEach(function (button) {
+      button.addEventListener("click", function () {
+        introQuizOptions.forEach(function (option) {
+          option.classList.remove("correct", "wrong");
+        });
+        const feedback = document.getElementById("introQuizFeedback");
+        feedback.className = "feedback show";
+
+        if (button.dataset.introAnswer === "correct") {
+          state.introQuizPassed = true;
+          button.classList.add("correct");
+          feedback.classList.add("good");
+          feedback.textContent =
+            "答對了！定期檢查，可以幫助我們提早注意牙齒的健康狀況。";
+          document.getElementById("introQuizContinue").classList.remove("hidden");
+        } else {
+          button.classList.add("wrong");
+          feedback.classList.add("try");
+          feedback.textContent =
+            "再想想看～如果可以在牙齒還沒有痛以前就發現問題，是不是會更好呢？";
+        }
+      });
+    });
+
+    function setupFeelings(containerId, isOpening) {
+      const container = document.getElementById(containerId);
+      const buttons = Array.from(container.querySelectorAll(".emotion-button"));
+
+      buttons.forEach(function (button) {
+        button.addEventListener("click", function () {
+          buttons.forEach(function (item) {
+            item.classList.toggle("selected", item === button);
+            item.setAttribute("aria-pressed", String(item === button));
+          });
+
+          if (isOpening) {
+            state.openingFeeling = button.dataset.feeling;
+            document.getElementById("openingResponse").classList.add("show");
+            document.getElementById("openingContinue").classList.remove("hidden");
+          } else {
+            state.closingFeeling = button.dataset.feeling;
+            document.getElementById("closingResponse").classList.add("show");
+            document.getElementById("learningCards").classList.add("show");
+            document.getElementById("reviewDialogue").classList.add("show");
+            document.getElementById("reviewContinue").classList.remove("hidden");
+          }
+        });
+      });
+    }
+
+    setupFeelings("openingEmotions", true);
+    setupFeelings("closingEmotions", false);
+
+    const worryReplies = {
+      unknown: "不知道接下來會發生什麼，確實很容易讓人緊張。所以我們今天先從認識看牙流程開始。",
+      hurt: "有些檢查或治療可能會有不舒服的感覺。如果你覺得緊張或不舒服，可以告訴牙醫，讓醫師知道你的感覺。",
+      why: "牙醫不只是處理牙痛。牙齒還沒痛的時候來檢查，也可以提早發現需要注意的地方。"
+    };
+
+    document.querySelectorAll(".worry-card").forEach(function (card) {
+      card.addEventListener("click", function () {
+        const key = card.dataset.worry;
+        state.worries.add(key);
+        card.classList.add("viewed");
+        card.setAttribute("aria-pressed", "true");
+        document.getElementById("worryCounter").textContent = "已了解 " + state.worries.size + " / 3 個疑問";
+        document.getElementById("worryAnswer").innerHTML =
+          "<h3>🧑‍⚕️ 韋登牙醫</h3><p>" + worryReplies[key] + "</p>";
+
+        if (state.worries.size === 3) {
+          document.getElementById("worryContinue").classList.remove("hidden");
+          showToast("三個疑問都了解了！");
+        }
+      });
+    });
+
+    const toolData = {
+      chair: {
+        icon: "💺",
+        title: "診療椅",
+        yabao: "「原來這張椅子會慢慢往後躺！」",
+        dentist: "「它讓病人舒服地躺著，也方便牙醫清楚檢查牙齒。」"
+      },
+      light: {
+        icon: "🔦",
+        title: "診療燈",
+        yabao: "「這盞燈好亮，是要做什麼的呢？」",
+        dentist: "「它可以照亮嘴巴，幫助我清楚看到裡面的牙齒。」"
+      },
+      mirror: {
+        icon: "🪞",
+        title: "牙科小鏡子",
+        yabao: "「原來這個小鏡子不是普通鏡子！」",
+        dentist: "「對呀，它可以幫我看到牙齒後面等平常不容易看清楚的位置。」"
+      },
+      clean: {
+        icon: "😷",
+        title: "手套口罩",
+        yabao: "「牙醫為什麼要戴手套和口罩呢？」",
+        dentist: "「它們可以幫助診療過程保持清潔與衛生。」"
+      },
+      suction: {
+        icon: "🥤",
+        title: "吸唾管",
+        yabao: "「這根小管子會發出聲音耶！」",
+        dentist: "「它會協助吸走口中的水與唾液，讓檢查更方便。」"
+      },
+      model: {
+        icon: "🦷",
+        title: "牙齒模型",
+        yabao: "「這顆牙齒模型比我的牙齒大好多！」",
+        dentist: "「我可以利用模型說明牙齒的位置，也可以示範刷牙方式。」"
+      }
+    };
+
+    document.querySelectorAll(".hotspot").forEach(function (button) {
+      button.addEventListener("click", function () {
+        const key = button.dataset.tool;
+        const data = toolData[key];
+        state.tools.add(key);
+        button.classList.add("visited");
+        button.setAttribute("aria-pressed", "true");
+
+        document.getElementById("roomCounter").textContent = "診間探索：" + state.tools.size + " / 6";
+        document.getElementById("toolIcon").textContent = data.icon;
+        document.getElementById("toolTitle").textContent = data.title;
+        document.getElementById("toolYabao").innerHTML = "<strong>牙寶：</strong>" + data.yabao;
+        document.getElementById("toolDentist").innerHTML = "<strong>韋登牙醫：</strong>" + data.dentist;
+
+        const info = document.getElementById("toolInfo");
+        info.classList.remove("animate");
+        void info.offsetWidth;
+        info.classList.add("animate");
+
+        if (state.tools.size === 6) {
+          document.getElementById("roomComplete").classList.add("show");
+          showToast("六個診間物件全部探索完成！");
+        }
+      });
+    });
+
+    const flowItems = [
+      { id: 1, label: "報到與等待" },
+      { id: 2, label: "坐上診療椅" },
+      { id: 3, label: "張開嘴巴讓牙醫檢查" },
+      { id: 4, label: "醫師告訴你牙齒的狀況" },
+      { id: 5, label: "完成檢查" }
+    ];
+
+    let flowOrder = [3, 1, 5, 2, 4];
+    let draggedId = null;
+
+    function renderSortList() {
+      const list = document.getElementById("sortList");
+      list.innerHTML = "";
+
+      flowOrder.forEach(function (id, index) {
+        const item = flowItems.find(function (flowItem) {
+          return flowItem.id === id;
+        });
+        const li = document.createElement("li");
+        li.className = "sort-card";
+        li.draggable = !state.flowSolved;
+        li.dataset.id = String(id);
+        li.innerHTML =
+          '<span class="drag-handle" aria-hidden="true">☰</span>' +
+          '<span class="sort-text">' + item.label + "</span>" +
+          '<span class="sort-actions">' +
+          '<button class="move-button" type="button" data-move="up" aria-label="將「' + item.label + '」往上移">↑</button>' +
+          '<button class="move-button" type="button" data-move="down" aria-label="將「' + item.label + '」往下移">↓</button>' +
+          "</span>";
+
+        if (state.flowSolved) {
+          li.classList.add("correct-place");
+          li.querySelectorAll("button").forEach(function (button) {
+            button.disabled = true;
+          });
+        }
+
+        li.addEventListener("dragstart", function () {
+          draggedId = id;
+          li.classList.add("dragging");
+        });
+        li.addEventListener("dragend", function () {
+          draggedId = null;
+          li.classList.remove("dragging");
+        });
+        li.addEventListener("dragover", function (event) {
+          event.preventDefault();
+        });
+        li.addEventListener("drop", function (event) {
+          event.preventDefault();
+          if (draggedId === null || draggedId === id || state.flowSolved) return;
+          const fromIndex = flowOrder.indexOf(draggedId);
+          const toIndex = flowOrder.indexOf(id);
+          flowOrder.splice(fromIndex, 1);
+          flowOrder.splice(toIndex, 0, draggedId);
+          renderSortList();
+        });
+
+        li.querySelector('[data-move="up"]').addEventListener("click", function () {
+          moveFlowItem(index, -1);
+        });
+        li.querySelector('[data-move="down"]').addEventListener("click", function () {
+          moveFlowItem(index, 1);
+        });
+
+        list.appendChild(li);
+      });
+    }
+
+    function moveFlowItem(index, direction) {
+      if (state.flowSolved) return;
+      const target = index + direction;
+      if (target < 0 || target >= flowOrder.length) return;
+      const temporary = flowOrder[index];
+      flowOrder[index] = flowOrder[target];
+      flowOrder[target] = temporary;
+      renderSortList();
+    }
+
+    const flowStories = [
+      {
+        title: "報到與等待",
+        icon: "📝",
+        text: "先到櫃台報到，再在候診區稍微等待。輪到牙寶時，工作人員會叫他的名字。"
+      },
+      {
+        title: "坐上診療椅",
+        icon: "💺",
+        text: "牙寶：「椅子怎麼開始往後倒了！」 韋登牙醫：「這是為了讓我比較容易看清楚你的牙齒，你只需要舒服地坐好就可以囉。」"
+      },
+      {
+        title: "張開嘴巴讓牙醫檢查",
+        icon: "🪞",
+        text: "韋登牙醫：「首先我可能會利用燈光和小鏡子看看每一顆牙齒。有任何不舒服，都可以讓我知道。」"
+      },
+      {
+        title: "醫師告訴你牙齒的狀況",
+        icon: "💬",
+        text: "檢查後，牙醫會說明牙齒現在的狀況，也可能告訴你接下來怎麼照顧牙齒。"
+      },
+      {
+        title: "完成檢查",
+        icon: "✅",
+        text: "韋登牙醫：「完成啦！檢查不一定代表牙齒有問題，而是先了解牙齒現在的狀況。」"
+      }
+    ];
+
+    function showFlowStory(index) {
+      state.flowStep = index;
+      const story = flowStories[index];
+      document.getElementById("flowPlaceholder").classList.add("hidden");
+      document.getElementById("flowContent").innerHTML =
+        '<div class="flow-step active">' +
+        '<div class="flow-number">' + (index + 1) + " / 5</div>" +
+        "<h3>" + story.icon + " " + story.title + "</h3>" +
+        "<p>" + story.text + "</p>" +
+        (index === 4
+          ? '<p class="core-message">知道下一步會發生什麼，陌生的感覺就會少一點。</p>'
+          : "") +
+        "</div>";
+
+      const action = document.getElementById("flowAction");
+      action.classList.remove("hidden");
+      if (index < 4) {
+        action.innerHTML = '<button class="primary" type="button" id="nextFlowStep">看下一步 →</button>';
+        document.getElementById("nextFlowStep").addEventListener("click", function () {
+          showFlowStory(index + 1);
+        });
+      } else {
+        action.innerHTML = '<button class="primary" type="button" data-go="10">前往牙齒守護中心 →</button>';
+      }
+    }
+
+    document.getElementById("checkOrderButton").addEventListener("click", function () {
+      const correct = flowOrder.every(function (id, index) {
+        return id === index + 1;
+      });
+      const feedback = document.getElementById("sortFeedback");
+      feedback.className = "feedback show " + (correct ? "good" : "try");
+
+      if (correct) {
+        state.flowSolved = true;
+        feedback.textContent = "排列正確！現在跟著牙寶一步一步看看完整流程。";
+        document.getElementById("checkOrderButton").disabled = true;
+        renderSortList();
+        showFlowStory(0);
+        showToast("看牙流程排列完成！");
+      } else {
+        feedback.textContent = "好像有一張跑錯位置了，再試試看！";
+      }
+    });
+
+    renderSortList();
+
+    const shieldButtons = Array.from(document.querySelectorAll(".shield"));
+    shieldButtons.forEach(function (button, index) {
+      button.addEventListener("click", function () {
+        if (button.disabled || button.classList.contains("opened") || index !== state.shields) return;
+        button.classList.remove("unlocked");
+        button.classList.add("opened");
+        button.querySelector(".shield-lock").textContent = "已解鎖";
+        state.shields += 1;
+
+        if (state.shields < shieldButtons.length) {
+          const next = shieldButtons[state.shields];
+          next.disabled = false;
+          next.classList.add("unlocked");
+          next.querySelector(".shield-lock").textContent = "點擊解鎖";
+        } else {
+          document.getElementById("shieldReward").classList.add("show");
+          showToast("獲得牙齒守護盾！");
+        }
+      });
+    });
+
+    function activateCase(index) {
+      document.querySelectorAll("[data-case-stage]").forEach(function (stage) {
+        stage.classList.toggle("active", Number(stage.dataset.caseStage) === index);
+      });
+      document.querySelectorAll("[data-case-tab]").forEach(function (tab) {
+        const tabIndex = Number(tab.dataset.caseTab);
+        tab.classList.toggle("active", tabIndex === index);
+        tab.classList.toggle("done", state.cases.has(tabIndex));
+      });
+    }
+
+    document.querySelectorAll("[data-case-stage]").forEach(function (stage) {
+      const caseIndex = Number(stage.dataset.caseStage);
+      const options = Array.from(stage.querySelectorAll("[data-case-answer]"));
+      const feedback = stage.querySelector(".case-feedback");
+      const explanation = stage.querySelector(".case-explanation");
+      const nextArea = stage.querySelector(".case-next");
+
+      options.forEach(function (button) {
+        button.addEventListener("click", function () {
+          options.forEach(function (option) {
+            option.classList.remove("correct", "wrong");
+          });
+          feedback.className = "feedback show";
+
+          if (button.dataset.caseAnswer === "correct") {
+            button.classList.add("correct");
+            feedback.classList.add("good");
+            feedback.textContent = "線索判斷正確！";
+            explanation.classList.add("show");
+            nextArea.classList.remove("hidden");
+            state.cases.add(caseIndex);
+            options.forEach(function (option) {
+              option.disabled = true;
+            });
+            document.querySelector('[data-case-tab="' + caseIndex + '"]').classList.add("done");
+          } else {
+            button.classList.add("wrong");
+            feedback.classList.add("try");
+            feedback.textContent = "這個方法不太適合，再觀察線索想一想！";
+          }
+        });
+      });
+    });
+
+    document.querySelectorAll("[data-next-case]").forEach(function (button) {
+      button.addEventListener("click", function () {
+        activateCase(Number(button.dataset.nextCase));
+      });
+    });
+
+    document.getElementById("finishCases").addEventListener("click", function () {
+      document.getElementById("detectiveReward").classList.add("show");
+      document.getElementById("detectiveReward").scrollIntoView({ behavior: "smooth", block: "nearest" });
+      showToast("三個案件全部破解！");
+    });
+
+    const scenarios = [
+      {
+        icon: "😟",
+        title: "情境一",
+        question: "明天要看牙醫，你有點緊張。你會怎麼做？",
+        options: [
+          { text: "什麼都不說", correct: false },
+          { text: "告訴家長或牙醫我有點緊張", correct: true }
+        ],
+        success: "很好！讓別人知道你的感覺，可以讓他們更容易幫助你。"
+      },
+      {
+        icon: "📅",
+        title: "情境二",
+        question: "牙齒沒有痛，但是到了定期檢查的時間。你會怎麼做？",
+        options: [
+          { text: "還是可以去檢查", correct: true },
+          { text: "一定要等牙齒痛才能去", correct: false }
+        ],
+        success: "沒錯！有些問題剛開始不一定會痛，定期檢查可以提早注意。"
+      },
+      {
+        icon: "🤕",
+        title: "情境三",
+        question: "牙齒開始痛了，但是因為害怕不想說。你會怎麼做？",
+        options: [
+          { text: "告訴家長", correct: true },
+          { text: "一直忍耐，不告訴任何人", correct: false }
+        ],
+        success: "做得好！告訴家長自己的狀況，才能一起想辦法處理。"
+      },
+      {
+        icon: "✋",
+        title: "情境四",
+        question: "牙醫正在檢查，你突然覺得不舒服。你會怎麼做？",
+        options: [
+          { text: "讓牙醫知道", correct: true },
+          { text: "勉強忍住，什麼都不說", correct: false }
+        ],
+        success: "很好！緊張或不舒服時可以說出來，讓牙醫知道你的感覺。"
+      }
+    ];
+
+    function renderScenario() {
+      const index = state.scenarioIndex;
+      const data = scenarios[index];
+      document.getElementById("scenarioIcon").textContent = data.icon;
+      document.getElementById("scenarioTitle").textContent = data.title;
+      document.getElementById("scenarioQuestion").textContent = data.question;
+      document.getElementById("scenarioFeedback").className = "feedback";
+      document.getElementById("scenarioFeedback").textContent = "";
+      document.getElementById("scenarioNextArea").classList.add("hidden");
+      document.getElementById("scenarioNextArea").innerHTML = "";
+
+      document.querySelectorAll("[data-scenario-dot]").forEach(function (dot) {
+        const dotIndex = Number(dot.dataset.scenarioDot);
+        dot.classList.toggle("active", dotIndex === index);
+        dot.classList.toggle("done", state.completedScenarios.has(dotIndex));
+      });
+
+      const options = document.getElementById("scenarioOptions");
+      options.innerHTML = "";
+      data.options.forEach(function (optionData) {
+        const button = document.createElement("button");
+        button.className = "option";
+        button.type = "button";
+        button.textContent = optionData.text;
+        button.addEventListener("click", function () {
+          Array.from(options.children).forEach(function (item) {
+            item.classList.remove("correct", "wrong");
+          });
+
+          const feedback = document.getElementById("scenarioFeedback");
+          feedback.className = "feedback show";
+          if (optionData.correct) {
+            button.classList.add("correct");
+            feedback.classList.add("good");
+            feedback.textContent = data.success;
+            state.completedScenarios.add(index);
+            Array.from(options.children).forEach(function (item) {
+              item.disabled = true;
+            });
+            document.querySelector('[data-scenario-dot="' + index + '"]').classList.add("done");
+
+            const nextArea = document.getElementById("scenarioNextArea");
+            nextArea.classList.remove("hidden");
+            if (index < scenarios.length - 1) {
+              nextArea.innerHTML = '<button class="primary" type="button" id="nextScenario">下一個情境 →</button>';
+              document.getElementById("nextScenario").addEventListener("click", function () {
+                state.scenarioIndex += 1;
+                renderScenario();
+              });
+            } else {
+              nextArea.innerHTML = '<button class="primary" type="button" id="finishScenarios">完成情境挑戰</button>';
+              document.getElementById("finishScenarios").addEventListener("click", function () {
+                document.getElementById("scenarioFinish").classList.add("show");
+                document.getElementById("scenarioFinish").scrollIntoView({ behavior: "smooth", block: "nearest" });
+                showToast("四個情境全部完成！");
+              });
+            }
+          } else {
+            button.classList.add("wrong");
+            feedback.classList.add("try");
+            feedback.textContent = "再想一想：哪一個做法能讓別人知道你的狀況，也更容易幫助你？";
+          }
+        });
+        options.appendChild(button);
+      });
+    }
+
+    renderScenario();
+
+    function createConfetti() {
+      const confetti = document.getElementById("confetti");
+      const colors = ["#ff8a2b", "#ffd95a", "#3ba87b", "#2b579a", "#8edbff"];
+      confetti.innerHTML = "";
+
+      for (let index = 0; index < 32; index += 1) {
+        const piece = document.createElement("span");
+        piece.className = "confetti-piece";
+        piece.style.left = Math.random() * 100 + "%";
+        piece.style.background = colors[index % colors.length];
+        piece.style.animationDelay = Math.random() * 0.75 + "s";
+        piece.style.setProperty("--drift", Math.random() * 180 - 90 + "px");
+        confetti.appendChild(piece);
+      }
+    }
+
+    document.getElementById("gameButton").addEventListener("click", function () {
+      window.location.href = GAME_URL;
+    });
+
+    function resetExperience() {
+      state.screen = 1;
+      state.introTools.clear();
+      state.introCases.clear();
+      state.introQuizPassed = false;
+      state.openingFeeling = "";
+      state.closingFeeling = "";
+      state.worries.clear();
+      state.tools.clear();
+      state.flowSolved = false;
+      state.flowStep = 0;
+      state.shields = 0;
+      state.cases.clear();
+      state.scenarioIndex = 0;
+      state.completedScenarios.clear();
+
+      document.querySelectorAll(".intro-story-choice").forEach(function (button) {
+        button.classList.remove("correct");
+        button.removeAttribute("aria-pressed");
+      });
+      document.getElementById("introStoryResponse").classList.remove("show");
+      document.getElementById("introStoryResponse").textContent = "";
+      document.getElementById("introStoryContinue").classList.add("hidden");
+
+      document.querySelectorAll(".intro-tool").forEach(function (button) {
+        button.classList.remove("visited");
+        button.removeAttribute("aria-pressed");
+      });
+      document.getElementById("introToolIcon").textContent = "👆";
+      document.getElementById("introToolTitle").textContent = "選一個項目看看";
+      document.getElementById("introToolText").textContent =
+        "每一項都有不同的用途，四個全部看完才能繼續。";
+      document.getElementById("introToolCounter").textContent = "已探索 0 / 4";
+      document.getElementById("introToolsComplete").classList.remove("show");
+
+      document.querySelectorAll(".intro-case").forEach(function (button) {
+        button.classList.remove("viewed");
+        button.removeAttribute("aria-pressed");
+      });
+      document.getElementById("introCaseCounter").textContent = "已查看 0 / 3 張牙齒問題卡";
+      document.getElementById("introCaseAnswer").innerHTML =
+        "<h3>先選一張卡片</h3><p>牙醫可以幫忙檢查牙齒與牙齦，提早注意需要處理的地方。</p>";
+      document.getElementById("introQuiz").classList.add("hidden");
+      document.getElementById("introQuizFeedback").className = "feedback";
+      document.getElementById("introQuizFeedback").textContent = "";
+      document.getElementById("introQuizContinue").classList.add("hidden");
+      introQuizOptions.forEach(function (button) {
+        button.classList.remove("correct", "wrong");
+      });
+
+      document.querySelectorAll(".emotion-button").forEach(function (button) {
+        button.classList.remove("selected");
+        button.removeAttribute("aria-pressed");
+      });
+      document.querySelectorAll(".response-box").forEach(function (box) {
+        box.classList.remove("show");
+      });
+      document.getElementById("openingContinue").classList.add("hidden");
+      document.getElementById("learningCards").classList.remove("show");
+      document.getElementById("reviewDialogue").classList.remove("show");
+      document.getElementById("reviewContinue").classList.add("hidden");
+
+      document.querySelectorAll(".worry-card").forEach(function (card) {
+        card.classList.remove("viewed");
+        card.removeAttribute("aria-pressed");
+      });
+      document.getElementById("worryCounter").textContent = "已了解 0 / 3 個疑問";
+      document.getElementById("worryAnswer").innerHTML =
+        "<h3>🧑‍⚕️ 韋登牙醫</h3><p>選一張牙寶的擔心卡，我們一起找答案。</p>";
+      document.getElementById("worryContinue").classList.add("hidden");
+
+      document.querySelectorAll(".hotspot").forEach(function (button) {
+        button.classList.remove("visited");
+        button.removeAttribute("aria-pressed");
+      });
+      document.getElementById("roomCounter").textContent = "診間探索：0 / 6";
+      document.getElementById("toolIcon").textContent = "👆";
+      document.getElementById("toolTitle").textContent = "先找一個物件";
+      document.getElementById("toolYabao").innerHTML =
+        "<strong>牙寶：</strong>「診間裡有好多東西，原來都可以點點看！」";
+      document.getElementById("toolDentist").innerHTML =
+        "<strong>韋登牙醫：</strong>「慢慢探索，知道用途以後，就不會那麼陌生了。」";
+      document.getElementById("roomComplete").classList.remove("show");
+
+      flowOrder = [3, 1, 5, 2, 4];
+      document.getElementById("checkOrderButton").disabled = false;
+      document.getElementById("sortFeedback").className = "feedback";
+      document.getElementById("flowPlaceholder").classList.remove("hidden");
+      document.getElementById("flowContent").innerHTML = "";
+      document.getElementById("flowAction").classList.add("hidden");
+      document.getElementById("flowAction").innerHTML = "";
+      renderSortList();
+
+      shieldButtons.forEach(function (button, index) {
+        button.classList.remove("opened", "unlocked");
+        button.disabled = index !== 0;
+        button.querySelector(".shield-lock").textContent = index === 0 ? "點擊解鎖" : "🔒 尚未解鎖";
+        if (index === 0) button.classList.add("unlocked");
+      });
+      document.getElementById("shieldReward").classList.remove("show");
+
+      document.querySelectorAll("[data-case-stage]").forEach(function (stage) {
+        stage.querySelectorAll(".option").forEach(function (option) {
+          option.disabled = false;
+          option.classList.remove("correct", "wrong");
+        });
+        stage.querySelector(".case-feedback").className = "feedback case-feedback";
+        stage.querySelector(".case-explanation").classList.remove("show");
+        stage.querySelector(".case-next").classList.add("hidden");
+      });
+      document.getElementById("detectiveReward").classList.remove("show");
+      activateCase(0);
+
+      document.getElementById("scenarioFinish").classList.remove("show");
+      renderScenario();
+      showScreen(1);
+      showToast("已回到冒險起點！");
+    }
+
+    document.getElementById("restartButton").addEventListener("click", resetExperience);
+    document.getElementById("learnAgainButton").addEventListener("click", resetExperience);
+    prepareViewportScreens();
+    window.addEventListener("resize", fitActiveScreen);
+    const screenFitObserver = new ResizeObserver(fitActiveScreen);
+    document.querySelectorAll(".screen-fit").forEach(function (content) { screenFitObserver.observe(content); });
+    showScreen(Number(new URLSearchParams(window.location.search).get("screen")) || 1);
+  </script>
+</body>
+</html>
