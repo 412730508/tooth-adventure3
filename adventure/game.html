@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>牙寶歷險記 - 題庫挑戰</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            background: #000;
+            font-family: "Noto Sans TC", "微軟正黑體", Arial, sans-serif;
+        }
+
+        .game-page {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            background: #000;
+        }
+
+        .c3-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+            background: #000;
+        }
+
+        .top-control {
+            position: fixed;
+            top: 18px;
+            right: 18px;
+            z-index: 999999;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .timer-badge {
+            padding: 10px 16px;
+            border-radius: 999px;
+            background: rgba(0, 0, 0, 0.65);
+            color: #fff;
+            font-size: 15px;
+            font-weight: 900;
+            border: 2px solid rgba(255,255,255,0.7);
+            box-shadow: 0 6px 14px rgba(0,0,0,0.25);
+            backdrop-filter: blur(4px);
+        }
+
+        .home-btn {
+            padding: 12px 22px;
+            border: none;
+            border-radius: 999px;
+            background: #ff9800;
+            color: white;
+            font-size: 18px;
+            font-weight: 900;
+            cursor: pointer;
+            box-shadow: 0 6px 0 #c45b00, 0 10px 18px rgba(0,0,0,0.28);
+            font-family: "Noto Sans TC", "微軟正黑體", Arial, sans-serif;
+            transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .home-btn:hover {
+            transform: translateY(-2px);
+            background: #ffa726;
+        }
+
+        .home-btn:active {
+            transform: translateY(5px);
+            box-shadow: 0 1px 0 #c45b00, 0 5px 10px rgba(0,0,0,0.2);
+        }
+
+        .hint {
+            position: fixed;
+            left: 18px;
+            bottom: 18px;
+            z-index: 999999;
+            padding: 10px 16px;
+            border-radius: 16px;
+            background: rgba(0,0,0,0.55);
+            color: white;
+            font-size: 14px;
+            font-weight: 700;
+            border: 1px solid rgba(255,255,255,0.45);
+            backdrop-filter: blur(4px);
+            pointer-events: none;
+        }
+
+        @media (max-width: 700px) {
+            .top-control {
+                top: 10px;
+                right: 10px;
+                gap: 6px;
+            }
+
+            .timer-badge {
+                font-size: 12px;
+                padding: 8px 10px;
+            }
+
+            .home-btn {
+                font-size: 14px;
+                padding: 9px 14px;
+            }
+
+            .hint {
+                font-size: 12px;
+                left: 10px;
+                bottom: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="game-page">
+        <iframe
+            class="c3-frame"
+            src="c3-game/index.html"
+            title="牙寶歷險記 C3 題庫挑戰">
+        </iframe>
+
+        <div class="top-control">
+            <div class="timer-badge" id="timerText">自動回首頁：05:00</div>
+            <button class="home-btn" onclick="goHome()">回到牙寶首頁</button>
+        </div>
+
+        <div class="hint">
+            完成挑戰後，可以按右上角「回到牙寶首頁」
+        </div>
+    </div>
+
+    <script>
+        /*
+            不用改 C3 專案的做法：
+            1. C3 遊戲放在 iframe 裡。
+            2. 右上角提供回首頁按鈕。
+            3. 設定時間到自動回首頁。
+
+            如果你不要自動回首頁，把 AUTO_RETURN_SECONDS 改成 0。
+            例如：
+            const AUTO_RETURN_SECONDS = 0;
+        */
+
+        const AUTO_RETURN_SECONDS = 0; // 讓玩家自行決定何時回到課程首頁
+
+        let remainingSeconds = AUTO_RETURN_SECONDS;
+        let countdownTimer = null;
+
+        function goHome() {
+            window.location.href = "../";
+        }
+
+        function updateTimerText() {
+            const timerText = document.getElementById("timerText");
+
+            if (AUTO_RETURN_SECONDS <= 0) {
+                timerText.style.display = "none";
+                return;
+            }
+
+            const minutes = Math.floor(remainingSeconds / 60);
+            const seconds = remainingSeconds % 60;
+
+            const mm = String(minutes).padStart(2, "0");
+            const ss = String(seconds).padStart(2, "0");
+
+            timerText.innerText = `自動回首頁：${mm}:${ss}`;
+        }
+
+        function startCountdown() {
+            if (AUTO_RETURN_SECONDS <= 0) {
+                updateTimerText();
+                return;
+            }
+
+            updateTimerText();
+
+            countdownTimer = setInterval(function () {
+                remainingSeconds--;
+
+                if (remainingSeconds <= 0) {
+                    clearInterval(countdownTimer);
+                    goHome();
+                    return;
+                }
+
+                updateTimerText();
+            }, 1000);
+        }
+
+        startCountdown();
+    </script>
+</body>
+</html>

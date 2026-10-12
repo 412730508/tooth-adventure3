@@ -308,6 +308,22 @@
       margin-top: 24px;
     }
 
+    .course-next {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 54px;
+      padding: 11px 20px;
+      border-radius: 18px;
+      color: #fff;
+      background: var(--blue-dark);
+      font-weight: 900;
+      text-decoration: none;
+    }
+
+    .course-next:hover,
+    .course-next:focus-visible { background: var(--blue); }
+
     .hidden {
       display: none !important;
     }
@@ -3468,6 +3484,7 @@
 
           <button class="game-button" id="gameButton" type="button">🎮 開始挑戰</button>
           <div class="center-actions">
+            <a class="course-next" href="../unit2/">前往第二單元 →</a>
             <button class="secondary" type="button" id="learnAgainButton">再體驗一次</button>
           </div>
         </div>

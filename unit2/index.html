@@ -384,6 +384,22 @@
     .hidden { display: none !important; }
     .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
 
+    .course-next {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 12px 20px;
+      border-radius: 4px;
+      color: #fff;
+      background: var(--navy);
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .course-next:hover,
+    .course-next:focus-visible { background: #0f2e45; }
+
     .interaction-help {
       margin: 0 0 14px;
       color: var(--muted);
@@ -1529,6 +1545,7 @@
           </div>
           <div class="actions" style="justify-content:center;">
             <button class="primary game-button" id="gameButton" type="button">🎮 開始挑戰</button>
+            <a class="course-next" href="../unit3/">前往第三單元 →</a>
             <button class="secondary" id="learnAgainButton" type="button" style="padding:12px 20px;">重新探索第二單元</button>
           </div>
         </div>

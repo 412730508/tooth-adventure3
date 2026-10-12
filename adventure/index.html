@@ -1,0 +1,1528 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>牙寶歷險記｜角色故事與題庫</title>
+
+    <style>
+        :root {
+            --bg-gradient-intro: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+            --bg-gradient-char: linear-gradient(to bottom, #87CEEB 0%, #E0F6FF 100%);
+            --text-dark: #3b3027;
+            --primary-orange: #ff9800;
+            --shadow-soft: 0 10px 25px rgba(0,0,0,0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Comic Sans MS", "Noto Sans TC", "微軟正黑體", Arial, sans-serif;
+            background:
+                linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25)),
+                url("首頁.png") center center / cover no-repeat fixed;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .game-canvas {
+            width: 100%;
+            max-width: 1200px;
+            aspect-ratio: 16 / 9;
+            border-radius: 20px;
+            box-shadow: 0 0 50px rgba(0,0,0,0.5);
+            position: relative;
+            overflow: hidden;
+            border: 4px solid #fff;
+            background: var(--bg-gradient-intro);
+        }
+
+        .screen {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(0.98);
+        }
+
+        .screen.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: scale(1);
+        }
+
+        .top-nav {
+            position: absolute;
+            top: 0;
+            left: 40px;
+            right: 40px;
+            height: 58px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px 22px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            z-index: 30;
+        }
+
+        .nav-logo {
+            font-size: 20px;
+            font-weight: 900;
+            color: #2b579a;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+            font-weight: bold;
+            color: #777;
+            font-size: 14px;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .nav-links a {
+            cursor: pointer;
+            transition: all 0.2s;
+            padding: 4px 0;
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-orange);
+            transform: translateY(-2px);
+        }
+
+        .nav-links a.active {
+            color: #2b579a;
+            border-bottom: 3px solid var(--primary-orange);
+        }
+
+        #screen-intro {
+            padding: 0;
+        }
+
+        .content-layer {
+            padding: 84px 40px 26px 40px;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            position: relative;
+        }
+
+        .deco {
+            position: absolute;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .bubble-1 {
+            width: 400px;
+            height: 400px;
+            background: rgba(255,255,255,0.28);
+            border-radius: 50%;
+            top: -150px;
+            left: -100px;
+        }
+
+        .bubble-2 {
+            width: 320px;
+            height: 320px;
+            background: rgba(255,255,255,0.22);
+            border-radius: 50%;
+            bottom: -110px;
+            right: -50px;
+        }
+
+        .star-1 {
+            font-size: 30px;
+            top: 14%;
+            left: 35%;
+            animation: blink 2s infinite;
+        }
+
+        .star-2 {
+            font-size: 40px;
+            top: 23%;
+            right: 39%;
+            animation: blink 3s infinite;
+        }
+
+        .tiny-tooth {
+            position: absolute;
+            font-size: 22px;
+            opacity: 0.7;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .tooth-a {
+            left: 5%;
+            top: 58%;
+        }
+
+        .tooth-b {
+            right: 10%;
+            top: 18%;
+            animation-delay: .8s;
+        }
+
+        .hero-layout {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+            margin-top: 0;
+            position: relative;
+            z-index: 2;
+            gap: 20px;
+        }
+
+        .hero-text {
+            flex: 1;
+            position: relative;
+            min-width: 0;
+        }
+
+        .hero-title {
+            font-size: 50px;
+            color: #fffaf0;
+            margin: 0;
+            font-weight: 900;
+            letter-spacing: 2px;
+            line-height: 1.08;
+            transform: rotate(-1.2deg);
+            text-shadow:
+                3px 3px 0 #2b579a,
+                -2px -2px 0 #2b579a,
+                2px -2px 0 #2b579a,
+                -2px 2px 0 #2b579a,
+                0 8px 15px rgba(0,0,0,0.22);
+            animation: titleWiggle 4s ease-in-out infinite;
+            position: relative;
+            display: inline-block;
+            max-width: 100%;
+        }
+
+        .hero-title::before {
+            content: "🦷";
+            position: absolute;
+            font-size: 28px;
+            left: -24px;
+            top: -14px;
+            transform: rotate(-18deg);
+            filter: drop-shadow(0 3px 0 #2b579a);
+        }
+
+        .hero-title::after {
+            content: "✦";
+            position: absolute;
+            font-size: 32px;
+            right: -30px;
+            top: -12px;
+            color: #ffeb6e;
+            text-shadow: 2px 2px 0 #2b579a;
+            animation: blink 1.6s infinite;
+        }
+
+        .hero-sub-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+            margin-top: 12px;
+        }
+
+        .hero-subtitle {
+            display: inline-block;
+            background-color: rgba(255,255,255,0.94);
+            color: #2b579a;
+            padding: 9px 23px;
+            border-radius: 26px 30px 23px 32px;
+            font-size: 18px;
+            font-weight: 900;
+            box-shadow: var(--shadow-soft);
+            transform: rotate(0.7deg);
+        }
+
+        .time-badge {
+            display: inline-flex;
+            align-items: center;
+            background-color: rgba(255,255,255,0.92);
+            color: #673ab7;
+            padding: 8px 18px;
+            border-radius: 28px 22px 30px 24px;
+            font-weight: 900;
+            font-size: 15px;
+            transform: rotate(-1deg);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .hero-characters {
+            display: flex;
+            align-items: flex-end;
+            gap: 12px;
+            position: relative;
+            margin-top: -6px;
+            flex-shrink: 0;
+            min-width: 190px;
+            justify-content: flex-end;
+        }
+
+        .hero-character-img {
+            object-fit: contain;
+            display: block;
+            user-select: none;
+            pointer-events: none;
+            filter: drop-shadow(0 10px 10px rgba(0,0,0,0.22));
+        }
+
+        .char-owl {
+            width: 76px;
+            height: 76px;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .char-boy {
+            width: 92px;
+            height: 92px;
+            animation: float 3.5s ease-in-out infinite 0.5s;
+        }
+
+        .magic-book {
+            position: absolute;
+            right: -34px;
+            top: -16px;
+            font-size: 42px;
+            animation: float 2.5s infinite;
+            filter: drop-shadow(0 10px 10px rgba(0,0,0,0.2));
+        }
+
+        .cards-container {
+            flex: 1;
+            z-index: 2;
+            position: relative;
+            min-height: 270px;
+        }
+
+        .card {
+            position: absolute;
+            transition: transform 0.25s ease, filter 0.25s ease;
+            color: var(--text-dark);
+        }
+
+        .card:hover {
+            filter: brightness(1.03);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 22px;
+            font-weight: 900;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+        }
+
+        .icon {
+            font-size: 24px;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: inset 0 -3px 0 rgba(0,0,0,0.12), 0 4px 8px rgba(0,0,0,0.14);
+            background: #fff9dd;
+            flex-shrink: 0;
+        }
+
+        .card-text {
+            font-size: 16px;
+            color: var(--text-dark);
+            line-height: 1.75;
+            font-weight: 800;
+            letter-spacing: 0.4px;
+        }
+
+        .game-list {
+            padding-left: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        .game-list li {
+            margin-bottom: 11px;
+            display: flex;
+            align-items: flex-start;
+            gap: 9px;
+        }
+
+        .quest-scroll {
+            left: 0;
+            top: 18px;
+            width: 34%;
+            min-height: 250px;
+            padding: 30px 32px 32px 40px;
+            background:
+                radial-gradient(circle at 16% 20%, rgba(255,255,255,0.75) 0 8%, transparent 9%),
+                linear-gradient(100deg, #fff7d8 0%, #ffe9ad 45%, #fff2c8 100%);
+            border: 4px solid #d2a85b;
+            border-radius: 42% 18% 32% 20% / 18% 36% 20% 30%;
+            box-shadow:
+                0 13px 18px rgba(80,46,12,0.22),
+                inset 0 0 0 3px rgba(255,255,255,0.35),
+                inset 18px 0 20px rgba(141,87,24,0.12);
+            clip-path: polygon(
+                3% 10%, 10% 4%, 25% 6%, 41% 3%, 58% 7%, 74% 4%, 92% 10%,
+                97% 25%, 94% 42%, 99% 58%, 94% 76%, 96% 92%, 78% 97%,
+                57% 94%, 39% 98%, 21% 94%, 7% 97%, 3% 82%, 6% 65%,
+                2% 48%, 6% 31%
+            );
+            transform: rotate(-2.2deg);
+        }
+
+        .quest-scroll:hover {
+            transform: rotate(-2.2deg) translateY(-7px);
+        }
+
+        .quest-scroll::before,
+        .quest-scroll::after {
+            content: "";
+            position: absolute;
+            top: 18px;
+            bottom: 18px;
+            width: 22px;
+            border-radius: 14px;
+            background: linear-gradient(#c79042, #f1ca7a, #9d682b);
+            box-shadow: inset 4px 0 rgba(255,255,255,0.25), 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .quest-scroll::before {
+            left: 10px;
+        }
+
+        .quest-scroll::after {
+            right: 10px;
+        }
+
+        .quest-scroll .card-header {
+            color: #7a4b15;
+            transform: rotate(0.8deg);
+        }
+
+        .quest-scroll .icon {
+            background: #ffffff;
+            border: 3px solid #9fd8ff;
+        }
+
+        .map-card {
+            left: 35%;
+            top: 36px;
+            width: 31%;
+            min-height: 265px;
+            padding: 26px 28px 28px 30px;
+            background:
+                linear-gradient(35deg, rgba(127,91,31,0.12) 1px, transparent 1px),
+                linear-gradient(145deg, rgba(255,255,255,0.35), rgba(203,147,69,0.12)),
+                #f7dfaa;
+            background-size: 28px 28px, auto, auto;
+            border: 3px dashed rgba(111,73,27,0.55);
+            box-shadow:
+                0 14px 18px rgba(74,45,16,0.22),
+                inset 0 0 24px rgba(97,56,17,0.18);
+            clip-path: polygon(
+                0% 8%, 9% 2%, 17% 8%, 27% 3%, 39% 7%, 52% 1%,
+                63% 8%, 76% 4%, 88% 9%, 100% 5%, 95% 20%, 99% 33%,
+                94% 45%, 99% 58%, 93% 72%, 97% 86%, 88% 98%, 73% 93%,
+                62% 99%, 50% 94%, 36% 99%, 24% 93%, 12% 98%, 2% 88%,
+                6% 72%, 1% 61%, 5% 49%, 0% 36%, 6% 22%
+            );
+            transform: rotate(1.5deg);
+        }
+
+        .map-card:hover {
+            transform: rotate(1.5deg) translateY(-7px);
+        }
+
+        .map-card::before {
+            content: "";
+            position: absolute;
+            inset: 12px;
+            background:
+                radial-gradient(circle at 24% 28%, transparent 0 12px, rgba(89,52,21,0.28) 13px, transparent 15px),
+                radial-gradient(circle at 72% 70%, transparent 0 10px, rgba(89,52,21,0.22) 11px, transparent 13px);
+            border-top: 3px dotted rgba(95,58,27,0.25);
+            border-bottom: 3px dotted rgba(95,58,27,0.22);
+            pointer-events: none;
+        }
+
+        .map-card::after {
+            content: "×";
+            position: absolute;
+            right: 32px;
+            top: 54px;
+            font-size: 30px;
+            color: #c0392b;
+            font-weight: 900;
+            transform: rotate(-8deg);
+        }
+
+        .map-card .card-header {
+            color: #704214;
+        }
+
+        .map-card .icon {
+            background: #fff1bb;
+            border: 3px solid #a66b2d;
+        }
+
+        .num-badge {
+            background-color: #8d5d28;
+            color: white;
+            min-width: 23px;
+            height: 23px;
+            border-radius: 50% 45% 48% 42%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 14px;
+            font-weight: 900;
+            box-shadow: inset 0 -2px rgba(0,0,0,0.18);
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .deco-chest {
+            position: absolute;
+            bottom: 10px;
+            right: 18px;
+            font-size: 39px;
+            filter: drop-shadow(0 5px 5px rgba(0,0,0,0.2));
+            transform: rotate(8deg);
+        }
+
+        .goal-board {
+            right: 0;
+            top: 8px;
+            width: 31%;
+            min-height: 284px;
+            padding: 30px 26px 26px 26px;
+            background:
+                linear-gradient(90deg, rgba(255,255,255,0.07), transparent 18%, rgba(0,0,0,0.08) 19%, transparent 23%),
+                repeating-linear-gradient(
+                    0deg,
+                    #9a6237 0px,
+                    #9a6237 18px,
+                    #87522f 19px,
+                    #87522f 36px
+                );
+            border: 7px solid #5d361d;
+            border-radius: 9px 16px 11px 14px;
+            box-shadow:
+                0 15px 18px rgba(56,31,13,0.28),
+                inset 0 0 0 3px rgba(255,224,166,0.18);
+            transform: rotate(-0.8deg);
+        }
+
+        .goal-board:hover {
+            transform: rotate(-0.8deg) translateY(-7px);
+        }
+
+        .goal-board::before,
+        .goal-board::after {
+            content: "";
+            position: absolute;
+            top: -19px;
+            width: 18px;
+            height: 34px;
+            background: #563018;
+            border-radius: 6px;
+            box-shadow: inset 0 -4px rgba(0,0,0,0.22);
+        }
+
+        .goal-board::before {
+            left: 54px;
+        }
+
+        .goal-board::after {
+            right: 54px;
+        }
+
+        .goal-board .card-header {
+            color: #fff3bc;
+            text-shadow: 2px 2px 0 #4f2d17;
+        }
+
+        .goal-board .icon {
+            background: #ffe16b;
+            border: 3px solid #fff4b5;
+        }
+
+        .goal-board .card-text {
+            color: #fff8db;
+            text-shadow: 1px 1px 0 rgba(0,0,0,0.25);
+        }
+
+        .goal-board .game-list li {
+            background: rgba(255,255,255,0.12);
+            border-radius: 18px 12px 17px 11px;
+            padding: 7px 8px;
+            margin-bottom: 9px;
+        }
+
+        .star-bullet::before {
+            content: "✹";
+            color: #704214;
+            background: #ffd94a;
+            border: 3px solid #fff1a8;
+            min-width: 28px;
+            height: 28px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50% 43% 55% 45%;
+            margin-right: 8px;
+            box-shadow: 0 3px 0 #c78b20;
+            transform: rotate(-8deg);
+            text-shadow: none;
+            flex-shrink: 0;
+        }
+
+        .deco-flag {
+            position: absolute;
+            bottom: -2px;
+            right: 8px;
+            font-size: 42px;
+            filter: drop-shadow(0 5px 5px rgba(0,0,0,0.28));
+            transform: rotate(-9deg);
+        }
+
+        .action-area {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 22px;
+            margin-top: 8px;
+            position: relative;
+            z-index: 3;
+        }
+
+        .btn {
+            border: none;
+            cursor: pointer;
+            font-weight: 900;
+            font-size: 20px;
+            transition: all 0.18s ease;
+            font-family: inherit;
+            position: relative;
+        }
+
+        .btn-secondary {
+            color: #5c4534;
+            padding: 15px 26px 15px 60px;
+            border-radius: 22px 14px 22px 14px;
+            background: linear-gradient(#fff7d2, #e5c374);
+            border: 4px solid #8b5e2c;
+            box-shadow:
+                0 7px 0 #5d3518,
+                0 12px 16px rgba(0,0,0,0.18),
+                inset 0 3px rgba(255,255,255,0.7);
+            transform: rotate(-1deg);
+        }
+
+        .btn-secondary::before {
+            content: "⚙️";
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 27px;
+        }
+
+        .btn-secondary::after {
+            content: "";
+            position: absolute;
+            left: 39px;
+            top: -12px;
+            width: 14px;
+            height: 38px;
+            border-radius: 10px;
+            background: #ca3e32;
+            border: 3px solid #7a241d;
+            box-shadow: inset 0 4px rgba(255,255,255,0.35);
+            transform: rotate(10deg);
+        }
+
+        .btn-secondary:hover {
+            transform: rotate(-1deg) translateY(-3px);
+        }
+
+        .btn-secondary:active {
+            transform: rotate(-1deg) translateY(6px);
+            box-shadow:
+                0 1px 0 #5d3518,
+                0 6px 8px rgba(0,0,0,0.16),
+                inset 0 3px rgba(255,255,255,0.7);
+        }
+
+        .btn-primary {
+            color: white;
+            padding: 16px 34px 16px 72px;
+            border-radius: 20px 30px 18px 30px;
+            background:
+                radial-gradient(circle at 27px 50%, #fff3a2 0 12px, #ff6b35 13px 21px, transparent 22px),
+                linear-gradient(180deg, #ffb13b, #f06423);
+            border: 5px solid #b93d17;
+            box-shadow:
+                0 9px 0 #7d2411,
+                0 15px 18px rgba(0,0,0,0.22),
+                inset 0 4px rgba(255,255,255,0.35);
+            animation: launchPulse 2s infinite;
+        }
+
+        .btn-primary::before {
+            content: "🚀";
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%) rotate(-12deg);
+            font-size: 32px;
+            filter: drop-shadow(0 3px 0 rgba(0,0,0,0.15));
+        }
+
+        .btn-primary::after {
+            content: "START";
+            position: absolute;
+            right: 14px;
+            top: -14px;
+            background: #2b579a;
+            color: #fff;
+            font-size: 11px;
+            letter-spacing: 1px;
+            padding: 3px 8px;
+            border-radius: 8px;
+            border: 2px solid #fff;
+        }
+
+        .btn-primary:active {
+            transform: translateY(8px);
+            box-shadow:
+                0 1px 0 #7d2411,
+                0 7px 10px rgba(0,0,0,0.2),
+                inset 0 4px rgba(255,255,255,0.35);
+        }
+
+        /* ================= 角色介紹畫面 ================= */
+        #screen-role-intro {
+            background:
+                radial-gradient(circle at 20% 20%, rgba(255,255,255,0.55), transparent 28%),
+                linear-gradient(135deg, #b3e5fc 0%, #e1f5fe 55%, #fff8e1 100%);
+            padding: 42px 46px 34px 46px;
+            z-index: 4;
+        }
+
+        .role-page {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .role-title-area {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .role-title {
+            margin: 0;
+            font-size: 44px;
+            color: #fffdf2;
+            font-weight: 900;
+            letter-spacing: 2px;
+            text-shadow:
+                3px 3px 0 #245c9d,
+                -2px -2px 0 #245c9d,
+                2px -2px 0 #245c9d,
+                -2px 2px 0 #245c9d,
+                0 8px 14px rgba(0,0,0,0.18);
+            transform: rotate(-1deg);
+        }
+
+        .role-subtitle {
+            display: inline-block;
+            margin-top: 8px;
+            padding: 8px 22px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.92);
+            color: #245c9d;
+            font-weight: 900;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .role-board {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1.05fr;
+            gap: 18px;
+            align-items: stretch;
+            position: relative;
+            z-index: 2;
+        }
+
+        .role-card {
+            border-radius: 28px;
+            padding: 22px 20px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 14px 22px rgba(0,0,0,0.16);
+            border: 5px solid rgba(255,255,255,0.9);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            min-height: 310px;
+        }
+
+        .role-card-tooth {
+            background:
+                radial-gradient(circle at 18% 18%, rgba(255,255,255,0.9), transparent 24%),
+                linear-gradient(160deg, #ffffff, #e3f2fd);
+            transform: rotate(-1.2deg);
+        }
+
+        .role-card-bacteria {
+            background:
+                radial-gradient(circle at 18% 18%, rgba(255,255,255,0.55), transparent 24%),
+                linear-gradient(160deg, #f3e5f5, #d7ccc8);
+            transform: rotate(1.2deg);
+        }
+
+        .mission-card {
+            background:
+                linear-gradient(90deg, rgba(255,255,255,0.09), transparent 18%, rgba(0,0,0,0.08) 19%, transparent 23%),
+                repeating-linear-gradient(
+                    0deg,
+                    #9a6237 0px,
+                    #9a6237 18px,
+                    #87522f 19px,
+                    #87522f 36px
+                );
+            color: #fff8db;
+            border: 7px solid #5d361d;
+            border-radius: 14px 20px 14px 20px;
+            padding: 22px 22px;
+            box-shadow:
+                0 15px 18px rgba(56,31,13,0.28),
+                inset 0 0 0 3px rgba(255,224,166,0.18);
+        }
+
+        .role-img-wrap {
+            width: 135px;
+            height: 135px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.88);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 0 -5px 0 rgba(0,0,0,0.08), 0 8px 14px rgba(0,0,0,0.16);
+            margin-bottom: 12px;
+        }
+
+        .role-img-wrap img {
+            width: 86%;
+            height: 86%;
+            object-fit: contain;
+            display: block;
+            filter: drop-shadow(0 8px 8px rgba(0,0,0,0.18));
+        }
+
+        .role-name {
+            font-size: 28px;
+            font-weight: 900;
+            color: #245c9d;
+            margin-bottom: 8px;
+        }
+
+        .role-card-bacteria .role-name {
+            color: #6d3c79;
+        }
+
+        .role-tag {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 999px;
+            background: #ffcc4d;
+            color: #5d3518;
+            font-weight: 900;
+            margin-bottom: 12px;
+            box-shadow: 0 4px 0 #c78b20;
+        }
+
+        .role-desc {
+            margin: 0;
+            color: #3b3027;
+            font-size: 17px;
+            font-weight: 800;
+            line-height: 1.65;
+        }
+
+        .mission-title {
+            margin: 0 0 12px 0;
+            font-size: 28px;
+            font-weight: 900;
+            color: #fff3bc;
+            text-shadow: 2px 2px 0 #4f2d17;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .mission-text {
+            font-size: 16px;
+            line-height: 1.75;
+            font-weight: 800;
+            text-shadow: 1px 1px 0 rgba(0,0,0,0.22);
+        }
+
+        .mission-list {
+            list-style: none;
+            padding: 0;
+            margin: 12px 0 0 0;
+        }
+
+        .mission-list li {
+            margin-bottom: 9px;
+            background: rgba(255,255,255,0.14);
+            border-radius: 18px 12px 17px 11px;
+            padding: 8px 10px;
+            font-weight: 900;
+            display: flex;
+            gap: 8px;
+            align-items: flex-start;
+        }
+
+        .mission-list li::before {
+            content: "✓";
+            min-width: 24px;
+            height: 24px;
+            background: #ffeb6e;
+            color: #704214;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 3px 0 #c78b20;
+            text-shadow: none;
+        }
+
+        .role-action {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 4px;
+        }
+
+        .btn-role-start {
+            color: white;
+            padding: 16px 42px 16px 74px;
+            border-radius: 24px 34px 22px 34px;
+            background:
+                radial-gradient(circle at 28px 50%, #fff3a2 0 12px, #ff6b35 13px 21px, transparent 22px),
+                linear-gradient(180deg, #42a5f5, #1565c0);
+            border: 5px solid #0d47a1;
+            box-shadow:
+                0 9px 0 #08306f,
+                0 15px 18px rgba(0,0,0,0.22),
+                inset 0 4px rgba(255,255,255,0.35);
+            font-size: 22px;
+            font-weight: 900;
+            cursor: pointer;
+            position: relative;
+            font-family: inherit;
+            transition: all 0.15s ease;
+        }
+
+        .btn-role-start::before {
+            content: "🦷";
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 32px;
+            filter: drop-shadow(0 3px 0 rgba(0,0,0,0.15));
+        }
+
+        .btn-role-start:hover {
+            transform: translateY(-3px);
+        }
+
+        .btn-role-start:active {
+            transform: translateY(7px);
+            box-shadow:
+                0 1px 0 #08306f,
+                0 7px 10px rgba(0,0,0,0.2),
+                inset 0 4px rgba(255,255,255,0.35);
+        }
+
+        .role-deco-1 {
+            position: absolute;
+            left: 28px;
+            bottom: 32px;
+            font-size: 38px;
+            animation: float 4s ease-in-out infinite;
+            opacity: 0.8;
+        }
+
+        .role-deco-2 {
+            position: absolute;
+            right: 32px;
+            top: 72px;
+            font-size: 34px;
+            animation: blink 2s infinite;
+        }
+
+        /* ================= 對話畫面 ================= */
+        #screen-character {
+            background: var(--bg-gradient-char);
+            z-index: 2;
+            padding: 40px;
+        }
+
+        .stage-area {
+            flex: 1;
+            position: relative;
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+            padding-bottom: 20px;
+        }
+
+        .sprite {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .sprite-img {
+            width: 250px;
+            height: 250px;
+            background: #ccc;
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 80px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            border: 6px solid white;
+            overflow: hidden;
+        }
+
+        .tooth-img {
+            background-color: #fff;
+            border-color: #4fc3f7;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .bacteria-img {
+            background-color: #d7ccc8;
+            border-color: #8d6e63;
+            animation: shake 2s infinite;
+        }
+
+        .stage-character-img {
+            width: 88%;
+            height: 88%;
+            object-fit: contain;
+            display: block;
+            filter: drop-shadow(0 8px 8px rgba(0,0,0,0.18));
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .sprite-name {
+            background: #333;
+            color: white;
+            padding: 5px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 24px;
+            margin-top: -20px;
+            z-index: 2;
+            border: 3px solid #fff;
+        }
+
+        .dialogue-area {
+            height: 35%;
+            background: rgba(0, 0, 0, 0.75);
+            border-top: 6px solid #fff;
+            padding: 30px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .speaker-name {
+            position: absolute;
+            top: -35px;
+            left: 40px;
+            background: #ff9800;
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            padding: 10px 30px;
+            border-radius: 15px 15px 0 0;
+            border: 4px solid #fff;
+            border-bottom: none;
+        }
+
+        .dialogue-text {
+            color: white;
+            font-size: 30px;
+            font-weight: bold;
+            line-height: 1.6;
+            flex: 1;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .next-indicator {
+            align-self: flex-end;
+            font-size: 28px;
+            color: #ffeb3b;
+            animation: blink 1s infinite;
+            display: none;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        @keyframes shake {
+            0%, 100% {
+                transform: translateX(0);
+            }
+            25% {
+                transform: translateX(-5px) rotate(-5deg);
+            }
+            75% {
+                transform: translateX(5px) rotate(5deg);
+            }
+        }
+
+        @keyframes blink {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0;
+            }
+        }
+
+        @keyframes titleWiggle {
+            0%, 100% { transform: rotate(-1.2deg) translateY(0); }
+            50% { transform: rotate(1deg) translateY(-8px); }
+        }
+
+        @keyframes launchPulse {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.04) rotate(0.4deg); }
+        }
+
+        @media (max-width: 1100px) {
+            .hero-title { font-size: 44px; }
+            .char-owl { width: 66px; height: 66px; }
+            .char-boy { width: 82px; height: 82px; }
+            .card-text { font-size: 15px; }
+
+            .role-title {
+                font-size: 38px;
+            }
+
+            .role-board {
+                gap: 12px;
+            }
+
+            .role-desc,
+            .mission-text {
+                font-size: 15px;
+            }
+
+            .role-name,
+            .mission-title {
+                font-size: 24px;
+            }
+
+            .role-img-wrap {
+                width: 110px;
+                height: 110px;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .top-nav {
+                left: 20px; right: 20px;
+                height: 54px; padding: 8px 16px;
+            }
+
+            .nav-links { gap: 14px; font-size: 12px; }
+            .content-layer { padding: 76px 22px 20px 22px; }
+            .hero-title { font-size: 38px; }
+            .hero-subtitle, .time-badge { font-size: 14px; }
+            .cards-container { min-height: 250px; }
+            .card-header { font-size: 18px; }
+            .card-text { font-size: 13px; line-height: 1.6; }
+            .quest-scroll, .map-card, .goal-board { min-height: auto; padding: 22px 18px; }
+            .action-area { gap: 12px; }
+            .btn { font-size: 16px; }
+            .char-owl { width: 56px; height: 56px; }
+            .char-boy { width: 70px; height: 70px; }
+            .sprite-img { width: 190px; height: 190px; }
+
+            #screen-role-intro {
+                padding: 28px 22px 24px 22px;
+            }
+
+            .role-title {
+                font-size: 30px;
+            }
+
+            .role-subtitle {
+                font-size: 13px;
+            }
+
+            .role-board {
+                grid-template-columns: 1fr;
+                overflow-y: auto;
+                padding-right: 4px;
+            }
+
+            .role-card {
+                min-height: auto;
+            }
+
+            .btn-role-start {
+                font-size: 16px;
+                padding: 12px 26px 12px 56px;
+            }
+
+            .btn-role-start::before {
+                font-size: 24px;
+                left: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="game-canvas">
+
+        <nav class="top-nav">
+            <div class="nav-logo">🧭 牙寶歷險記</div>
+            <div class="nav-links">
+                <a href="../">課程首頁</a>
+                <a class="active" href="./" aria-current="page">角色故事</a>
+                <a href="game.html">題庫挑戰</a>
+            </div>
+        </nav>
+
+        <div id="screen-intro" class="screen active">
+            <div class="deco bubble-1"></div>
+            <div class="deco bubble-2"></div>
+            <div class="deco star-1">✨</div>
+            <div class="deco star-2">🌟</div>
+            <div class="deco tiny-tooth tooth-a">🦷</div>
+            <div class="deco tiny-tooth tooth-b">🦷</div>
+
+            <div class="content-layer">
+
+                <div class="hero-layout">
+                    <div class="hero-text">
+                        <h1 class="hero-title">歡迎來到牙寶世界！</h1>
+                        <div class="hero-sub-wrap">
+                            <div class="hero-subtitle">勇敢的小探險家，我們需要你的幫忙！</div>
+                            <div class="time-badge">📖 角色故事與題庫互動</div>
+                        </div>
+                    </div>
+
+                    <div class="hero-characters">
+                        <img src="牙齒笑臉.png" alt="牙齒笑臉" class="hero-character-img char-owl">
+                        <img src="細菌.png" alt="細菌" class="hero-character-img char-boy">
+                        <div class="magic-book">📘</div>
+                    </div>
+                </div>
+
+                <div class="cards-container">
+                    <div class="card quest-scroll">
+                        <div class="card-header">
+                            <div class="icon">🦷</div>你的任務
+                        </div>
+                        <div class="card-text">
+                            你將化身為「勇敢的小牙齒」，進入奇妙的口腔世界。找出躲藏的蛀蛀菌，解開謎題，守護牙齒的健康！
+                        </div>
+                    </div>
+
+                    <div class="card map-card">
+                        <div class="card-header">
+                            <div class="icon">🗺️</div>探險指南
+                        </div>
+                        <div class="card-text">
+                            <ul class="game-list">
+                                <li><span class="num-badge">1</span> 觀察每個角落的情境</li>
+                                <li><span class="num-badge">2</span> 聽從牙醫師的指示</li>
+                                <li><span class="num-badge">3</span> 答對問題趕走蛀蛀菌</li>
+                                <li><span class="num-badge">4</span> 收集所有徽章過關！</li>
+                            </ul>
+                        </div>
+                        <div class="deco-chest">🪙</div>
+                    </div>
+
+                    <div class="card goal-board">
+                        <div class="card-header">
+                            <div class="icon">🌟</div>探險目標
+                        </div>
+                        <div class="card-text">
+                            <ul class="game-list">
+                                <li class="star-bullet">認識看牙流程，也能說出自己的感受</li>
+                                <li class="star-bullet">認識你的乳齒與恆齒好朋友</li>
+                                <li class="star-bullet">學會打敗蛀牙蟲的清潔魔法</li>
+                            </ul>
+                        </div>
+                        <div class="deco-flag">🚩</div>
+                    </div>
+                </div>
+
+                <div class="action-area">
+                    <button class="btn btn-secondary" onclick="showGuide()">查看指南</button>
+                    <button class="btn btn-primary" onclick="startGame()">出發探險！</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="screen-role-intro" class="screen">
+            <div class="role-page">
+                <div class="role-deco-1">🪥</div>
+                <div class="role-deco-2">✨</div>
+
+                <div class="role-title-area">
+                    <h2 class="role-title">角色介紹：你是勇敢的小牙齒！</h2>
+                    <div class="role-subtitle">先認識你的角色與任務，再開始口腔世界的冒險</div>
+                </div>
+
+                <div class="role-board">
+                    <div class="role-card role-card-tooth">
+                        <div class="role-img-wrap">
+                            <img src="牙齒笑臉.png" alt="小牙齒">
+                        </div>
+                        <div class="role-name">勇敢小牙齒</div>
+                        <div class="role-tag">你要扮演的角色</div>
+                        <p class="role-desc">
+                            你是一顆愛乾淨、很勇敢的小牙齒。你的任務是守護口腔世界，保持牙齒亮晶晶，不讓蛀蛀菌有機會搗亂。
+                        </p>
+                    </div>
+
+                    <div class="role-card role-card-bacteria">
+                        <div class="role-img-wrap">
+                            <img src="細菌.png" alt="蛀蛀菌">
+                        </div>
+                        <div class="role-name">蛀蛀菌</div>
+                        <div class="role-tag">你要小心的對手</div>
+                        <p class="role-desc">
+                            蛀蛀菌最喜歡躲在沒有刷乾淨的牙齒角落。如果牙齒沒有好好清潔，蛀蛀菌就會開始破壞牙齒。
+                        </p>
+                    </div>
+
+                    <div class="mission-card">
+                        <h3 class="mission-title">🎯 任務目的</h3>
+                        <div class="mission-text">
+                            這次冒險不是只有玩遊戲，你會在任務中認識牙齒與細菌，學會怎麼保護自己的牙齒。
+                        </div>
+                        <ul class="mission-list">
+                            <li>知道為什麼每天都要清潔牙齒</li>
+                            <li>了解細菌和蛀牙可能怎麼出現</li>
+                            <li>學會用正確方法保護口腔健康</li>
+                            <li>完成挑戰，幫小牙齒趕走蛀蛀菌</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="role-action">
+                    <button class="btn-role-start" onclick="beginDialogue()">我準備好了，開始任務！</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="screen-character" class="screen">
+            <div class="stage-area">
+                <div class="sprite">
+                    <div class="sprite-img tooth-img">
+                        <img src="牙齒笑臉.png" alt="小牙齒" class="stage-character-img">
+                    </div>
+                    <div class="sprite-name">小牙齒</div>
+                </div>
+
+                <div class="sprite" id="bacteria-sprite" style="opacity: 0; transition: opacity 1s;">
+                    <div class="sprite-img bacteria-img">
+                        <img src="細菌.png" alt="蛀蛀菌" class="stage-character-img">
+                    </div>
+                    <div class="sprite-name">蛀蛀菌</div>
+                </div>
+            </div>
+
+            <div class="dialogue-area" onclick="nextLine()">
+                <div class="speaker-name" id="speaker">旁白</div>
+                <div class="dialogue-text" id="dialogue"></div>
+                <div class="next-indicator" id="next-arrow">▼ 點擊繼續</div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function showGuide() {
+            alert(
+                "【探險指南說明】\n\n" +
+                "1. 點擊「出發探險！」按鈕後，會先認識角色與任務。\n" +
+                "2. 了解你扮演的小牙齒與蛀蛀菌後，會進入故事對話。\n" +
+                "3. 遇到角色時，只要點擊底部的「對話框」就可以推進故事。\n" +
+                "4. 對話結束後會進入題庫挑戰，完成任務守護牙齒！\n\n" +
+                "準備好就開始吧！"
+            );
+        }
+
+        const story = [
+            { who: "系統提示", text: "探險家，歡迎來到口腔世界！" },
+            { who: "小牙齒", text: "你好！我是一顆愛乾淨、勇敢的小牙齒，我每天都洗得亮晶晶的！" },
+            { who: "系統提示", text: "（突然，角落傳來奇怪的聲音...）", action: "showBadGuy" },
+            { who: "蛀蛀菌", text: "嘿嘿嘿...我是蛀蛀菌！我最喜歡躲在沒刷乾淨的死角作怪了！" },
+            { who: "小牙齒", text: "哎呀！這顆小牙齒快被蛀蛀菌佔領了！探險家，快來幫幫我！" },
+            { who: "韋登醫師", text: "有疑問就告訴我，我會陪你慢慢了解看牙和清潔牙齒的方法。準備好接受挑戰了嗎？" }
+        ];
+
+        let step = 0;
+        let typing = false;
+        let timer;
+
+        function startGame() {
+            const topNav = document.querySelector('.top-nav');
+            const introScreen = document.getElementById('screen-intro');
+            const roleIntroScreen = document.getElementById('screen-role-intro');
+
+            topNav.style.display = 'none';
+            introScreen.classList.remove('active');
+            roleIntroScreen.classList.add('active');
+        }
+
+        function beginDialogue() {
+            const roleIntroScreen = document.getElementById('screen-role-intro');
+            const characterScreen = document.getElementById('screen-character');
+            const badGuy = document.getElementById('bacteria-sprite');
+
+            roleIntroScreen.classList.remove('active');
+            characterScreen.classList.add('active');
+
+            step = 0;
+            typing = false;
+            clearInterval(timer);
+
+            if (badGuy) {
+                badGuy.style.opacity = "0";
+            }
+
+            setTimeout(() => {
+                playStory();
+            }, 500);
+        }
+
+        function playStory() {
+            if (step >= story.length) {
+                showC3Game();
+                return;
+            }
+
+            const line = story[step];
+            const speakerName = document.getElementById('speaker');
+            const box = document.getElementById('dialogue');
+            const arrow = document.getElementById('next-arrow');
+            const badGuy = document.getElementById('bacteria-sprite');
+
+            speakerName.innerText = line.who;
+            box.innerText = "";
+            arrow.style.display = "none";
+            typing = true;
+
+            if (line.action === "showBadGuy" && badGuy) {
+                badGuy.style.opacity = "1";
+            }
+
+            let i = 0;
+            clearInterval(timer);
+
+            timer = setInterval(() => {
+                box.innerText += line.text.charAt(i);
+                i++;
+
+                if (i >= line.text.length) {
+                    clearInterval(timer);
+                    typing = false;
+                    arrow.style.display = "block";
+                }
+            }, 50);
+        }
+
+        function nextLine() {
+            const box = document.getElementById('dialogue');
+            const arrow = document.getElementById('next-arrow');
+
+            if (typing) {
+                clearInterval(timer);
+                box.innerText = story[step].text;
+                typing = false;
+                arrow.style.display = "block";
+                return;
+            }
+
+            step++;
+
+            if (step >= story.length) {
+                showC3Game();
+                return;
+            }
+
+            playStory();
+        }
+
+        function showC3Game() {
+            window.location.href = "game.html";
+        }
+    </script>
+</body>
+</html>
