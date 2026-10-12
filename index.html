@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="牙寶歷險記：跟著韋登醫師與牙齒夥伴，透過故事、探索和互動認識口腔健康。" />
+  <title>牙寶歷險記｜口腔健康學習之旅</title>
+  <style>
+    :root { --navy:#173b57; --blue:#245b76; --orange:#d96f2b; --paper:#fffefb; --ink:#20323a; --muted:#5c6d73; --mint:#e8f4ef; --sky:#e8f2f4; }
+    * { box-sizing:border-box; }
+    body { margin:0; min-height:100vh; color:var(--ink); font-family:"Noto Sans TC","Microsoft JhengHei",sans-serif; background:radial-gradient(circle at 85% 5%,#fff0d7,transparent 30%),linear-gradient(135deg,#eaf6f4,#e4f1f8); }
+    main { width:min(1120px,100%); min-height:100vh; margin:auto; padding:clamp(20px,4vw,48px); display:flex; flex-direction:column; justify-content:center; }
+    .top { color:var(--blue); font-weight:900; letter-spacing:.08em; }
+    h1 { margin:12px 0 8px; color:var(--navy); font-size:clamp(2.3rem,6vw,4.7rem); line-height:1.1; }
+    .lead { max-width:680px; color:var(--muted); font-size:clamp(1.1rem,2vw,1.35rem); line-height:1.7; }
+    .guide { display:flex; gap:16px; align-items:center; margin:24px 0; padding:16px 20px; width:fit-content; max-width:100%; border:1px solid #d7e7e7; border-radius:22px; background:#ffffffc9; box-shadow:0 10px 30px #173b5710; }
+    .guide img { width:66px;height:66px;object-fit:contain; }
+    .guide p { margin:0; line-height:1.6; }
+    .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:12px; }
+    .card { min-height:218px; display:flex; flex-direction:column; align-items:flex-start; text-align:left; text-decoration:none; color:inherit; padding:22px; border-radius:24px; background:var(--paper); border:2px solid transparent; box-shadow:0 12px 28px #173b5712; transition:.18s ease; }
+    .card:hover,.card:focus-visible { transform:translateY(-4px); border-color:#f2bd79; outline:none; }
+    .num { color:var(--orange); font-size:.95rem; font-weight:900; letter-spacing:.1em; }
+    .icon { font-size:2.4rem; margin:10px 0 4px; }
+    h2 { margin:0 0 6px; color:var(--navy); font-size:1.45rem; }
+    .card p { margin:0; color:var(--muted); line-height:1.6; }
+    .go { margin-top:auto; padding-top:14px; color:var(--blue); font-weight:900; }
+    footer { margin-top:28px; color:var(--muted); font-size:.95rem; }
+    @media(max-width:760px) { main{justify-content:flex-start;padding:28px 18px}.grid{grid-template-columns:1fr}.card{min-height:170px} }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="top">TOOTH ADVENTURE · 口腔健康學習之旅</div>
+    <h1>牙寶歷險記</h1>
+    <p class="lead">跟著牙齒夥伴一步一步探索：先安心認識看牙，再走進牙齒王國，最後把健康飲食和日常習慣帶回生活。</p>
+    <div class="guide"><img src="unit1/images/tooth-teacher.png" alt="牙齒老師" /><p><strong>韋登醫師和牙寶準備好了！</strong><br />選一個單元開始，邊看故事、邊和角色一起思考。</p></div>
+    <section class="grid" aria-label="課程單元">
+      <a class="card" href="unit1/"><span class="num">UNIT 01</span><span class="icon" aria-hidden="true">🦷</span><h2>安心看牙大冒險</h2><p>認識診間、工具與看牙流程，和韋登醫師一起降低看牙焦慮。</p><span class="go">進入第一單元 →</span></a>
+      <a class="card" href="unit2/"><span class="num">UNIT 02</span><span class="icon" aria-hidden="true">🏰</span><h2>牙齒王國大探索</h2><p>探索乳齒、恆齒與口腔構造，認識牙齒各自的工作。</p><span class="go">進入第二單元 →</span></a>
+      <a class="card" href="unit3/"><span class="num">UNIT 03</span><span class="icon" aria-hidden="true">🍎</span><h2>飲食與健康習慣</h2><p>和牙寶整理食物線索，練習做出照顧牙齒的生活選擇。</p><span class="go">進入第三單元 →</span></a>
+    </section>
+    <footer>建議依序體驗三個單元；每個單元最後都能前往互動挑戰。</footer>
+  </main>
+</body>
+</html>
