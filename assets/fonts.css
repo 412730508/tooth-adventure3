@@ -1,0 +1,47 @@
+/* jf open 粉圓 2.1 — justfont, SIL Open Font License 1.1.
+   License text: OFL-LICENSE.txt */
+@font-face {
+  font-family: "jf open 粉圓";
+  src: url("./jf-openhuninn-2.1.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+:root {
+  --site-font: "jf open 粉圓", "Noto Sans TC", "Microsoft JhengHei", "PingFang TC", "Heiti TC", sans-serif;
+}
+
+body,
+button,
+input,
+select,
+textarea {
+  font-family: var(--site-font);
+}
+
+/* Keep the children's learning pages comfortably readable without changing
+   their fixed-viewport navigation or interaction behaviour. */
+html.lesson-site { font-size: 17px; }
+html.lesson-site body { font-size: 18px; }
+html.lesson-site .eyebrow,
+html.lesson-site .num,
+html.lesson-site .unit-label,
+html.lesson-site .step-caption,
+html.lesson-site .source-links,
+html.lesson-site .act-label,
+html.lesson-site .progress-step,
+html.lesson-site .progress-dot,
+html.lesson-site .progress-count {
+  font-size: max(0.85rem, 14px);
+}
+
+html.lesson-site .restart { font-size: 16px; }
+
+button,
+.button-link,
+.top-link,
+.restart,
+.progress-step {
+  overflow-wrap: anywhere;
+}
