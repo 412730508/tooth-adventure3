@@ -2828,7 +2828,28 @@
       .room,
       .guardian-tooth { min-height: 260px; }
     }
-  </style>
+  
+
+    /* Tablet layout: keep lesson text at full size and let portrait pages scroll. */
+    @media (min-width: 721px) and (max-width: 1180px) {
+      html, body { height: auto; min-height: 100%; overflow-x: hidden; overflow-y: auto; }
+      .app { width: min(1180px, calc(100% - 28px)); height: auto; min-height: 100dvh; padding: 12px 0 28px; }
+      .topbar { top: 6px; }
+      main { flex: 0 0 auto; min-height: 0; overflow: visible; padding-top: 12px; }
+      .screen, .screen.active { height: auto; min-height: 0; overflow: visible; }
+      .panel { height: auto; min-height: 0; overflow: visible; padding: clamp(20px, 3vw, 32px); }
+      .screen-fit { transform: none !important; }
+      .primary, .secondary, .option, .card-button, .story-chat-button { min-height: 48px; }
+      .case-tab, .move-button { min-height: 44px; }
+    }
+
+    @media (min-width: 721px) and (max-width: 1000px) and (orientation: portrait) {
+      .intro-case-grid, .worry-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .clinic-scene { min-height: 300px; }
+      .room { height: auto; min-height: 300px; }
+      .guardian-tooth { min-height: 250px; }
+    }
+</style>
   <link rel="stylesheet" href="../assets/fonts.css" />
 </head>
 
