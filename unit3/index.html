@@ -49,7 +49,8 @@
     .fact b { display:block;color:var(--blue);margin-bottom:4px; }
     .food-grid { display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:12px 0; }
     .food { min-height:86px;padding:9px 5px;border-radius:14px;border:2px solid #e6ece8;background:white;color:var(--ink);box-shadow:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:1rem; }
-    .food .food-emoji { font-size:1.65rem;line-height:1.1; }
+    .food .food-art { width:46px;height:46px;object-fit:contain;line-height:1; }
+    .inline-art { width:24px;height:24px;object-fit:contain;vertical-align:-6px; }
     .food[aria-pressed="true"] { border-color:#5d9d7e;background:#eff8f1;box-shadow:inset 0 0 0 1px #5d9d7e; }
     .choice-list { display:grid;gap:9px;margin-top:12px; }
     .choice { text-align:left;width:100%;background:#f5f8f7;color:var(--ink);box-shadow:none;border:2px solid var(--line); }
@@ -193,7 +194,7 @@
         ],
         html:`<p>牙齒表面會有牙菌斑。牙菌斑裡的細菌遇到食物與飲料中的糖，會產生酸；如果頻繁吃喝含糖食物，牙齒就反覆接觸到酸。這不是說每次吃糖都會立刻蛀牙，而是提醒我們留意長期習慣。</p>
           <div class="task"><strong>先猜一猜 · 約 1 分鐘</strong><p>同樣一杯含糖飲料，午餐時喝完，或在下午分很多次慢慢啜飲，哪一種會讓牙齒更常接觸糖？先說出你的理由，再點卡片。</p></div>
-          <div class="compare-grid"><button class="compare-option" type="button" data-mode="meal" aria-pressed="false"><strong>🍱 情境 A：午餐時喝完</strong><span>飲料在一段用餐時間內喝完，之後改喝水。</span></button><button class="compare-option" type="button" data-mode="sips" aria-pressed="false"><strong>🥤 情境 B：整個下午慢慢喝</strong><span>從午餐後到放學，隔一會兒就啜飲幾口。</span></button></div>
+          <div class="compare-grid"><button class="compare-option" type="button" data-mode="meal" aria-pressed="false"><strong><img class="inline-art" src="images/meal-tray.svg" alt="" aria-hidden="true"> 情境 A：午餐時喝完</strong><span>飲料在一段用餐時間內喝完，之後改喝水。</span></button><button class="compare-option" type="button" data-mode="sips" aria-pressed="false"><strong><img class="inline-art" src="images/sweet-drink.svg" alt="" aria-hidden="true"> 情境 B：整個下午慢慢喝</strong><span>從午餐後到放學，隔一會兒就啜飲幾口。</span></button></div>
           <p class="feedback" id="compare-feedback" role="status">點選兩張卡片，比較牙齒接觸糖的次數。</p>
           <div class="callout">如果要喝含糖飲料，避免長時間含著或一整天反覆啜飲；日常解渴可以選白開水。果汁雖然來自水果，也含有游離糖，不能當成白開水一直喝。</div>
           <div class="task"><strong>把線索說清楚 · 約 1 分鐘</strong><p>用「因為……所以……」回答：為什麼牙寶不適合把甜飲放在桌上，從下午一直喝到放學？</p></div>`
@@ -207,7 +208,7 @@
           ['我選好之後，還要說出原因，不只是按對答案。','牙寶']
         ],
         html:`<p>下面的食物都可能出現在生活裡。請點選你想放進<strong>平常午餐</strong>的搭配；可以多選。選完後，試著說明每一樣的角色。</p>
-          <div class="food-grid" id="food-grid"><button class="food" type="button" data-kind="daily" aria-pressed="false"><span class="food-emoji">🥕</span>蔬菜</button><button class="food" type="button" data-kind="daily" aria-pressed="false"><span class="food-emoji">🍎</span>整顆水果</button><button class="food" type="button" data-kind="daily" aria-pressed="false"><span class="food-emoji">🍚</span>主食</button><button class="food" type="button" data-kind="daily" aria-pressed="false"><span class="food-emoji">🥚</span>蛋或豆類</button><button class="food" type="button" data-kind="daily" aria-pressed="false"><span class="food-emoji">🥛</span>無糖乳品</button><button class="food" type="button" data-kind="water" aria-pressed="false"><span class="food-emoji">💧</span>白開水</button><button class="food" type="button" data-kind="treat" aria-pressed="false"><span class="food-emoji">🥤</span>含糖飲料</button><button class="food" type="button" data-kind="treat" aria-pressed="false"><span class="food-emoji">🍬</span>黏甜糖果</button></div>
+          <div class="food-grid" id="food-grid"><button class="food" type="button" data-kind="daily" aria-pressed="false"><img class="inline-art" src="images/carrot.svg" alt="" aria-hidden="true">蔬菜</button><button class="food" type="button" data-kind="daily" aria-pressed="false"><img class="inline-art" src="images/apple.svg" alt="" aria-hidden="true">整顆水果</button><button class="food" type="button" data-kind="daily" aria-pressed="false"><img class="inline-art" src="images/rice-bowl.svg" alt="" aria-hidden="true">主食</button><button class="food" type="button" data-kind="daily" aria-pressed="false"><img class="inline-art" src="images/egg-beans.svg" alt="" aria-hidden="true">蛋或豆類</button><button class="food" type="button" data-kind="daily" aria-pressed="false"><img class="inline-art" src="images/milk.svg" alt="" aria-hidden="true">無糖乳品</button><button class="food" type="button" data-kind="water" aria-pressed="false"><img class="inline-art" src="images/water.svg" alt="" aria-hidden="true">白開水</button><button class="food" type="button" data-kind="treat" aria-pressed="false"><img class="inline-art" src="images/sweet-drink.svg" alt="" aria-hidden="true">含糖飲料</button><button class="food" type="button" data-kind="treat" aria-pressed="false"><img class="inline-art" src="images/candy.svg" alt="" aria-hidden="true">黏甜糖果</button></div>
           <button type="button" id="check-food">檢查我的搭配</button><p class="feedback" id="food-feedback" role="status">請先點選食物，再檢查搭配。</p>
           <div class="task"><strong>分享理由 · 約 1 分鐘</strong><p>挑兩樣你選的食物，說明它們如何讓一餐更有變化；再說說如果今天想吃甜點，你打算把它安排在什麼時候。</p></div>
           <div class="callout">我們練習的是日常搭配，不是替食物貼上「好」或「壞」的標籤。偶爾有甜點時，留意份量與吃的頻率。</div>`
@@ -235,9 +236,9 @@
           ['早晚刷牙、用含氟牙膏，牙縫也需要照顧；有不確定就問大人或牙醫。','牙寶']
         ],
         html:`<p>飲食只是護牙的一部分。牙寶找出三張清潔卡，請你逐張點開，再想想自己最需要記住哪一張。</p>
-          <details><summary>🪥 早晚刷牙：什麼時候最重要？</summary><p>一天刷牙至少兩次，睡前那次特別不要忘記。使用含氟牙膏；年紀較小的孩子需要大人協助與確認牙膏用量。</p></details>
-          <details><summary>🧵 牙縫：牙刷碰不到怎麼辦？</summary><p>牙齒相鄰的地方，牙刷不一定能清乾淨。可以請家人與牙醫師教你使用牙線或其他合適的牙縫清潔工具。</p></details>
-          <details><summary>🥛 喝了酸性飲料：先做什麼？</summary><p>先喝水或用水漱口，不要立刻用力刷牙。平常仍要維持早晚用含氟牙膏刷牙；若牙齒不舒服，請家人帶你諮詢牙醫師。</p></details>
+          <details><summary><img class="inline-art" src="images/toothbrush.svg" alt="" aria-hidden="true"> 早晚刷牙：什麼時候最重要？</summary><p>一天刷牙至少兩次，睡前那次特別不要忘記。使用含氟牙膏；年紀較小的孩子需要大人協助與確認牙膏用量。</p></details>
+          <details><summary><img class="inline-art" src="images/floss.svg" alt="" aria-hidden="true"> 牙縫：牙刷碰不到怎麼辦？</summary><p>牙齒相鄰的地方，牙刷不一定能清乾淨。可以請家人與牙醫師教你使用牙線或其他合適的牙縫清潔工具。</p></details>
+          <details><summary><img class="inline-art" src="images/milk.svg" alt="" aria-hidden="true"> 喝了酸性飲料：先做什麼？</summary><p>先喝水或用水漱口，不要立刻用力刷牙。平常仍要維持早晚用含氟牙膏刷牙；若牙齒不舒服，請家人帶你諮詢牙醫師。</p></details>
           <div class="task"><strong>幫小安想一想 · 約 1 分鐘</strong><p>小安剛喝完果汁，正準備回教室。你會給他哪一個提醒？</p></div>
           <div class="choice-list"><button class="choice clean-choice" type="button" data-clean="brush-now">立刻用力刷，酸味會更快不見。</button><button class="choice clean-choice" type="button" data-clean="water-first">先喝水或漱口，等一段時間後再照平常方式刷牙。</button><button class="choice clean-choice" type="button" data-clean="skip">今天喝過果汁，就不用再刷牙了。</button></div>
           <p class="feedback" id="clean-feedback" role="status">點選一個提醒，再說出理由。</p>`
@@ -251,7 +252,7 @@
           ['我的第一步是＿＿＿＿。明天我會再看看自己做到了沒有！','牙寶']
         ],
         html:`<p>牙寶把今天的線索整理成三句話：<strong>日常飲食多樣搭配、喝水解渴、早晚清潔牙齒。</strong> 現在換你挑一件最容易開始的小事。</p>
-          <div class="choice-list" id="habit-choices"><button class="choice habit-option" type="button" data-habit="water" aria-pressed="false">💧 口渴時先喝白開水</button><button class="choice habit-option" type="button" data-habit="snack" aria-pressed="false">🕒 點心安排好時間，不整天一直吃甜食</button><button class="choice habit-option" type="button" data-habit="brush" aria-pressed="false">🪥 和家人一起記得早晚刷牙</button></div>
+          <div class="choice-list" id="habit-choices"><button class="choice habit-option" type="button" data-habit="water" aria-pressed="false"><img class="inline-art" src="images/water.svg" alt="" aria-hidden="true"> 口渴時先喝白開水</button><button class="choice habit-option" type="button" data-habit="snack" aria-pressed="false"><img class="inline-art" src="images/clock.svg" alt="" aria-hidden="true"> 點心安排好時間，不整天一直吃甜食</button><button class="choice habit-option" type="button" data-habit="brush" aria-pressed="false"><img class="inline-art" src="images/toothbrush.svg" alt="" aria-hidden="true"> 和家人一起記得早晚刷牙</button></div>
           <p class="feedback" id="habit-feedback" role="status">選一件你願意先試試看的事。</p>
           <div class="task"><strong>最後說一說 · 約 1 分鐘</strong><p>完成這句話：「今天我學到＿＿＿＿。今晚我想試著＿＿＿＿。如果忘記了，我可以請＿＿＿＿提醒我。」</p></div>
           <div class="callout">如果牙齒疼痛、出血或對刷牙有疑問，請告訴家人，並請牙醫師協助。課程完成後可以前往互動挑戰。</div>
