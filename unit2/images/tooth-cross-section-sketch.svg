@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 440" role="img" aria-labelledby="t d"><title id="t">牙齒剖面構造｜概念草稿</title><desc id="d">以不同柔和色層表示琺瑯質、象牙質與牙髓的示意圖。</desc>
+<defs><clipPath id="tooth"><path d="M200 45 C165 28 120 34 91 58 C61 83 51 124 58 165 C64 202 81 225 88 252 C96 284 94 344 119 359 C140 371 157 334 171 296 C180 273 191 270 201 296 C216 334 233 371 254 359 C279 344 277 284 285 252 C292 225 309 202 315 165 C322 124 312 83 282 58 C253 34 216 28 200 45 Z"/></clipPath></defs>
+<path d="M200 45 C165 28 120 34 91 58 C61 83 51 124 58 165 C64 202 81 225 88 252 C96 284 94 344 119 359 C140 371 157 334 171 296 C180 273 191 270 201 296 C216 334 233 371 254 359 C279 344 277 284 285 252 C292 225 309 202 315 165 C322 124 312 83 282 58 C253 34 216 28 200 45 Z" fill="#f8f5ee" stroke="#5d5149" stroke-width="7"/>
+<g clip-path="url(#tooth)">
+<path d="M69 56 Q198 30 307 62 L315 193 Q205 214 63 191 Z" fill="#eadfbd" stroke="#c4ae79" stroke-width="5"/>
+<path d="M90 86 Q198 66 290 91 L291 195 Q199 212 82 192 Z" fill="#e8c8b6" stroke="#b88770" stroke-width="4"/>
+<path d="M173 98 Q196 84 222 99 L229 218 Q212 253 205 300 L192 300 Q183 249 167 218 Z" fill="#cf9e92" stroke="#9c6d64" stroke-width="4"/>
+<path d="M199 130 L199 322 M205 209 L216 331" fill="none" stroke="#a86961" stroke-width="5" stroke-linecap="round"/>
+</g>
+<path d="M70 202 Q200 221 308 202 L302 225 Q200 245 73 224 Z" fill="#ead4cf" opacity=".88" stroke="#9c766e" stroke-width="4"/>
+</svg>
