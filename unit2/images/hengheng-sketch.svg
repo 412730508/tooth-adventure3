@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-labelledby="title desc">
+<title id="title">恆恆｜概念草稿</title><desc id="desc">低彩度手繪感牙齒角色示意圖，供實體製作討論。</desc>
+<g stroke="#5d5149" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+<path d="M199 48 C164 29 120 34 91 58 C61 83 51 124 58 165 C64 202 81 225 88 252 C96 284 94 334 119 350 C140 363 157 332 171 296 C180 273 191 270 201 296 C216 332 233 363 254 350 C279 334 277 284 285 252 C292 225 309 202 315 165 C322 124 312 83 282 58 C253 34 216 29 199 48 Z" fill="#f7f5f1"/>
+<path d="M68 125 C74 80 117 48 160 49 M212 48 C257 46 295 77 306 118" fill="none" stroke="#b3aaa1" stroke-width="3"/>
+<ellipse cx="156" cy="172" rx="8" ry="11"/><ellipse cx="239" cy="172" rx="8" ry="11"/><path d="M179 204 Q198 220 217 204"/><path d="M136 196 q-10 8 -5 17 M259 196 q10 8 5 17"/>
+<path d="M286 225 l35 10 2 37 q-10 23 -36 34 q-25 -11 -35 -34 l2 -37 Z" fill="#d8e3e7"/><path d="M270 261 l12 12 22 -25" fill="none" stroke="#668494" stroke-width="6"/>
+</g>
+<g fill="#dfc7c0" opacity=".8"><ellipse cx="126" cy="209" rx="13" ry="8"/><ellipse cx="270" cy="209" rx="13" ry="8"/></g>
+</svg>
