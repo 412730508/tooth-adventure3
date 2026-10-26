@@ -8,7 +8,7 @@
     content="牙寶歷險記第一單元：透過故事、探索與情境挑戰，陪孩子安心認識看牙醫。"
   />
   <title>牙寶歷險記｜安心看牙大冒險</title>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🦷%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" href="images/tooth-happy.png" type="image/png" />
 
   <style>
     :root {
@@ -33,6 +33,10 @@
     * {
       box-sizing: border-box;
     }
+
+    .unit-icon { display:inline-block; width:1em; height:1em; overflow:visible; vertical-align:-0.18em; flex:none; }
+    .clinic-building .unit-icon { display:block; width:145px; height:96px; margin:0 auto 8px; }
+    .case-visual .case-art { width:min(100%,280px); height:270px; }
 
     html {
       scroll-behavior: smooth;
@@ -2900,7 +2904,7 @@
             </div>
             <div class="clinic-scene" aria-label="牙寶站在韋登牙醫診所前">
               <div class="clinic-building" aria-hidden="true">
-                🏥
+                <svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#clinic"></use></svg>
                 <span>韋登牙醫診所</span>
               </div>
               <div class="tooth-character"><img src="images/tooth-hero.png" alt="牙寶鼓起勇氣準備出發" /></div>
@@ -2920,7 +2924,7 @@
           <div class="story-layout">
             <div class="clinic-scene" aria-label="牙寶站在牙醫診所門口">
               <div class="clinic-building" aria-hidden="true">
-                🏥
+                <svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#clinic"></use></svg>
                 <span>診所門口</span>
               </div>
               <div class="tooth-character"><img src="images/tooth-angry.png" alt="牙寶有點擔心的樣子" /></div>
@@ -2933,7 +2937,7 @@
                   「今天要檢查牙齒……可是我不知道進去之後會發生什麼耶。」
                 </div>
                 <div class="speech npc">
-                  <span class="speaker">🧑‍⚕️ 韋登牙醫：</span>
+                  <span class="speaker"><svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#dentist"></use></svg> 韋登牙醫：</span>
                   「不知道會發生什麼，的確容易讓人緊張。沒關係，我們先不急著開始，你可以先看看牙醫到底是怎麼幫助牙齒的。」
                 </div>
               </div>
@@ -2941,8 +2945,8 @@
               <div class="question-box">
                 <h3>你想怎麼回答韋登牙醫？</h3>
                 <div class="options">
-                  <button class="option intro-story-choice" type="button" data-intro-story="look">😊 好，我想看看！</button>
-                  <button class="option intro-story-choice" type="button" data-intro-story="afraid">🤔 牙醫真的不可怕嗎？</button>
+                  <button class="option intro-story-choice" type="button" data-intro-story="look"><svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#face-happy"></use></svg> 好，我想看看！</button>
+                  <button class="option intro-story-choice" type="button" data-intro-story="afraid"><svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#face-thought"></use></svg> 牙醫真的不可怕嗎？</button>
                 </div>
                 <div class="response-box" id="introStoryResponse" role="status" aria-live="polite"></div>
                 <div class="center-actions hidden" id="introStoryContinue">
@@ -2966,21 +2970,21 @@
           <div class="explore-layout">
             <div class="intro-tool-grid">
               <button class="intro-tool" type="button" data-intro-tool="light">
-                <span class="intro-tool-icon" aria-hidden="true">🔦</span>診療燈
+                <span class="intro-tool-icon" aria-hidden="true"><svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#light"></use></svg></span>診療燈
               </button>
               <button class="intro-tool" type="button" data-intro-tool="mirror">
-                <span class="intro-tool-icon" aria-hidden="true">🪞</span>牙科小鏡子
+                <span class="intro-tool-icon" aria-hidden="true"><svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#mirror"></use></svg></span>牙科小鏡子
               </button>
               <button class="intro-tool" type="button" data-intro-tool="check">
-                <span class="intro-tool-icon" aria-hidden="true">🦷</span>牙齒檢查
+                <span class="intro-tool-icon" aria-hidden="true"><svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#tooth"></use></svg></span>牙齒檢查
               </button>
               <button class="intro-tool" type="button" data-intro-tool="clean">
-                <span class="intro-tool-icon" aria-hidden="true">✨</span>清潔牙齒
+                <span class="intro-tool-icon" aria-hidden="true"><svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#sparkles"></use></svg></span>清潔牙齒
               </button>
             </div>
 
             <aside class="explore-info" id="introToolInfo" aria-live="polite">
-              <div class="big-icon" id="introToolIcon" aria-hidden="true">👆</div>
+              <div class="big-icon" id="introToolIcon" aria-hidden="true"><svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#hand-tap"></use></svg></div>
               <h3 id="introToolTitle">選一個項目看看</h3>
               <p id="introToolText">每一項都有不同的用途，四個全部看完才能繼續。</p>
               <p class="counter" id="introToolCounter">已探索 0 / 4</p>
@@ -2990,13 +2994,13 @@
           <div class="complete-banner" id="introToolsComplete">
             <h3>原來牙醫可以……</h3>
             <div class="intro-review-grid">
-              <div class="intro-review-card">🔍 幫牙齒做檢查</div>
-              <div class="intro-review-card">✨ 幫助保持牙齒乾淨</div>
-              <div class="intro-review-card">🛡️ 提早發現牙齒問題</div>
+              <div class="intro-review-card"><svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#magnifier"></use></svg> 幫牙齒做檢查</div>
+              <div class="intro-review-card"><svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#sparkles"></use></svg> 幫助保持牙齒乾淨</div>
+              <div class="intro-review-card"><svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#shield"></use></svg> 提早發現牙齒問題</div>
             </div>
             <p class="core-message">看牙醫不是只有牙齒痛的時候才需要喔！</p>
             <div class="story-chat-row">
-              <button class="story-chat-button" type="button" data-story-dialogue="early-check" aria-pressed="false">💬 聽聽牙寶的小問題</button>
+              <button class="story-chat-button" type="button" data-story-dialogue="early-check" aria-pressed="false"><svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#chat"></use></svg> 聽聽牙寶的小問題</button>
             </div>
             <button class="primary" type="button" data-go="4">繼續第一段冒險 →</button>
           </div>
@@ -3014,17 +3018,17 @@
 
           <div class="intro-case-grid">
             <button class="intro-case" type="button" data-intro-case="cavity">
-              <span class="worry-icon" aria-hidden="true">🦷⚫</span>
+              <span class="worry-icon" aria-hidden="true"><svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#cavity"></use></svg></span>
               <h3>蛀牙</h3>
               <p>牙齒怎麼有一個小黑點？</p>
             </button>
             <button class="intro-case" type="button" data-intro-case="calculus">
-              <span class="worry-icon" aria-hidden="true">🦷🟡</span>
+              <span class="worry-icon" aria-hidden="true"><svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#calculus"></use></svg></span>
               <h3>牙結石</h3>
               <p>牙齒旁邊怎麼有黃色硬塊？</p>
             </button>
             <button class="intro-case" type="button" data-intro-case="gum">
-              <span class="worry-icon" aria-hidden="true">🦷🔴</span>
+              <span class="worry-icon" aria-hidden="true"><svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#gum"></use></svg></span>
               <h3>牙齦紅紅的</h3>
               <p>牙齦看起來紅紅的或容易流血。</p>
             </button>
@@ -3061,9 +3065,9 @@
           </div>
 
           <div class="intro-review-grid">
-            <div class="intro-review-card">🔍 牙醫可以幫忙檢查牙齒。</div>
-            <div class="intro-review-card">🦷 蛀牙、牙結石和牙齦問題都可以提早注意。</div>
-            <div class="intro-review-card">🛡️ 不用等牙齒很痛，平常也可以進行牙齒檢查。</div>
+            <div class="intro-review-card"><svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#magnifier"></use></svg> 牙醫可以幫忙檢查牙齒。</div>
+            <div class="intro-review-card"><svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#tooth"></use></svg> 蛀牙、牙結石和牙齦問題都可以提早注意。</div>
+            <div class="intro-review-card"><svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#shield"></use></svg> 不用等牙齒很痛，平常也可以進行牙齒檢查。</div>
           </div>
 
           <div class="final-dialogue show">
@@ -3074,7 +3078,7 @@
                 「原來知道牙醫在做什麼之後，好像就沒有剛剛那麼可怕了！」
               </div>
               <div class="speech npc">
-                <span class="speaker">🧑‍⚕️ 韋登牙醫：</span>
+                <span class="speaker"><svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#dentist"></use></svg> 韋登牙醫：</span>
                 「沒錯！如果看牙的時候覺得緊張，也可以告訴牙醫你的感覺。」
               </div>
             </div>
@@ -3094,7 +3098,7 @@
           <div class="story-layout">
             <div class="clinic-scene" aria-label="牙寶站在牙醫診所門口，表情有點猶豫">
               <div class="clinic-building" aria-hidden="true">
-                🏥
+                <svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#clinic"></use></svg>
                 <span>韋登牙醫診所</span>
               </div>
               <div class="tooth-character"><img src="images/tooth-angry.png" alt="牙寶站在診所前思考" /></div>
@@ -3120,16 +3124,16 @@
             <h3>如果今天換成你要看牙醫，你現在是什麼感覺？</h3>
             <div class="emotion-grid" id="openingEmotions">
               <button class="emotion-button" type="button" data-feeling="完全不緊張">
-                <span class="emotion-face" aria-hidden="true">😄</span>完全不緊張
+                <span class="emotion-face" aria-hidden="true"><svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#face-happy"></use></svg></span>完全不緊張
               </button>
               <button class="emotion-button" type="button" data-feeling="有一點緊張">
-                <span class="emotion-face" aria-hidden="true">🙂</span>有一點緊張
+                <span class="emotion-face" aria-hidden="true"><svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#face-neutral"></use></svg></span>有一點緊張
               </button>
               <button class="emotion-button" type="button" data-feeling="有點害怕">
-                <span class="emotion-face" aria-hidden="true">😟</span>有點害怕
+                <span class="emotion-face" aria-hidden="true"><svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#face-worried"></use></svg></span>有點害怕
               </button>
               <button class="emotion-button" type="button" data-feeling="很害怕">
-                <span class="emotion-face" aria-hidden="true">😣</span>很害怕
+                <span class="emotion-face" aria-hidden="true"><svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#face-strained"></use></svg></span>很害怕
               </button>
             </div>
             <div class="response-box" id="openingResponse" role="status" aria-live="polite">
@@ -3154,22 +3158,22 @@
 
           <div class="worry-grid">
             <button class="worry-card" type="button" data-worry="unknown">
-              <span class="worry-icon" aria-hidden="true">😰</span>
+              <span class="worry-icon" aria-hidden="true"><svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#face-anxious"></use></svg></span>
               <strong>我不知道等等會做什麼</strong>
             </button>
             <button class="worry-card" type="button" data-worry="hurt">
-              <span class="worry-icon" aria-hidden="true">😖</span>
+              <span class="worry-icon" aria-hidden="true"><svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#face-pain"></use></svg></span>
               <strong>我怕會不舒服</strong>
             </button>
             <button class="worry-card" type="button" data-worry="why">
-              <span class="worry-icon" aria-hidden="true">🤔</span>
+              <span class="worry-icon" aria-hidden="true"><svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#face-thought"></use></svg></span>
               <strong>我的牙齒又沒有痛，為什麼還要來？</strong>
             </button>
           </div>
 
           <p class="counter" id="worryCounter">已了解 0 / 3 個疑問</p>
           <div class="answer-panel" id="worryAnswer" aria-live="polite">
-            <h3>🧑‍⚕️ 韋登牙醫</h3>
+            <h3><svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#dentist"></use></svg> 韋登牙醫</h3>
             <p>選一張牙寶的擔心卡，我們一起找答案。</p>
           </div>
           <div class="center-actions hidden" id="worryContinue">
@@ -3191,27 +3195,27 @@
             <div class="room" aria-label="牙醫診間六個互動物件">
               <p class="room-counter" id="roomCounter">診間探索：0 / 6</p>
               <button class="hotspot" type="button" data-tool="chair">
-                <span class="hotspot-icon" aria-hidden="true">💺</span><span>診療椅</span>
+                <span class="hotspot-icon" aria-hidden="true"><svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#chair"></use></svg></span><span>診療椅</span>
               </button>
               <button class="hotspot" type="button" data-tool="light">
-                <span class="hotspot-icon" aria-hidden="true">🔦</span><span>診療燈</span>
+                <span class="hotspot-icon" aria-hidden="true"><svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#light"></use></svg></span><span>診療燈</span>
               </button>
               <button class="hotspot" type="button" data-tool="mirror">
-                <span class="hotspot-icon" aria-hidden="true">🪞</span><span>牙科小鏡子</span>
+                <span class="hotspot-icon" aria-hidden="true"><svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#mirror"></use></svg></span><span>牙科小鏡子</span>
               </button>
               <button class="hotspot" type="button" data-tool="clean">
-                <span class="hotspot-icon" aria-hidden="true">😷</span><span>手套口罩</span>
+                <span class="hotspot-icon" aria-hidden="true"><svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#mask"></use></svg></span><span>手套口罩</span>
               </button>
               <button class="hotspot" type="button" data-tool="suction">
-                <span class="hotspot-icon" aria-hidden="true">🥤</span><span>吸唾管</span>
+                <span class="hotspot-icon" aria-hidden="true"><svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#suction"></use></svg></span><span>吸唾管</span>
               </button>
               <button class="hotspot" type="button" data-tool="model">
-                <span class="hotspot-icon" aria-hidden="true">🦷</span><span>牙齒模型</span>
+                <span class="hotspot-icon" aria-hidden="true"><svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#tooth"></use></svg></span><span>牙齒模型</span>
               </button>
             </div>
 
             <aside class="explore-info" id="toolInfo" aria-live="polite">
-              <div class="big-icon" id="toolIcon" aria-hidden="true">👆</div>
+              <div class="big-icon" id="toolIcon" aria-hidden="true"><svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#hand-tap"></use></svg></div>
               <h3 id="toolTitle">先找一個物件</h3>
               <p id="toolYabao"><strong>牙寶：</strong>「診間裡有好多東西，原來都可以點點看！」</p>
               <p id="toolDentist"><strong>韋登牙醫：</strong>「慢慢探索，知道用途以後，就不會那麼陌生了。」</p>
@@ -3219,10 +3223,10 @@
           </div>
 
           <div class="complete-banner" id="roomComplete">
-            <h3>🎉 診所探索完成！</h3>
+            <h3><svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#party"></use></svg> 診所探索完成！</h3>
             <p>牙寶：「原來這些東西都有自己的用途，好像沒有想像中那麼神祕了。」</p>
             <div class="story-chat-row">
-              <button class="story-chat-button" type="button" data-story-dialogue="chair-signal" aria-pressed="false">💬 和韋登牙醫約定安心暗號</button>
+              <button class="story-chat-button" type="button" data-story-dialogue="chair-signal" aria-pressed="false"><svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#chat"></use></svg> 和韋登牙醫約定安心暗號</button>
             </div>
             <button class="primary" type="button" data-go="9">看看真正的看牙流程 →</button>
           </div>
@@ -3250,7 +3254,7 @@
 
             <aside class="flow-preview" id="flowPreview">
               <div class="flow-placeholder" id="flowPlaceholder">
-                <div class="big-icon" aria-hidden="true">🗺️</div>
+                <div class="big-icon" aria-hidden="true"><svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#map"></use></svg></div>
                 排列正確後，牙寶會一步一步帶你看看完整流程。
               </div>
               <div id="flowContent"></div>
@@ -3270,41 +3274,41 @@
           </div>
 
           <div class="guardian-layout">
-            <div class="guardian-tooth" aria-hidden="true">🦷</div>
+            <div class="guardian-tooth" aria-hidden="true"><svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#tooth"></use></svg></div>
             <div class="shield-grid">
               <button class="shield unlocked" type="button" data-shield="0">
-                <span class="shield-icon" aria-hidden="true">🔍</span>
+                <span class="shield-icon" aria-hidden="true"><svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#magnifier"></use></svg></span>
                 <strong>牙齒健康檢查</strong>
                 <span class="shield-lock">點擊解鎖</span>
                 <span class="shield-text">牙醫可以檢查看看牙齒和牙齦目前的健康狀況。</span>
               </button>
               <button class="shield" type="button" data-shield="1" disabled>
-                <span class="shield-icon" aria-hidden="true">🔎</span>
+                <span class="shield-icon" aria-hidden="true"><svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#magnifier"></use></svg></span>
                 <strong>提早發現問題</strong>
-                <span class="shield-lock">🔒 尚未解鎖</span>
+                <span class="shield-lock"><svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#lock"></use></svg> 尚未解鎖</span>
                 <span class="shield-text">有些牙齒問題剛開始不一定會痛，檢查可以幫忙提早注意。</span>
               </button>
               <button class="shield" type="button" data-shield="2" disabled>
-                <span class="shield-icon" aria-hidden="true">✨</span>
+                <span class="shield-icon" aria-hidden="true"><svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#sparkles"></use></svg></span>
                 <strong>專業清潔</strong>
-                <span class="shield-lock">🔒 尚未解鎖</span>
+                <span class="shield-lock"><svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#lock"></use></svg> 尚未解鎖</span>
                 <span class="shield-text">有些自己不容易清除的牙齒髒污，可以由牙科專業人員判斷及處理。</span>
               </button>
               <button class="shield" type="button" data-shield="3" disabled>
-                <span class="shield-icon" aria-hidden="true">📅</span>
+                <span class="shield-icon" aria-hidden="true"><svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#calendar"></use></svg></span>
                 <strong>定期追蹤</strong>
-                <span class="shield-lock">🔒 尚未解鎖</span>
+                <span class="shield-lock"><svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#lock"></use></svg> 尚未解鎖</span>
                 <span class="shield-text">不一定要等到牙痛才看牙，定期檢查也是照顧牙齒的一種方式。</span>
               </button>
             </div>
           </div>
 
           <div class="reward" id="shieldReward">
-            <span class="reward-icon" aria-hidden="true">🛡️</span>
+            <span class="reward-icon" aria-hidden="true"><svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#shield"></use></svg></span>
             <h3>獲得「牙齒守護盾」！</h3>
             <p>牙寶已經知道：看牙醫不只是處理牙痛，也是在平常保護牙齒。</p>
             <div class="story-chat-row">
-              <button class="story-chat-button" type="button" data-story-dialogue="not-a-punishment" aria-pressed="false">💬 解開牙寶最後一個心結</button>
+              <button class="story-chat-button" type="button" data-story-dialogue="not-a-punishment" aria-pressed="false"><svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#chat"></use></svg> 解開牙寶最後一個心結</button>
             </div>
             <button class="primary" type="button" data-go="11">前往牙齒偵探事務所 →</button>
           </div>
@@ -3334,7 +3338,7 @@
               <div class="options">
                 <button class="option" type="button" data-case-answer="correct">蛀牙</button>
                 <button class="option" type="button" data-case-answer="wrong">換牙</button>
-                <button class="option" type="button" data-case-answer="wrong">牙齒變黑色新品種 😆</button>
+                <button class="option" type="button" data-case-answer="wrong">牙齒變黑色新品種 <svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#face-laugh"></use></svg></button>
               </div>
               <div class="feedback case-feedback" role="status" aria-live="polite"></div>
               <div class="case-explanation">
@@ -3347,7 +3351,7 @@
           </article>
 
           <article class="case-stage" data-case-stage="1">
-            <div class="case-visual"><img src="images/tooth-cavity.png" alt="需要接受牙科檢查的牙齒" /></div>
+            <div class="case-visual"><svg class="unit-icon case-art" role="img" aria-label="牙齒靠近牙齦處的淡黃色牙結石示意圖" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#calculus"></use></svg></div>
             <div>
               <h3>案件 02：牙齒旁邊硬硬的東西</h3>
               <p>牙齒上的牙菌斑如果長時間累積，可能慢慢形成比較硬的牙結石。</p>
@@ -3389,7 +3393,7 @@
           </article>
 
           <div class="reward" id="detectiveReward">
-            <span class="reward-icon" aria-hidden="true">🎖️</span>
+            <span class="reward-icon" aria-hidden="true"><svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#badge"></use></svg></span>
             <h3>「牙齒小偵探」徽章獲得！</h3>
             <p>三個案件都破解了，接著看看生活中遇到這些情況時可以怎麼做。</p>
             <button class="primary" type="button" data-go="12">接受情境挑戰 →</button>
@@ -3415,7 +3419,7 @@
             </div>
 
             <div class="scenario-card">
-              <div class="scenario-icon" id="scenarioIcon" aria-hidden="true">😟</div>
+              <div class="scenario-icon" id="scenarioIcon" aria-hidden="true"><svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#face-worried"></use></svg></div>
               <h3 id="scenarioTitle">情境一</h3>
               <p class="scenario-question" id="scenarioQuestion">明天要看牙醫，你有點緊張。你會怎麼做？</p>
               <div class="options" id="scenarioOptions"></div>
@@ -3444,16 +3448,16 @@
           <div class="review-feelings">
             <div class="emotion-grid" id="closingEmotions">
               <button class="emotion-button" type="button" data-feeling="完全不緊張">
-                <span class="emotion-face" aria-hidden="true">😄</span>完全不緊張
+                <span class="emotion-face" aria-hidden="true"><svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#face-happy"></use></svg></span>完全不緊張
               </button>
               <button class="emotion-button" type="button" data-feeling="有一點緊張">
-                <span class="emotion-face" aria-hidden="true">🙂</span>有一點緊張
+                <span class="emotion-face" aria-hidden="true"><svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#face-neutral"></use></svg></span>有一點緊張
               </button>
               <button class="emotion-button" type="button" data-feeling="有點害怕">
-                <span class="emotion-face" aria-hidden="true">😟</span>有點害怕
+                <span class="emotion-face" aria-hidden="true"><svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#face-worried"></use></svg></span>有點害怕
               </button>
               <button class="emotion-button" type="button" data-feeling="很害怕">
-                <span class="emotion-face" aria-hidden="true">😣</span>很害怕
+                <span class="emotion-face" aria-hidden="true"><svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#face-strained"></use></svg></span>很害怕
               </button>
             </div>
 
@@ -3462,10 +3466,10 @@
             </div>
 
             <div class="learning-cards" id="learningCards">
-              <div class="learning-card">🪞 我知道診間工具在做什麼</div>
-              <div class="learning-card">🗺️ 我知道看牙大概有哪些步驟</div>
-              <div class="learning-card">🦷 我知道牙醫可以幫忙檢查牙齒</div>
-              <div class="learning-card">💬 我知道緊張或不舒服時可以說出來</div>
+              <div class="learning-card"><svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#mirror"></use></svg> 我知道診間工具在做什麼</div>
+              <div class="learning-card"><svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#map"></use></svg> 我知道看牙大概有哪些步驟</div>
+              <div class="learning-card"><svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#tooth"></use></svg> 我知道牙醫可以幫忙檢查牙齒</div>
+              <div class="learning-card"><svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#chat"></use></svg> 我知道緊張或不舒服時可以說出來</div>
             </div>
 
             <div class="final-dialogue" id="reviewDialogue">
@@ -3489,7 +3493,7 @@
       <section class="screen" id="screen14" data-screen="14" aria-labelledby="title9">
         <div class="panel finish-panel">
           <div class="confetti" id="confetti" aria-hidden="true"></div>
-          <div class="finish-icon" aria-hidden="true">🎉</div>
+          <div class="finish-icon" aria-hidden="true"><svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#party"></use></svg></div>
           <p class="eyebrow">全部完成｜遊戲解鎖</p>
           <h2 id="title9">第一單元學習完成</h2>
           <p class="lead" style="margin-right:auto;margin-left:auto;">
@@ -3504,7 +3508,7 @@
             <li>✓ 情境挑戰</li>
           </ul>
 
-          <button class="game-button" id="gameButton" type="button">🎮 開始挑戰</button>
+          <button class="game-button" id="gameButton" type="button"><svg class="unit-icon" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#game"></use></svg> 開始挑戰</button>
           <div class="center-actions">
             <a class="course-next" href="../unit2/">前往第二單元 →</a>
             <button class="secondary" type="button" id="learnAgainButton">再體驗一次</button>
@@ -3533,6 +3537,10 @@
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script>
+    function iconMarkup(id, className) {
+      const iconClass = className || "unit-icon";
+      return '<svg class="' + iconClass + '" aria-hidden="true" focusable="false" viewBox="0 0 64 64"><use href="images/unit1-icons.svg#' + id + '"></use></svg>';
+    }
     const GAME_URL = "https://view.genially.com/6a8d238a0ac8f9254dfc9780";
 
     const actNames = [
@@ -3813,22 +3821,22 @@
 
     const introToolData = {
       light: {
-        icon: "🔦",
+        icon: "light",
         title: "診療燈",
         text: "診療燈會照亮嘴巴，幫助牙醫把牙齒看清楚。"
       },
       mirror: {
-        icon: "🪞",
+        icon: "mirror",
         title: "牙科小鏡子",
         text: "小鏡子可以幫助牙醫看到牙齒後面，還有平常不容易看到的地方。"
       },
       check: {
-        icon: "🦷",
+        icon: "tooth",
         title: "牙齒檢查",
         text: "牙醫會仔細看看牙齒和牙齦，確認它們是不是健康。"
       },
       clean: {
-        icon: "✨",
+        icon: "sparkles",
         title: "清潔牙齒",
         text: "牙醫可以幫忙處理一些自己刷牙時不容易清除的髒東西。"
       }
@@ -3841,7 +3849,7 @@
         state.introTools.add(key);
         button.classList.add("visited");
         button.setAttribute("aria-pressed", "true");
-        document.getElementById("introToolIcon").textContent = data.icon;
+        document.getElementById("introToolIcon").innerHTML = iconMarkup(data.icon);
         document.getElementById("introToolTitle").textContent = data.title;
         document.getElementById("introToolText").textContent = data.text;
         document.getElementById("introToolCounter").textContent =
@@ -3961,7 +3969,7 @@
         card.setAttribute("aria-pressed", "true");
         document.getElementById("worryCounter").textContent = "已了解 " + state.worries.size + " / 3 個疑問";
         document.getElementById("worryAnswer").innerHTML =
-          "<h3>🧑‍⚕️ 韋登牙醫</h3><p>" + worryReplies[key] + "</p>";
+          "<h3>" + iconMarkup("dentist") + " 韋登牙醫</h3><p>" + worryReplies[key] + "</p>";
 
         if (state.worries.size === 3) {
           document.getElementById("worryContinue").classList.remove("hidden");
@@ -3972,37 +3980,37 @@
 
     const toolData = {
       chair: {
-        icon: "💺",
+        icon: "chair",
         title: "診療椅",
         yabao: "「原來這張椅子會慢慢往後躺！」",
         dentist: "「它讓病人舒服地躺著，也方便牙醫清楚檢查牙齒。」"
       },
       light: {
-        icon: "🔦",
+        icon: "light",
         title: "診療燈",
         yabao: "「這盞燈好亮，是要做什麼的呢？」",
         dentist: "「它可以照亮嘴巴，幫助我清楚看到裡面的牙齒。」"
       },
       mirror: {
-        icon: "🪞",
+        icon: "mirror",
         title: "牙科小鏡子",
         yabao: "「原來這個小鏡子不是普通鏡子！」",
         dentist: "「對呀，它可以幫我看到牙齒後面等平常不容易看清楚的位置。」"
       },
       clean: {
-        icon: "😷",
+        icon: "mask",
         title: "手套口罩",
         yabao: "「牙醫為什麼要戴手套和口罩呢？」",
         dentist: "「它們可以幫助診療過程保持清潔與衛生。」"
       },
       suction: {
-        icon: "🥤",
+        icon: "suction",
         title: "吸唾管",
         yabao: "「這根小管子會發出聲音耶！」",
         dentist: "「它會協助吸走口中的水與唾液，讓檢查更方便。」"
       },
       model: {
-        icon: "🦷",
+        icon: "tooth",
         title: "牙齒模型",
         yabao: "「這顆牙齒模型比我的牙齒大好多！」",
         dentist: "「我可以利用模型說明牙齒的位置，也可以示範刷牙方式。」"
@@ -4018,7 +4026,7 @@
         button.setAttribute("aria-pressed", "true");
 
         document.getElementById("roomCounter").textContent = "診間探索：" + state.tools.size + " / 6";
-        document.getElementById("toolIcon").textContent = data.icon;
+        document.getElementById("toolIcon").innerHTML = iconMarkup(data.icon);
         document.getElementById("toolTitle").textContent = data.title;
         document.getElementById("toolYabao").innerHTML = "<strong>牙寶：</strong>" + data.yabao;
         document.getElementById("toolDentist").innerHTML = "<strong>韋登牙醫：</strong>" + data.dentist;
@@ -4118,27 +4126,27 @@
     const flowStories = [
       {
         title: "報到與等待",
-        icon: "📝",
+        icon: "note",
         text: "先到櫃台報到，再在候診區稍微等待。輪到牙寶時，工作人員會叫他的名字。"
       },
       {
         title: "坐上診療椅",
-        icon: "💺",
+        icon: "chair",
         text: "牙寶：「椅子怎麼開始往後倒了！」 韋登牙醫：「這是為了讓我比較容易看清楚你的牙齒，你只需要舒服地坐好就可以囉。」"
       },
       {
         title: "張開嘴巴讓牙醫檢查",
-        icon: "🪞",
+        icon: "mirror",
         text: "韋登牙醫：「首先我可能會利用燈光和小鏡子看看每一顆牙齒。有任何不舒服，都可以讓我知道。」"
       },
       {
         title: "醫師告訴你牙齒的狀況",
-        icon: "💬",
+        icon: "chat",
         text: "檢查後，牙醫會說明牙齒現在的狀況，也可能告訴你接下來怎麼照顧牙齒。"
       },
       {
         title: "完成檢查",
-        icon: "✅",
+        icon: "check",
         text: "韋登牙醫：「完成啦！檢查不一定代表牙齒有問題，而是先了解牙齒現在的狀況。」"
       }
     ];
@@ -4150,7 +4158,7 @@
       document.getElementById("flowContent").innerHTML =
         '<div class="flow-step active">' +
         '<div class="flow-number">' + (index + 1) + " / 5</div>" +
-        "<h3>" + story.icon + " " + story.title + "</h3>" +
+        "<h3>" + iconMarkup(story.icon) + " " + story.title + "</h3>" +
         "<p>" + story.text + "</p>" +
         (index === 4
           ? '<p class="core-message">知道下一步會發生什麼，陌生的感覺就會少一點。</p>'
@@ -4270,7 +4278,7 @@
 
     const scenarios = [
       {
-        icon: "😟",
+        icon: "face-worried",
         title: "情境一",
         question: "明天要看牙醫，你有點緊張。你會怎麼做？",
         options: [
@@ -4280,7 +4288,7 @@
         success: "很好！讓別人知道你的感覺，可以讓他們更容易幫助你。"
       },
       {
-        icon: "📅",
+        icon: "calendar",
         title: "情境二",
         question: "牙齒沒有痛，但是到了定期檢查的時間。你會怎麼做？",
         options: [
@@ -4290,7 +4298,7 @@
         success: "沒錯！有些問題剛開始不一定會痛，定期檢查可以提早注意。"
       },
       {
-        icon: "🤕",
+        icon: "face-injured",
         title: "情境三",
         question: "牙齒開始痛了，但是因為害怕不想說。你會怎麼做？",
         options: [
@@ -4300,7 +4308,7 @@
         success: "做得好！告訴家長自己的狀況，才能一起想辦法處理。"
       },
       {
-        icon: "✋",
+        icon: "hand-stop",
         title: "情境四",
         question: "牙醫正在檢查，你突然覺得不舒服。你會怎麼做？",
         options: [
@@ -4314,7 +4322,7 @@
     function renderScenario() {
       const index = state.scenarioIndex;
       const data = scenarios[index];
-      document.getElementById("scenarioIcon").textContent = data.icon;
+      document.getElementById("scenarioIcon").innerHTML = iconMarkup(data.icon);
       document.getElementById("scenarioTitle").textContent = data.title;
       document.getElementById("scenarioQuestion").textContent = data.question;
       document.getElementById("scenarioFeedback").className = "feedback";
@@ -4428,7 +4436,7 @@
         button.classList.remove("visited");
         button.removeAttribute("aria-pressed");
       });
-      document.getElementById("introToolIcon").textContent = "👆";
+      document.getElementById("introToolIcon").innerHTML = iconMarkup("hand-tap");
       document.getElementById("introToolTitle").textContent = "選一個項目看看";
       document.getElementById("introToolText").textContent =
         "每一項都有不同的用途，四個全部看完才能繼續。";
@@ -4468,7 +4476,7 @@
       });
       document.getElementById("worryCounter").textContent = "已了解 0 / 3 個疑問";
       document.getElementById("worryAnswer").innerHTML =
-        "<h3>🧑‍⚕️ 韋登牙醫</h3><p>選一張牙寶的擔心卡，我們一起找答案。</p>";
+        "<h3>" + iconMarkup("dentist") + " 韋登牙醫</h3><p>選一張牙寶的擔心卡，我們一起找答案。</p>";
       document.getElementById("worryContinue").classList.add("hidden");
 
       document.querySelectorAll(".hotspot").forEach(function (button) {
@@ -4476,7 +4484,7 @@
         button.removeAttribute("aria-pressed");
       });
       document.getElementById("roomCounter").textContent = "診間探索：0 / 6";
-      document.getElementById("toolIcon").textContent = "👆";
+      document.getElementById("toolIcon").innerHTML = iconMarkup("hand-tap");
       document.getElementById("toolTitle").textContent = "先找一個物件";
       document.getElementById("toolYabao").innerHTML =
         "<strong>牙寶：</strong>「診間裡有好多東西，原來都可以點點看！」";
@@ -4496,7 +4504,7 @@
       shieldButtons.forEach(function (button, index) {
         button.classList.remove("opened", "unlocked");
         button.disabled = index !== 0;
-        button.querySelector(".shield-lock").textContent = index === 0 ? "點擊解鎖" : "🔒 尚未解鎖";
+        button.querySelector(".shield-lock").textContent = index === 0 ? "點擊解鎖" : "尚未解鎖";
         if (index === 0) button.classList.add("unlocked");
       });
       document.getElementById("shieldReward").classList.remove("show");
