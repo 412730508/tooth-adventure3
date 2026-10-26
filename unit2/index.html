@@ -1206,7 +1206,29 @@
       .card-pool,
       .target-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
-  </style>
+  
+
+    /* Tablet layout: keep lesson text at full size and let portrait pages scroll. */
+    @media (min-width: 721px) and (max-width: 1180px) {
+      html, body { height: auto; min-height: 100%; overflow-x: hidden; overflow-y: auto; }
+      .app { width: min(1120px, calc(100% - 28px)); height: auto; min-height: 100dvh; padding: 12px 0 28px; }
+      .topbar { top: 6px; }
+      main { flex: 0 0 auto; min-height: 0; overflow: visible; padding-top: 12px; }
+      .screen, .screen.active { height: auto; min-height: 0; overflow: visible; }
+      .panel { height: auto; min-height: 0; overflow: visible; padding: clamp(20px, 3vw, 32px); }
+      .screen-fit { transform: none !important; }
+      .restart, .primary, .secondary, .choice, .interaction-card, .target, .explore-button, .story-chat-button { min-height: 48px; }
+    }
+
+    @media (min-width: 721px) and (max-width: 1000px) and (orientation: portrait) {
+      .hero-grid, .two-column, .character-grid, .explore-grid, .summary-characters { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .route-strip { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .knowledge-grid, .category-grid, .completion-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .card-pool, .target-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .image-slot.diagram { height: 240px; }
+      .tooth-stage, .tooth-stage .image-slot { height: 270px; }
+    }
+</style>
   <link rel="stylesheet" href="../assets/fonts.css" />
 </head>
 <body>
