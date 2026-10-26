@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 440" role="img" aria-labelledby="t d"><title id="t">完整牙齒構造｜概念草稿</title><desc id="d">牙冠位於牙齦上方，牙根延伸至牙齦下方的低彩度示意圖。</desc>
+<path d="M200 45 C165 28 120 34 91 58 C61 83 51 124 58 165 C64 202 81 225 88 252 C96 284 94 344 119 359 C140 371 157 334 171 296 C180 273 191 270 201 296 C216 334 233 371 254 359 C279 344 277 284 285 252 C292 225 309 202 315 165 C322 124 312 83 282 58 C253 34 216 28 200 45 Z" fill="#f8f5ee" stroke="#5d5149" stroke-width="7" stroke-linejoin="round"/>
+<path d="M65 202 Q200 222 308 202 L302 225 Q200 245 73 224 Z" fill="#ead4cf" opacity=".88" stroke="#9c766e" stroke-width="4"/>
+<path d="M111 83 C139 56 173 59 200 70 C228 58 264 56 289 85" fill="none" stroke="#d4ccc1" stroke-width="4" stroke-linecap="round"/>
+<path d="M198 102 C184 150 185 185 199 207 C211 232 207 277 199 324" fill="none" stroke="#d6c59c" stroke-width="9" opacity=".85"/>
+<path d="M181 112 Q171 165 185 203 Q200 238 190 290" fill="none" stroke="#e7ddc5" stroke-width="8" opacity=".9"/>
+</svg>
