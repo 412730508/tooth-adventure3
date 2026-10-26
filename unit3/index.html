@@ -115,7 +115,26 @@
     @media(max-height:650px) and (min-width:781px) { .app{padding:10px 16px;gap:8px}.layout{gap:10px}.story,.lesson{padding:16px 20px}.scene{margin:10px 0}.fact{padding:9px}.panel p{margin:8px 0}.footer-actions{margin-top:5px;padding-top:8px} }
     @media(max-width:430px) { header{gap:8px}.crumb{font-size:.85rem}.top-link{padding:9px;font-size:.88rem}.bubble{padding:11px 13px}.character img{width:68px;height:68px}.character .emoji{font-size:3.3rem} }
     @media(prefers-reduced-motion:reduce) { *,*::before,*::after{scroll-behavior:auto!important;transition:none!important} }
-  </style>
+  
+
+    /* Tablet controls and spacing. */
+    @media (min-width: 701px) and (max-width: 1180px) {
+      header { gap: 10px; }
+      .top-link { min-height: 48px; display: inline-flex; align-items: center; }
+      button, .button-link { min-height: 52px; }
+      .food { min-height: 92px; }
+      .compare-option { min-height: 132px; }
+      .panel { padding-right: 12px; }
+    }
+
+    @media (min-width: 701px) and (max-width: 900px) and (orientation: portrait) {
+      .layout { grid-template-rows: minmax(250px, 30%) minmax(0, 1fr); }
+      .story { padding: 14px 20px; }
+      .lesson { padding: 15px 18px; }
+      .lesson-head { margin-bottom: 8px; }
+      .step-badge { width: 40px; height: 40px; flex-basis: 40px; }
+    }
+</style>
   <link rel="stylesheet" href="../assets/fonts.css" />
 </head>
 <body>
