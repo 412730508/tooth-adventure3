@@ -47,6 +47,20 @@
       .extras { gap: 12px; }
       .extra { min-height: 82px; padding: 14px 16px; }
     }
+
+/* Colored-pencil paper theme shared with the illustrated book. */
+:root { --navy:#35576b; --blue:#557c99; --orange:#b97850; --ink:#453d37; --muted:#6f7776; --paper:#fff9ee; }
+body {
+ background-color:#e8eff0;
+ background-image:repeating-linear-gradient(168deg,rgba(83,127,157,.045) 0 2px,transparent 2px 15px),radial-gradient(ellipse at 12% 8%,#f5ead8,transparent 34%),linear-gradient(135deg,#eaf1f1,#e3edf0);
+}
+.card,.extra { background:#fff9ee; border:2px solid #a99a83; border-radius:20px 23px 18px 22px; box-shadow:2px 4px 0 rgba(82,72,61,.13); }
+.card:hover,.card:focus-visible,.extra:hover,.extra:focus-visible { border-color:#bd9470; }
+.card img,.hero img { filter:drop-shadow(1px 3px 2px rgba(74,63,52,.13)); }
+.hero h1,.section-title,.card h2,.extra { color:#35576b; }
+.go,.extra .arrow,.num { color:#ad704c; }
+main { position:relative; }
+
 </style>
   <link rel="stylesheet" href="assets/fonts.css" />
 </head>
