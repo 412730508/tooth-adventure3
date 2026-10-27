@@ -135,11 +135,38 @@
       .lesson-head { margin-bottom: 8px; }
       .step-badge { width: 40px; height: 40px; flex-basis: 40px; }
     }
+
+/* Soft pencil-and-paper storybook palette. */
+:root { --navy:#35576b; --blue:#557c99; --blue-soft:#e2edf0; --orange:#bd7950; --orange-soft:#f5e9d9; --green:#6d8d79; --green-soft:#eaf0e8; --yellow:#d6b868; --ink:#453d37; --muted:#6f7776; --paper:#fff9ee; --line:#c9d1cd; }
+body {
+ background-color:#e9eff0;
+ background-image:repeating-linear-gradient(168deg,rgba(83,127,157,.045) 0 2px,transparent 2px 15px),radial-gradient(ellipse at 12% 8%,#f6ead8,transparent 34%),linear-gradient(135deg,#eaf1f1,#e4edf0);
+}
+.story,.lesson { border:2px solid #a99a83; border-radius:20px 24px 19px 22px; background:#fff9ee; box-shadow:2px 4px 0 rgba(82,72,61,.13); }
+.scene { background:repeating-linear-gradient(168deg,rgba(83,127,157,.06) 0 2px,transparent 2px 14px),linear-gradient(150deg,#dceaf0,#f4e5ce) !important; border:2px solid #a99a83; border-radius:18px 22px 17px 20px; }
+.bubble { background:#fff9ee; border:2px solid #a99a83; border-radius:18px 22px 18px 7px; box-shadow:2px 3px 0 rgba(82,72,61,.11); }
+.fact,.task,.callout,.food,.snack-choice,.habit-choice,details,.compare-option {
+ border-color:#b8ad9a !important; border-radius:16px 19px 15px 18px !important;
+}
+.task { background:#f8eddd !important; border-left-color:#bd7950 !important; }
+.callout { background:#eaf0e8 !important; color:#4c6f5b !important; }
+.step-badge { background:#dce9eb !important; color:#35576b !important; }
+button,.button-link { background:#b97850 !important; box-shadow:0 4px 0 #925c3f !important; border-radius:14px 17px 13px 16px !important; }
+button.secondary { background:#eef1ed !important; color:#4f6e7b !important; box-shadow:0 4px 0 #bac8c3 !important; }
+.dialogue-gate .layout { grid-template-columns:minmax(0,1fr); }
+.dialogue-gate .lesson { display:none; }
+.dialogue-gate .story { width:min(100%,920px); margin:auto; }
+.dialogue-gate .scene { min-height:clamp(220px,36vh,390px); }
+@media(max-width:900px) {
+ .dialogue-gate .story { width:100%; }
+ .dialogue-gate .scene { min-height:clamp(210px,32vh,340px); }
+}
+
 </style>
   <link rel="stylesheet" href="../assets/fonts.css" />
 </head>
 <body>
-  <div class="app">
+  <div class="app dialogue-gate">
     <header>
       <a class="brand" href="../" aria-label="回到牙寶歷險記首頁"><img class="brand-mark" src="../unit1/images/tooth-happy.png" alt="" aria-hidden="true"><span>牙寶歷險記</span></a>
       <span class="crumb">／ 第三單元</span>
@@ -261,6 +288,7 @@
       }
     ];
     let dialogueIndex = 0;
+    let dialogueReady = false;
     let stepIndex = 0;
     const $ = (id) => document.getElementById(id);
     function renderDialogue() {
@@ -268,10 +296,15 @@
       const [line, speaker] = lines[dialogueIndex];
       $('dialogue').textContent = `${speaker}：「${line}」`;
       $('dialogue-progress').textContent = `對話 ${dialogueIndex + 1} / ${lines.length}`;
-      $('next-dialogue').textContent = dialogueIndex === lines.length - 1 ? '再聽一次' : '繼續對話';
+      $('next-dialogue').textContent = dialogueReady ? '重看對話' : dialogueIndex === lines.length - 1 ? '開始互動 →' : '繼續對話';
     }
     function renderStep() {
       const step = steps[stepIndex];
+      dialogueReady = false;
+      document.querySelector('.app').classList.add('dialogue-gate');
+      $('next-dialogue').disabled = false;
+      const gateButton = $('next-dialogue');
+      gateButton.textContent = '繼續對話';
       $('step-number').textContent = String(stepIndex + 1);
       $('lesson-title').textContent = step.title;
       $('lesson-caption').textContent = step.caption;
@@ -334,7 +367,25 @@
         $('habit-feedback').textContent = habitFeedback[button.dataset.habit];
       }));
     }
-    $('next-dialogue').addEventListener('click', () => { dialogueIndex = (dialogueIndex + 1) % steps[stepIndex].dialogue.length; renderDialogue(); });
+    $('next-dialogue').addEventListener('click', () => {
+      const lines = steps[stepIndex].dialogue;
+      if (dialogueReady) {
+        dialogueReady = false;
+        dialogueIndex = 0;
+        document.querySelector('.app').classList.add('dialogue-gate');
+        renderDialogue();
+        return;
+      }
+      if (dialogueIndex < lines.length - 1) {
+        dialogueIndex += 1;
+        renderDialogue();
+        return;
+      }
+      dialogueReady = true;
+      document.querySelector('.app').classList.remove('dialogue-gate');
+      renderDialogue();
+      $('lesson-panel').focus();
+    });
     $('next-step').addEventListener('click', () => { if (stepIndex === steps.length - 1) { window.location.href = '../'; return; } stepIndex += 1; renderStep(); });
     $('prev-step').addEventListener('click', () => { if (stepIndex > 0) { stepIndex -= 1; renderStep(); } });
     renderStep();
