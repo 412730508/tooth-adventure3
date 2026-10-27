@@ -1228,6 +1228,51 @@
       .image-slot.diagram { height: 240px; }
       .tooth-stage, .tooth-stage .image-slot { height: 270px; }
     }
+
+/* Storybook styling: soft colored-pencil blues, sand, and paper. */
+:root {
+  --blue:#557c99; --blue-dark:#355c76; --sky:#a8c6d4;
+  --orange:#bd7950; --orange-dark:#945b3c; --yellow:#d6b868;
+  --green:#6d8d79; --green-dark:#4c6f5b; --red:#ad6960;
+  --bg:#e9eff0; --ink:#453d37; --muted:#6f7776; --line:#c9d1cd;
+  --paper:#fff9ee; --white:#fff9ee;
+  --shadow:0 5px 0 rgba(82,72,61,.12); --shadow-small:0 3px 0 rgba(82,72,61,.1);
+}
+html { background:#e9eff0; }
+body {
+  background-color:#e9eff0 !important;
+  background-image:
+    repeating-linear-gradient(168deg,rgba(83,127,157,.045) 0 2px,transparent 2px 15px),
+    radial-gradient(ellipse at 12% 8%,#f6ead8 0,transparent 34%),
+    linear-gradient(135deg,#eaf1f1,#e4edf0) !important;
+}
+.topbar,.panel,.story-dialogue-card,.quiz-card,.review-card,.knowledge-card,
+.category-card,.completion-item,.character-card,.callout,.feedback,.mnemonic {
+  border-color:#a79a88 !important;
+  border-radius:19px 22px 18px 21px !important;
+  background-color:#fff9ee !important;
+  box-shadow:2px 3px 0 rgba(82,72,61,.13) !important;
+}
+.panel { background-image:repeating-linear-gradient(2deg,rgba(168,151,126,.025) 0 1px,transparent 1px 10px); }
+.image-slot,.image-slot.diagram,.image-slot.compact {
+  border:2px solid #a99a83 !important;
+  border-radius:16px 19px 15px 18px !important;
+  background-color:#d9e8ec !important;
+}
+h1,h2,h3,.eyebrow { color:#355c76; }
+button.primary,.primary,.game-button,.story-dialogue-choice {
+  background:#6d8ca0 !important; border-color:#6d8ca0 !important;
+  color:#fffaf1 !important; box-shadow:0 4px 0 #4d6f83 !important;
+}
+button.secondary,.secondary { background:#f4ead8 !important; color:#4c6472 !important; border-color:#b5aa98 !important; }
+.story-dialogue-overlay { background:rgba(48,62,67,.52) !important; backdrop-filter:blur(3px); }
+.story-dialogue-card { border:2px solid #968776 !important; }
+.story-dialogue-content { background:#fff9ee; }
+@media (max-width: 760px) {
+  .topbar { border-radius:16px 18px 15px 17px !important; }
+  .panel { padding:clamp(18px,4vw,34px) !important; }
+}
+
 </style>
   <link rel="stylesheet" href="../assets/fonts.css" />
 </head>
@@ -1620,6 +1665,16 @@
     const toast = document.getElementById("toast");
 
     const storyDialogues = {
+      "unit-opening": {
+        kicker: "走進牙齒王國",
+        speaker: "韋登醫師",
+        image: "images/dentist.png",
+        text: "牙寶：博士，牙齒王國裡有好多牙齒，我們要從哪裡開始認識呢？",
+        choices: [
+          { label: "先認識乳齒和恆齒", speaker: "韋登醫師", image: "images/dentist.png", reply: "好，我們先看看乳齒和恆齒的成長，再一起探索牙冠、牙根和牙齒裡面的構造。" },
+          { label: "我想知道一顆牙齒有哪些部分", speaker: "韋登醫師", image: "images/dentist.png", reply: "這趟探索會從牙齒的位置開始，再走進外層和內部。準備好就一起出發吧！" }
+        ]
+      },
       "baby-matters": {
         kicker: "成長隊伍的心裡話",
         speaker: "乳乳",
@@ -1866,7 +1921,10 @@
       if (go) showScreen(Number(go.dataset.go));
     });
 
-    document.getElementById("startButton").addEventListener("click", function () { showScreen(2); });
+    document.getElementById("startButton").addEventListener("click", function () {
+      showScreen(2);
+      openStoryDialogue("unit-opening", null);
+    });
 
     function setupChoice(containerId, feedbackId, onCorrect, correctText, hintText) {
       const container = document.getElementById(containerId);
