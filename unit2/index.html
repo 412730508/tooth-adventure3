@@ -1274,6 +1274,7 @@ button.secondary,.secondary { background:#f4ead8 !important; color:#4c6472 !impo
 }
 
 </style>
+  <link rel="stylesheet" href="../tooth-theme.css" />
   <link rel="stylesheet" href="../assets/fonts.css" />
 </head>
 <body>
@@ -1891,7 +1892,11 @@ button.secondary,.secondary { background:#f4ead8 !important; color:#4c6472 !impo
       showToast.timer = window.setTimeout(function () { toast.classList.remove("show"); }, 2200);
     }
 
+    let lastCollectionScreen = 1;
     function showScreen(number) {
+      if (number > lastCollectionScreen && window.ToothCollection) window.ToothCollection.award(2, lastCollectionScreen);
+      lastCollectionScreen = number;
+      if (number === 9 && window.ToothCollection) window.ToothCollection.award(2, 9);
       screens.forEach(function (screen) {
         const active = Number(screen.dataset.screen) === number;
         screen.classList.toggle("active", active);
@@ -2291,5 +2296,6 @@ button.secondary,.secondary { background:#f4ead8 !important; color:#4c6472 !impo
     renderQuiz();
     showScreen(Number(new URLSearchParams(window.location.search).get("screen")) || 1);
   </script>
+  <script src="../tooth-collection.js"></script>
 </body>
 </html>
