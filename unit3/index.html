@@ -318,8 +318,12 @@ button.secondary { background:#eef1ed !important; color:#4f6e7b !important; box-
       renderDialogue();
       bindActivities();
     }
+    const completedActivities = new Set();
+    const compareSeen = new Set();
     function bindActivities() {
       document.querySelectorAll('.compare-option').forEach((button) => button.addEventListener('click', () => {
+        compareSeen.add(button.dataset.mode);
+        if (compareSeen.size === 2) completedActivities.add(2);
         document.querySelectorAll('.compare-option').forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
         $('compare-feedback').textContent = button.dataset.mode === 'sips'
           ? '這杯飲料被分很多次喝，牙齒會反覆接觸到糖。想一想：若改喝水，下午會有什麼不同？'
@@ -332,6 +336,7 @@ button.secondary { background:#eef1ed !important; color:#4f6e7b !important; box-
         const daily = selected.filter((item) => item.dataset.kind === 'daily').length;
         const water = selected.some((item) => item.dataset.kind === 'water');
         const treat = selected.some((item) => item.dataset.kind === 'treat');
+        if (water && daily >= 3 && !treat) completedActivities.add(3);
         $('food-feedback').textContent = selected.length === 0
           ? '先點選幾樣食物，再說說你選它們的理由。'
           : water && daily >= 3 && !treat
@@ -348,12 +353,14 @@ button.secondary { background:#eef1ed !important; color:#4f6e7b !important; box-
       document.querySelectorAll('.snack-choice').forEach((button) => button.addEventListener('click', () => {
         document.querySelectorAll('.snack-choice').forEach((item) => item.classList.remove('correct','try-again'));
         button.classList.add(button.dataset.snack === 'water-fruit' ? 'correct' : 'try-again');
+        if (button.dataset.snack === 'water-fruit') completedActivities.add(4);
         $('snack-feedback').textContent = snackFeedback[button.dataset.snack];
       }));
       document.querySelectorAll('.clean-choice').forEach((button) => button.addEventListener('click', () => {
         document.querySelectorAll('.clean-choice').forEach((item) => item.classList.remove('correct','try-again'));
         const right = button.dataset.clean === 'water-first';
         button.classList.add(right ? 'correct' : 'try-again');
+        if (right) completedActivities.add(5);
         $('clean-feedback').textContent = right
           ? '這個提醒很溫和：先喝水或漱口，之後維持早晚刷牙的習慣。'
           : '再想一想：酸性飲料後先喝水或漱口，仍要維持平常的刷牙習慣。';
@@ -366,6 +373,7 @@ button.secondary { background:#eef1ed !important; color:#4f6e7b !important; box-
       document.querySelectorAll('.habit-option').forEach((button) => button.addEventListener('click', () => {
         document.querySelectorAll('.habit-option').forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
         $('habit-feedback').textContent = habitFeedback[button.dataset.habit];
+        completedActivities.add(6);
       }));
     }
     $('next-dialogue').addEventListener('click', () => {
@@ -387,7 +395,7 @@ button.secondary { background:#eef1ed !important; color:#4f6e7b !important; box-
       renderDialogue();
       $('lesson-panel').focus();
     });
-    $('next-step').addEventListener('click', () => { if (!dialogueReady) return; if (window.ToothCollection) window.ToothCollection.award(3, stepIndex + 1); if (stepIndex === steps.length - 1) { window.location.href = '../'; return; } stepIndex += 1; renderStep(); });
+    $('next-step').addEventListener('click', () => { if (!dialogueReady) return; if (stepIndex > 0 && !completedActivities.has(stepIndex + 1)) { const hint = document.createElement('p'); hint.className = 'feedback'; hint.setAttribute('role', 'status'); hint.textContent = ['','', '請先點選兩種喝飲料的方式，完成比較。', '請先選好午餐並按「檢查我的搭配」。', '請先幫牙寶選出較合適的點心安排。', '請先選出喝完果汁後較合適的清潔做法。', '請先選一件願意試試看的護牙習慣。'][stepIndex + 1]; $('lesson-panel').appendChild(hint); hint.scrollIntoView({block:'nearest'}); return; } if (window.ToothCollection) window.ToothCollection.award(3, stepIndex + 1); if (stepIndex === steps.length - 1) { window.location.href = '../'; return; } stepIndex += 1; renderStep(); });
     $('prev-step').addEventListener('click', () => { if (stepIndex > 0) { stepIndex -= 1; renderStep(); } });
     renderStep();
   </script>
