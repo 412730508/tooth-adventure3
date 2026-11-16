@@ -307,7 +307,8 @@ button.secondary { background:#eef1ed !important; color:#4f6e7b !important; box-
       $('next-dialogue').disabled = false;
       const gateButton = $('next-dialogue');
       gateButton.textContent = '繼續對話';
-      $('step-number').textContent = String(stepIndex + 1);\n      document.querySelectorAll('.station-track li').forEach((item) => { const n = Number(item.dataset.station); item.classList.toggle('is-current', n === stepIndex + 1); item.classList.toggle('is-done', n < stepIndex + 1); if (n === stepIndex + 1) item.setAttribute('aria-current','step'); else item.removeAttribute('aria-current'); });
+      $('step-number').textContent = String(stepIndex + 1);
+      document.querySelectorAll('.station-track li').forEach((item) => { const n = Number(item.dataset.station); item.classList.toggle('is-current', n === stepIndex + 1); item.classList.toggle('is-done', n < stepIndex + 1); if (n === stepIndex + 1) item.setAttribute('aria-current','step'); else item.removeAttribute('aria-current'); });
       $('lesson-title').textContent = step.title;
       $('lesson-caption').textContent = step.caption;
       $('lesson-panel').innerHTML = step.html;
