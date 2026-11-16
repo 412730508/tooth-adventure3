@@ -301,6 +301,37 @@ button.choice,button.option,button.interaction-card,button.target,button.explore
   .lesson-site[data-qm-unit="3"] .station-track {gap:5px!important;}
   .lesson-site[data-qm-unit="3"] .station-track li {font-size:.76rem;padding:5px 3px;}
 }
-
 .lesson-site[data-qm-unit="3"] .app.dialogue-gate .story {width:100%!important;margin:0!important;}
 .lesson-site[data-qm-unit="3"] .app.dialogue-gate .layout {justify-content:flex-start!important;}
+
+/* Neutral task cards; reserve the warm accent for primary actions. */
+.lesson-site[data-qm-unit="3"] .compare-option,
+.lesson-site[data-qm-unit="3"] .food,
+.lesson-site[data-qm-unit="3"] .choice,
+.lesson-site[data-qm-unit="3"] .habit-option {
+  display:flex!important;flex-direction:column!important;align-items:flex-start!important;justify-content:flex-start!important;
+  gap:9px!important;min-height:unset!important;padding:14px 16px!important;
+  color:#3e4e50!important;background:#f7f7f1!important;
+  border:1px solid #d3ddd5!important;border-radius:16px!important;
+  box-shadow:0 3px 9px #334d560b!important;text-align:left!important;
+}
+.lesson-site[data-qm-unit="3"] .compare-option:hover,
+.lesson-site[data-qm-unit="3"] .food:hover,
+.lesson-site[data-qm-unit="3"] .choice:hover {
+  background:#f0f5ef!important;border-color:#91afa1!important;
+}
+.lesson-site[data-qm-unit="3"] .compare-option[aria-pressed="true"],
+.lesson-site[data-qm-unit="3"] .food[aria-pressed="true"],
+.lesson-site[data-qm-unit="3"] .habit-option[aria-pressed="true"] {
+  background:#e9f2eb!important;border-color:#789b88!important;
+}
+.lesson-site[data-qm-unit="3"] .choice.correct {background:#e9f2eb!important;border-color:#789b88!important;}
+.lesson-site[data-qm-unit="3"] .choice.try-again {background:#f8eee7!important;border-color:#c9977c!important;}
+.lesson-site[data-qm-unit="3"] .compare-option strong {display:flex;align-items:center;gap:8px;color:#35576b!important;font-size:1.02rem;}
+.lesson-site[data-qm-unit="3"] .compare-option span {font-weight:500;line-height:1.55;}
+.lesson-site[data-qm-unit="3"] .compare-option img.inline-art,
+.lesson-site[data-qm-unit="3"] .compare-option img.food-art,
+.lesson-site[data-qm-unit="3"] .food img.inline-art,
+.lesson-site[data-qm-unit="3"] .food img.food-art {width:42px!important;height:42px!important;max-width:42px!important;max-height:42px!important;object-fit:contain!important;}
+.lesson-site[data-qm-unit="3"] details {background:#fbfaf5!important;border:1px solid #d4ddd6!important;}
+.lesson-site[data-qm-unit="3"] details summary {line-height:1.5!important;}
