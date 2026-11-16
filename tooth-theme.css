@@ -125,11 +125,11 @@ button.choice,button.option,button.interaction-card,button.target,button.explore
 #screen1 [data-image="yabao"] .image-media {object-fit:contain;filter:drop-shadow(0 5px 6px #294b5b55);}
 
 /* Unit 3: a compact picturebook scene and a clear, unobstructed footer. */
-.lesson-site header {position:sticky;top:0;z-index:1001;flex-wrap:wrap;background:#eaf1efed;padding:8px 4px;backdrop-filter:blur(8px);}
-.lesson-site .scene {flex:0 0 auto!important;height:clamp(200px,23vh,235px)!important;min-height:0!important;}
-.lesson-site .scene-content {width:100%;justify-content:space-evenly;gap:clamp(10px,2vw,22px);padding:10px;}
-.lesson-site .character img {width:clamp(120px,17vw,155px)!important;height:clamp(120px,17vw,155px)!important;object-fit:contain;}
-.lesson-site .bubble {max-width:min(420px,50vw)!important;}
+.lesson-site[data-qm-unit="3"] header {position:sticky;top:0;z-index:1001;flex-wrap:wrap;background:#eaf1efed;padding:8px 4px;backdrop-filter:blur(8px);}
+.lesson-site[data-qm-unit="3"] .scene {flex:0 0 auto!important;height:clamp(200px,23vh,235px)!important;min-height:0!important;}
+.lesson-site[data-qm-unit="3"] .scene-content {width:100%;justify-content:space-evenly;gap:clamp(10px,2vw,22px);padding:10px;}
+.lesson-site[data-qm-unit="3"] .character img {width:clamp(120px,17vw,155px)!important;height:clamp(120px,17vw,155px)!important;object-fit:contain;}
+.lesson-site[data-qm-unit="3"] .bubble {max-width:min(420px,50vw)!important;}
 
 @media (min-width:701px) and (max-width:1000px) and (orientation:portrait) {
   #screen1 .clinic-scene,#screen2 .clinic-scene {height:245px!important;}
@@ -143,49 +143,161 @@ button.choice,button.option,button.interaction-card,button.target,button.explore
   #screen1 .clinic-scene,#screen2 .clinic-scene {height:220px!important;}
   #screen1 .clinic-building,#screen2 .clinic-building {width:132px;right:10px;top:12px;padding:20px 7px 9px;}
   #screen1 .tooth-character,#screen2 .tooth-character {width:86px;height:98px;left:10px;bottom:10px;}
-  .lesson-site .scene {height:220px!important;}
-  .lesson-site .scene-content .bubble {max-width:none!important;}
-  .lesson-site .character img {width:75px!important;height:75px!important;}
+  .lesson-site[data-qm-unit="3"] .scene {height:220px!important;}
+  .lesson-site[data-qm-unit="3"] .scene-content .bubble {max-width:none!important;}
+  .lesson-site[data-qm-unit="3"] .character img {width:75px!important;height:75px!important;}
 }
 
 
 /* Keep the activity readable on tablet after the picturebook dialogue. */
 @media (min-width:701px) and (max-width:1180px) {
-  .lesson-site .app:not(.dialogue-gate) .layout {
+  .lesson-site[data-qm-unit="3"] .app:not(.dialogue-gate) .layout {
     grid-template-columns:minmax(205px,25%) minmax(0,1fr)!important;
     grid-template-rows:minmax(0,1fr)!important;
   }
-  .lesson-site .app:not(.dialogue-gate) .story .scene {display:none!important;}
-  .lesson-site .app:not(.dialogue-gate) .story h1 {font-size:clamp(1.45rem,2.6vw,2rem);line-height:1.2;}
-  .lesson-site .app:not(.dialogue-gate) .story .intro {font-size:.94rem;}
-  .lesson-site .app:not(.dialogue-gate) .story .dialogue-actions {margin-top:16px;}
+  .lesson-site[data-qm-unit="3"] .app:not(.dialogue-gate) .story .scene {display:none!important;}
+  .lesson-site[data-qm-unit="3"] .app:not(.dialogue-gate) .story h1 {font-size:clamp(1.45rem,2.6vw,2rem);line-height:1.2;}
+  .lesson-site[data-qm-unit="3"] .app:not(.dialogue-gate) .story .intro {font-size:.94rem;}
+  .lesson-site[data-qm-unit="3"] .app:not(.dialogue-gate) .story .dialogue-actions {margin-top:16px;}
 }
 @media (min-width:701px) and (max-width:900px) and (orientation:portrait) {
-  .lesson-site .app:not(.dialogue-gate) .layout {
+  .lesson-site[data-qm-unit="3"] .app:not(.dialogue-gate) .layout {
     grid-template-columns:1fr!important;
     grid-template-rows:auto minmax(0,1fr)!important;
   }
-  .lesson-site .app:not(.dialogue-gate) .story {min-height:0!important;padding:14px 20px!important;}
-  .lesson-site .app:not(.dialogue-gate) .story h1 br {display:none;}
-  .lesson-site .app:not(.dialogue-gate) .story .intro {display:none;}
-  .lesson-site .app:not(.dialogue-gate) .story .dialogue-actions {margin-top:8px;}
+  .lesson-site[data-qm-unit="3"] .app:not(.dialogue-gate) .story {min-height:0!important;padding:14px 20px!important;}
+  .lesson-site[data-qm-unit="3"] .app:not(.dialogue-gate) .story h1 br {display:none;}
+  .lesson-site[data-qm-unit="3"] .app:not(.dialogue-gate) .story .intro {display:none;}
+  .lesson-site[data-qm-unit="3"] .app:not(.dialogue-gate) .story .dialogue-actions {margin-top:8px;}
 }
 
 /* Stack the dialogue bubble between characters when the story panel gets narrow. */
 @media (max-width:1000px) {
-  .lesson-site .app.dialogue-gate .scene-content {
+  .lesson-site[data-qm-unit="3"] .app.dialogue-gate .scene-content {
     display:grid!important;
     grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
     align-items:end!important;
     justify-items:center!important;
     gap:6px 12px!important;
   }
-  .lesson-site .app.dialogue-gate .scene-content .character {grid-row:1!important;}
-  .lesson-site .app.dialogue-gate .scene-content .character img {width:96px!important;height:96px!important;}
-  .lesson-site .app.dialogue-gate .scene-content {padding:8px!important;}
-  .lesson-site .app.dialogue-gate .scene-content .bubble {
+  .lesson-site[data-qm-unit="3"] .app.dialogue-gate .scene-content .character {grid-row:1!important;}
+  .lesson-site[data-qm-unit="3"] .app.dialogue-gate .scene-content .character img {width:96px!important;height:96px!important;}
+  .lesson-site[data-qm-unit="3"] .app.dialogue-gate .scene-content {padding:8px!important;}
+  .lesson-site[data-qm-unit="3"] .app.dialogue-gate .scene-content .bubble {
     grid-column:1/-1!important;grid-row:2!important;
     width:100%!important;max-width:none!important;min-width:0!important;
     white-space:normal!important;overflow-wrap:anywhere;
   }
+}
+
+/* Unit 3 full tablet redesign: one clear vertical reading flow. */
+.lesson-site[data-qm-unit="3"] body {height:auto!important;min-height:100vh!important;overflow-x:hidden!important;overflow-y:auto!important;}
+.lesson-site[data-qm-unit="3"] .app {
+  width:min(1120px,100%)!important;height:auto!important;min-height:100vh!important;
+  margin:0 auto!important;padding:14px clamp(14px,3vw,32px) 24px!important;
+  display:flex!important;flex-direction:column!important;gap:14px!important;
+}
+.lesson-site[data-qm-unit="3"] header {
+  position:sticky!important;top:0!important;z-index:1001!important;
+  min-height:58px;padding:7px 10px!important;border:1px solid #d5dfd8!important;
+  border-radius:18px!important;background:#f7f8f2f2!important;
+  box-shadow:0 4px 14px #334d5610!important;
+}
+.lesson-site[data-qm-unit="3"] .layout {
+  display:flex!important;flex-direction:column!important;gap:14px!important;
+  min-height:0!important;flex:1 0 auto!important;
+}
+.lesson-site[data-qm-unit="3"] .story,.lesson-site[data-qm-unit="3"] .lesson {
+  width:100%!important;min-width:0!important;min-height:0!important;
+  padding:clamp(16px,2.4vw,26px)!important;overflow:visible!important;
+  border:1px solid #d6ded3!important;border-radius:22px!important;
+  background:#fffdf7!important;box-shadow:0 8px 22px #334d5610!important;
+}
+.lesson-site[data-qm-unit="3"] .story::after {width:170px;height:170px;right:-60px;top:-90px;opacity:.6;}
+.lesson-site[data-qm-unit="3"] .story h1 {font-size:clamp(1.8rem,3.4vw,2.6rem)!important;line-height:1.16!important;margin:4px 0 7px!important;}
+.lesson-site[data-qm-unit="3"] .story .intro {font-size:1rem!important;line-height:1.5!important;}
+.lesson-site[data-qm-unit="3"] .scene {
+  height:auto!important;min-height:190px!important;max-height:none!important;
+  margin:14px 0 10px!important;padding:10px!important;overflow:visible!important;
+  border:1px solid #c9d6cd!important;border-radius:20px!important;
+  background:linear-gradient(135deg,#edf4ed,#f8eddb)!important;
+}
+.lesson-site[data-qm-unit="3"] .scene-content {
+  display:grid!important;grid-template-columns:minmax(105px,150px) minmax(0,1fr) minmax(105px,150px)!important;
+  align-items:center!important;justify-content:stretch!important;gap:14px!important;padding:8px!important;
+}
+.lesson-site[data-qm-unit="3"] .character {min-width:0;}
+.lesson-site[data-qm-unit="3"] .character img {width:clamp(86px,11vw,118px)!important;height:clamp(86px,11vw,118px)!important;}
+.lesson-site[data-qm-unit="3"] .bubble {
+  width:100%!important;max-width:none!important;min-width:0!important;
+  padding:15px 18px!important;font-size:clamp(1.05rem,1.6vw,1.22rem)!important;
+  line-height:1.65!important;overflow-wrap:anywhere;
+}
+.lesson-site[data-qm-unit="3"] .dialogue-actions {display:flex!important;align-items:center!important;gap:12px!important;margin-top:8px!important;}
+.lesson-site[data-qm-unit="3"] .lesson-head {margin:0 0 12px!important;padding:0 0 12px!important;border-bottom:1px solid #e0e5dc!important;}
+.lesson-site[data-qm-unit="3"] .lesson-head h2 {font-size:clamp(1.35rem,2.5vw,1.8rem)!important;margin:0!important;}
+.lesson-site[data-qm-unit="3"] .station-track {
+  display:grid!important;grid-template-columns:repeat(6,minmax(0,1fr))!important;
+  gap:7px!important;list-style:none!important;padding:0!important;margin:0 0 16px!important;
+}
+.lesson-site[data-qm-unit="3"] .station-track li {
+  min-width:0;display:flex;align-items:center;justify-content:center;gap:7px;
+  padding:8px 6px;border:1px solid #dce3db;border-radius:13px;
+  background:#f5f6f0;color:#697679;font-size:.86rem;
+}
+.lesson-site[data-qm-unit="3"] .station-track li span {
+  display:grid;place-items:center;flex:none;width:26px;height:26px;border-radius:50%;
+  background:#e3eae5;color:#4e6870;font-weight:900;
+}
+.lesson-site[data-qm-unit="3"] .station-track li b {overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.lesson-site[data-qm-unit="3"] .station-track li.is-current {border-color:#b97957;background:#fbf0e3;color:#734d38;box-shadow:0 2px 0 #e6c5a6;}
+.lesson-site[data-qm-unit="3"] .station-track li.is-current span {background:#b97957;color:white;}
+.lesson-site[data-qm-unit="3"] .station-track li.is-done span {background:#789b8d;color:white;}
+.lesson-site[data-qm-unit="3"] .panel {height:auto!important;max-height:none!important;min-height:0!important;overflow:visible!important;padding:clamp(14px,2vw,22px)!important;border:1px solid #dce3da!important;border-radius:18px!important;background:#fffefa!important;}
+.lesson-site[data-qm-unit="3"] .footer-actions {
+  position:sticky!important;bottom:0!important;z-index:5!important;
+  display:flex!important;justify-content:space-between!important;gap:12px!important;
+  margin:12px -4px -4px!important;padding:12px 4px 4px!important;
+  border-top:1px solid #e0e5dc!important;background:#fffdf7f2!important;
+}
+.lesson-site[data-qm-unit="3"] .footer-actions button,.lesson-site[data-qm-unit="3"] .dialogue-actions button,.lesson-site[data-qm-unit="3"] .tg-show {
+  min-height:50px!important;padding:11px 20px!important;font-size:1rem!important;
+}
+.lesson-site[data-qm-unit="3"] .task,.lesson-site[data-qm-unit="3"] .callout,.lesson-site[data-qm-unit="3"] .fact,.lesson-site[data-qm-unit="3"] details,.lesson-site[data-qm-unit="3"] .compare-option,
+.lesson-site[data-qm-unit="3"] .choice,.lesson-site[data-qm-unit="3"] .food {
+  box-shadow:0 3px 10px #334d560a!important;
+}
+.lesson-site[data-qm-unit="3"] .food-grid {grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:10px!important;}
+.lesson-site[data-qm-unit="3"] .compare-grid,.lesson-site[data-qm-unit="3"] .fact-grid {grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important;}
+.lesson-site[data-qm-unit="3"] .choice-list {display:grid!important;gap:10px!important;}
+.lesson-site[data-qm-unit="3"] .feedback:empty {display:none!important;}
+.lesson-site[data-qm-unit="3"] .app:not(.dialogue-gate) .story {
+  display:grid!important;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:6px 14px;
+  padding:12px 18px!important;
+}
+.lesson-site[data-qm-unit="3"] .app:not(.dialogue-gate) .story .unit-label {grid-column:1/-1;}
+.lesson-site[data-qm-unit="3"] .app:not(.dialogue-gate) .story h1 {font-size:1.2rem!important;margin:0!important;}
+.lesson-site[data-qm-unit="3"] .app:not(.dialogue-gate) .story .intro,
+.lesson-site[data-qm-unit="3"] .app:not(.dialogue-gate) .story .scene {display:none!important;}
+.lesson-site[data-qm-unit="3"] .app:not(.dialogue-gate) .story .dialogue-actions {grid-column:2;grid-row:2;margin:0!important;}
+.lesson-site[data-qm-unit="3"] .app:not(.dialogue-gate) .story .dialogue-actions .progress {display:none;}
+.lesson-site[data-qm-unit="3"] .app:not(.dialogue-gate) .story .dialogue-actions button {min-height:42px!important;padding:8px 14px!important;}
+@media(max-width:760px) {
+  .lesson-site[data-qm-unit="3"] .scene-content {grid-template-columns:minmax(68px,100px) minmax(0,1fr) minmax(68px,100px)!important;gap:7px!important;}
+  .lesson-site[data-qm-unit="3"] .character img {width:76px!important;height:76px!important;}
+  .lesson-site[data-qm-unit="3"] .character strong {font-size:.82rem!important;}
+  .lesson-site[data-qm-unit="3"] .bubble {padding:11px 12px!important;font-size:1rem!important;}
+  .lesson-site[data-qm-unit="3"] .station-track {grid-template-columns:repeat(3,minmax(0,1fr))!important;}
+  .lesson-site[data-qm-unit="3"] .food-grid {grid-template-columns:repeat(2,minmax(0,1fr))!important;}
+  .lesson-site[data-qm-unit="3"] .compare-grid,.lesson-site[data-qm-unit="3"] .fact-grid {grid-template-columns:1fr!important;}
+  .lesson-site[data-qm-unit="3"] .story,.lesson-site[data-qm-unit="3"] .lesson {padding:15px!important;}
+  .lesson-site[data-qm-unit="3"] .panel {padding:13px!important;}
+}
+@media(max-width:560px) {
+  .lesson-site[data-qm-unit="3"] .scene-content {grid-template-columns:1fr 1fr!important;grid-template-rows:auto auto!important;}
+  .lesson-site[data-qm-unit="3"] .scene-content .character {grid-row:1!important;}
+  .lesson-site[data-qm-unit="3"] .scene-content .bubble {grid-column:1/-1!important;grid-row:2!important;}
+  .lesson-site[data-qm-unit="3"] .scene {min-height:0!important;}
+  .lesson-site[data-qm-unit="3"] .station-track {gap:5px!important;}
+  .lesson-site[data-qm-unit="3"] .station-track li {font-size:.76rem;padding:5px 3px;}
 }
