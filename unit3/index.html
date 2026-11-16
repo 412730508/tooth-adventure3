@@ -177,7 +177,7 @@ button.secondary { background:#eef1ed !important; color:#4f6e7b !important; box-
       <section class="story" aria-labelledby="unit-title">
         <span class="unit-label">UNIT 03 · 飲食與健康習慣</span>
         <h1 id="unit-title">牙寶的午餐<br />線索任務</h1>
-        <p class="intro">跟著牙寶和韋登醫師，從午餐、點心到睡前，找出每天都用得上的護牙方法。</p>
+        <p class="intro">跟牙寶從午餐到睡前，找出護牙線索。</p>
         <div class="scene" aria-live="polite">
           <div class="scene-content">
             <div class="character"><img src="../unit1/images/tooth-hero.png" alt="牙寶" /><strong>牙寶</strong></div>
@@ -199,71 +199,71 @@ button.secondary { background:#eef1ed !important; color:#4f6e7b !important; box-
     const steps = [
       {
         title:'午餐桌上的線索',
-        caption:'第 1 / 6 站 · 觀察與說一說 · 建議 3 分鐘',
+        caption:'第 1 / 6 站 · 約 3 分鐘',
         dialogue:[
           ['午餐有飯、青菜、雞蛋、橘子和水，旁邊還有果汁與蛋糕。我該怎麼選？','牙寶'],
           ['先別急著把食物分成好與壞。我們看看一餐怎麼搭配，再想吃點心的時間。','韋登醫師'],
           ['原來吃什麼、多久吃一次、吃完做什麼，都是線索！','牙寶']
         ],
-        html:`<p>午餐鈴響了。牙寶的桌上有飯、青菜、雞蛋、橘子和白開水；旁邊還放著果汁與小蛋糕。韋登醫師請大家當「線索觀察員」，先描述看見什麼，再討論怎麼搭配。</p>
-          <div class="task"><strong>一起觀察 · 約 1 分鐘</strong><p>用手指指出三樣可以組成日常餐點的食物，再說說你平常午餐最常喝什麼。沒有標準菜單，先把想法說出來。</p></div>
-          <div class="fact-grid"><div class="fact"><b>線索 A｜一餐的搭配</b>主食、蔬菜、水果和蛋白質食物可以有不同組合，喝水是簡單的日常選擇。</div><div class="fact"><b>線索 B｜吃喝的時間</b>牙齒在意的不只是甜度，也包括含糖食物或飲料碰到牙齒的次數。</div></div>
+        html:`<p>看一看牙寶的午餐：你看到哪些食物和飲料？</p>
+          <div class="task"><strong>一起觀察 · 約 1 分鐘</strong><p>指出三樣日常食物，再說說你午餐常喝什麼。</p></div>
+          <div class="fact-grid"><div class="fact"><b>線索 A｜一餐的搭配</b>一餐可以搭配不同食物，口渴先喝水。</div><div class="fact"><b>線索 B｜吃喝的時間</b>含糖食物接觸牙齒的次數也重要。</div></div>
           <details><summary>點開牙寶的問題：蛋糕是不是完全不能吃？</summary><p>不是。偶爾享用甜點不等於做錯事；我們會學習留意份量與頻率，避免整天反覆吃甜食、喝甜飲。</p></details>
-          <div class="task"><strong>說給同伴聽 · 約 1 分鐘</strong><p>完成這句話：「如果今天有小蛋糕，我可以＿＿＿＿；平常口渴時，我會先選＿＿＿＿。」</p></div>
-          <p>接下來，韋登醫師要帶牙寶看看「同一杯飲料，在不同時間喝」為什麼會有不同的護牙線索。</p>`
+          <div class="task"><strong>說給同伴聽 · 約 1 分鐘</strong><p>說給同伴聽：蛋糕怎麼安排？口渴喝什麼？</p></div>
+          `
       },
       {
         title:'糖和牙齒相遇的次數',
-        caption:'第 2 / 6 站 · 比一比時間線 · 建議 4 分鐘',
+        caption:'第 2 / 6 站 · 約 4 分鐘',
         dialogue:[
           ['我以為只要飲料不太甜，慢慢喝一下午也沒關係。','牙寶'],
           ['口腔裡的細菌會利用糖產生酸。反覆接觸含糖飲料，牙齒就會一再遇到酸。','韋登醫師'],
           ['所以我要注意的不只有喝多少，還有喝的次數和時間！','牙寶']
         ],
-        html:`<p>牙齒表面會有牙菌斑。牙菌斑裡的細菌遇到食物與飲料中的糖，會產生酸；如果頻繁吃喝含糖食物，牙齒就反覆接觸到酸。這不是說每次吃糖都會立刻蛀牙，而是提醒我們留意長期習慣。</p>
-          <div class="task"><strong>先猜一猜 · 約 1 分鐘</strong><p>同樣一杯含糖飲料，午餐時喝完，或在下午分很多次慢慢啜飲，哪一種會讓牙齒更常接觸糖？先說出你的理由，再點卡片。</p></div>
+        html:`<p>牙菌斑裡的細菌會利用糖產生酸。反覆吃喝甜食，牙齒就會一再接觸酸。</p>
+          <div class="task"><strong>先猜一猜 · 約 1 分鐘</strong><p>同一杯甜飲，哪種喝法讓牙齒更常碰到糖？點卡片比較。</p></div>
           <div class="compare-grid"><button class="compare-option" type="button" data-mode="meal" aria-pressed="false"><strong><img class="inline-art" src="images/meal-tray.svg" alt="" aria-hidden="true"> 情境 A：午餐時喝完</strong><span>飲料在一段用餐時間內喝完，之後改喝水。</span></button><button class="compare-option" type="button" data-mode="sips" aria-pressed="false"><strong><img class="food-art" src="images/sweet-drink.svg" alt="" aria-hidden="true"> 情境 B：整個下午慢慢喝</strong><span>從午餐後到放學，隔一會兒就啜飲幾口。</span></button></div>
           <p class="feedback" id="compare-feedback" role="status">點選兩張卡片，比較牙齒接觸糖的次數。</p>
-          <div class="callout">如果要喝含糖飲料，避免長時間含著或一整天反覆啜飲；日常解渴可以選白開水。果汁雖然來自水果，也含有游離糖，不能當成白開水一直喝。</div>
-          <div class="task"><strong>把線索說清楚 · 約 1 分鐘</strong><p>用「因為……所以……」回答：為什麼牙寶不適合把甜飲放在桌上，從下午一直喝到放學？</p></div>`
+          <div class="callout">別整天反覆喝甜飲；口渴先喝水。果汁也不能當水喝。</div>
+          <div class="task"><strong>把線索說清楚 · 約 1 分鐘</strong><p>說說看：為什麼不適合把甜飲喝一下午？</p></div>`
       },
       {
         title:'幫牙寶搭配一餐',
-        caption:'第 3 / 6 站 · 點選與解釋 · 建議 4 分鐘',
+        caption:'第 3 / 6 站 · 約 4 分鐘',
         dialogue:[
           ['我想吃得有變化，也想讓牙齒舒服。你能陪我挑午餐嗎？','牙寶'],
           ['可以。先選多樣食物和水，再想想甜點適合怎麼安排。','韋登醫師'],
           ['我選好之後，還要說出原因，不只是按對答案。','牙寶']
         ],
-        html:`<p>下面的食物都可能出現在生活裡。請點選你想放進<strong>平常午餐</strong>的搭配；可以多選。選完後，試著說明每一樣的角色。</p>
+        html:`<p>點選你想放進<strong>平常午餐</strong>的食物和飲料。可以多選。</p>
           <div class="food-grid" id="food-grid"><button class="food" type="button" data-kind="daily" aria-pressed="false"><img class="food-art" src="images/carrot.svg" alt="" aria-hidden="true">蔬菜</button><button class="food" type="button" data-kind="daily" aria-pressed="false"><img class="food-art" src="images/apple.svg" alt="" aria-hidden="true">整顆水果</button><button class="food" type="button" data-kind="daily" aria-pressed="false"><img class="food-art" src="images/rice-bowl.svg" alt="" aria-hidden="true">主食</button><button class="food" type="button" data-kind="daily" aria-pressed="false"><img class="food-art" src="images/egg-beans.svg" alt="" aria-hidden="true">蛋或豆類</button><button class="food" type="button" data-kind="daily" aria-pressed="false"><img class="food-art" src="images/milk.svg" alt="" aria-hidden="true">無糖乳品</button><button class="food" type="button" data-kind="water" aria-pressed="false"><img class="food-art" src="images/water.svg" alt="" aria-hidden="true">白開水</button><button class="food" type="button" data-kind="treat" aria-pressed="false"><img class="inline-art" src="images/sweet-drink.svg" alt="" aria-hidden="true">含糖飲料</button><button class="food" type="button" data-kind="treat" aria-pressed="false"><img class="food-art" src="images/candy.svg" alt="" aria-hidden="true">黏甜糖果</button></div>
           <button type="button" id="check-food">檢查我的搭配</button><p class="feedback" id="food-feedback" role="status">請先點選食物，再檢查搭配。</p>
-          <div class="task"><strong>分享理由 · 約 1 分鐘</strong><p>挑兩樣你選的食物，說明它們如何讓一餐更有變化；再說說如果今天想吃甜點，你打算把它安排在什麼時候。</p></div>
-          <div class="callout">我們練習的是日常搭配，不是替食物貼上「好」或「壞」的標籤。偶爾有甜點時，留意份量與吃的頻率。</div>`
+          <div class="task"><strong>分享理由 · 約 1 分鐘</strong><p>說說你選的兩樣食物，還有甜點要安排在什麼時候。</p></div>
+          <div class="callout">甜點可以偶爾吃，留意份量和次數。</div>`
       },
       {
         title:'放學後的點心岔路',
-        caption:'第 4 / 6 站 · 情境對話 · 建議 3 分鐘',
+        caption:'第 4 / 6 站 · 約 3 分鐘',
         dialogue:[
           ['放學後我有點餓，商店裡好多選擇。怎麼選比較適合今天？','牙寶'],
           ['先想想是不是真的餓、什麼時候吃晚餐，再決定點心和飲料。','韋登醫師'],
           ['如果想吃甜食，我可以偶爾享用，但不要一路慢慢吃到晚上。','牙寶']
         ],
-        html:`<p>放學後，牙寶說：「我真的有點餓，晚餐還要一會兒。可是我也想吃甜甜的東西。」韋登醫師請你先聽完他的需要，再提出一個做得到的選擇。</p>
+        html:`<p>牙寶放學後有點餓。你會怎麼安排點心？</p>
           <div class="choice-list" id="snack-choices"><button class="choice snack-choice" type="button" data-snack="water-fruit">先喝水，再選一份水果或合適的點心，等晚餐好好吃。</button><button class="choice snack-choice" type="button" data-snack="slow-sip">買一杯甜飲，從放學一路慢慢喝到晚餐。</button><button class="choice snack-choice" type="button" data-snack="many-sweets">每隔一下就吃一顆糖，讓嘴裡一直有甜味。</button></div>
           <p class="feedback" id="snack-feedback" role="status">點一個做法，看看韋登醫師怎麼說。</p>
-          <div class="task"><strong>換你當小幫手 · 約 1 分鐘</strong><p>如果牙寶今天特別想吃甜點，你會怎麼說，才不會讓他覺得自己「犯錯」？試著用溫柔的話提出一個安排。</p></div>
-          <p>重點是看見自己的需求，然後選擇較不容易讓牙齒反覆接觸糖的做法；平常口渴，白開水最方便。</p>`
+          <div class="task"><strong>換你當小幫手 · 約 1 分鐘</strong><p>牙寶想吃甜點時，你會怎麼溫柔地建議？</p></div>
+          `
       },
       {
         title:'吃完後的清潔小隊',
-        caption:'第 5 / 6 站 · 翻卡與選擇 · 建議 4 分鐘',
+        caption:'第 5 / 6 站 · 約 4 分鐘',
         dialogue:[
           ['我喝完果汁，嘴裡酸酸的。是不是應該立刻用力刷牙？','牙寶'],
           ['先喝水或用水漱口就好。酸性飲料後不要立刻用力刷，之後再照平常方式清潔。','韋登醫師'],
           ['早晚刷牙、用含氟牙膏，牙縫也需要照顧；有不確定就問大人或牙醫。','牙寶']
         ],
-        html:`<p>飲食只是護牙的一部分。牙寶找出三張清潔卡，請你逐張點開，再想想自己最需要記住哪一張。</p>
+        html:`<p>點開三張清潔卡，選出你最想記住的一張。</p>
           <details><summary><img class="inline-art" src="images/toothbrush.svg" alt="" aria-hidden="true"> 早晚刷牙：什麼時候最重要？</summary><p>一天刷牙至少兩次，睡前那次特別不要忘記。使用含氟牙膏；年紀較小的孩子需要大人協助與確認牙膏用量。</p></details>
           <details><summary><img class="inline-art" src="images/floss.svg" alt="" aria-hidden="true"> 牙縫：牙刷碰不到怎麼辦？</summary><p>牙齒相鄰的地方，牙刷不一定能清乾淨。可以請家人與牙醫師教你使用牙線或其他合適的牙縫清潔工具。</p></details>
           <details><summary><img class="inline-art" src="images/milk.svg" alt="" aria-hidden="true"> 喝了酸性飲料：先做什麼？</summary><p>先喝水或用水漱口，不要立刻用力刷牙。平常仍要維持早晚用含氟牙膏刷牙；若牙齒不舒服，請家人帶你諮詢牙醫師。</p></details>
@@ -273,17 +273,17 @@ button.secondary { background:#eef1ed !important; color:#4f6e7b !important; box-
       },
       {
         title:'帶一個護牙方法回家',
-        caption:'第 6 / 6 站 · 回顧與承諾 · 建議 3 分鐘',
+        caption:'第 6 / 6 站 · 約 3 分鐘',
         dialogue:[
           ['我發現不用一下子做到完美，可以先選一件小事開始。','牙寶'],
           ['對。把你做得到的一件事告訴家人，請他們陪你練習。','韋登醫師'],
           ['我的第一步是＿＿＿＿。明天我會再看看自己做到了沒有！','牙寶']
         ],
-        html:`<p>牙寶把今天的線索整理成三句話：<strong>日常飲食多樣搭配、喝水解渴、早晚清潔牙齒。</strong> 現在換你挑一件最容易開始的小事。</p>
+        html:`<p>記住三件事：<strong>多樣飲食、喝水、早晚刷牙。</strong> 選一件先做。</p>
           <div class="choice-list" id="habit-choices"><button class="choice habit-option" type="button" data-habit="water" aria-pressed="false"><img class="inline-art" src="images/water.svg" alt="" aria-hidden="true"> 口渴時先喝白開水</button><button class="choice habit-option" type="button" data-habit="snack" aria-pressed="false"><img class="inline-art" src="images/clock.svg" alt="" aria-hidden="true"> 點心安排好時間，不整天一直吃甜食</button><button class="choice habit-option" type="button" data-habit="brush" aria-pressed="false"><img class="inline-art" src="images/toothbrush.svg" alt="" aria-hidden="true"> 和家人一起記得早晚刷牙</button></div>
           <p class="feedback" id="habit-feedback" role="status">選一件你願意先試試看的事。</p>
-          <div class="task"><strong>最後說一說 · 約 1 分鐘</strong><p>完成這句話：「今天我學到＿＿＿＿。今晚我想試著＿＿＿＿。如果忘記了，我可以請＿＿＿＿提醒我。」</p></div>
-          <div class="callout">如果牙齒疼痛、出血或對刷牙有疑問，請告訴家人，並請牙醫師協助。課程完成後可以選做站內六題複習挑戰。</div>
+          <div class="task"><strong>最後說一說 · 約 1 分鐘</strong><p>說一句話：今晚你想先試哪一件事？</p></div>
+          <div class="callout">牙齒疼痛或出血，請告訴家人並找牙醫。完成後可選做六題複習。</div>
           <p><a class="button-link" href="${GENIALLY}" target="_blank" rel="noopener">開始挑戰 ↗</a></p>
           <p class="source-links">衛教參考：<a href="https://www.who.int/news-room/fact-sheets/detail/sugars-and-dental-caries" target="_blank" rel="noopener">世界衛生組織：糖與蛀牙</a>、<a href="https://www.cdc.gov/oral-health/prevention/oral-health-tips-for-children.html" target="_blank" rel="noopener">美國 CDC：兒童口腔保健</a>、<a href="https://www.ada.org/resources/ada-library/oral-health-topics/dental-erosion" target="_blank" rel="noopener">美國牙醫學會：酸與牙齒</a>。</p>`
       }
@@ -395,11 +395,11 @@ button.secondary { background:#eef1ed !important; color:#4f6e7b !important; box-
       renderDialogue();
       $('lesson-panel').focus();
     });
-    $('next-step').addEventListener('click', () => { if (!dialogueReady) return; if (stepIndex > 0 && !completedActivities.has(stepIndex + 1)) { const hint = $('station-hint') || document.createElement('p'); hint.id = 'station-hint'; hint.className = 'feedback'; hint.setAttribute('role', 'status'); hint.textContent = ['','', '請先點選兩種喝飲料的方式，完成比較。', '請先選好午餐並按「檢查我的搭配」。', '請先幫牙寶選出較合適的點心安排。', '請先選出喝完果汁後較合適的清潔做法。', '請先選一件願意試試看的護牙習慣。'][stepIndex + 1]; $('lesson-panel').appendChild(hint); hint.scrollIntoView({block:'nearest'}); return; } if (window.ToothCollection) window.ToothCollection.award(3, stepIndex + 1); if (stepIndex === steps.length - 1) { window.location.href = '../'; return; } stepIndex += 1; renderStep(); });
+    $('next-step').addEventListener('click', () => { if (!dialogueReady) return; if (stepIndex > 0 && !completedActivities.has(stepIndex + 1)) { const hint = $('station-hint') || document.createElement('p'); hint.id = 'station-hint'; hint.className = 'feedback'; hint.setAttribute('role', 'status'); hint.textContent = ['','', '請先點選兩種喝飲料的方式，完成比較。', '請先選好午餐並按「檢查我的搭配」。', '請先幫牙寶選出較合適的點心安排。', '請先選出喝完果汁後較合適的清潔做法。', '請先選一件願意試試看的護牙習慣。'][stepIndex + 1]; $('lesson-panel').appendChild(hint); hint.scrollIntoView({block:'nearest'}); return; } const freshReward = window.ToothCollection ? window.ToothCollection.award(3, stepIndex + 1) : false; if (stepIndex === steps.length - 1) { setTimeout(() => { window.location.href = '../'; }, freshReward ? 2100 : 0); return; } stepIndex += 1; renderStep(); });
     $('prev-step').addEventListener('click', () => { if (stepIndex > 0) { stepIndex -= 1; renderStep(); } });
     renderStep();
   </script>
-  <script src="../tooth-collection.js"></script>
-  <script src="../qm-support.js?v=4"></script>
+  <script src="../tooth-collection.js?v=2"></script>
+  <script src="../tooth-guide.js?v=1"></script>
 </body>
 </html>
