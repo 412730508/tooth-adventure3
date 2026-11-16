@@ -158,7 +158,10 @@
   function thirdRule() {
     const stage = String(Number(document.getElementById('step-number')?.textContent || 1));
     const app = document.querySelector('.app');
-    if (app?.classList.contains('dialogue-gate')) return {stage,el:document.getElementById('next-dialogue'),text:'先按這裡，聽完對話。'};
+    if (app?.classList.contains('dialogue-gate')) {
+      const count = Number(document.getElementById('dialogue-progress')?.textContent.match(/對話\s*(\d+)/)?.[1] || 1);
+      return {stage,el:document.getElementById('next-dialogue'),text:count >= 3 ? '對話聽完了，按這裡開始練習。' : '按這裡，聽下一句。'};
+    }
     const panel = document.getElementById('lesson-panel');
     const next = document.getElementById('next-step');
     if (stage === '1') return {stage,el:next,text:'指出三樣食物，再按下一站。'};
