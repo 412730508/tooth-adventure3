@@ -166,7 +166,12 @@
       stage = screen.dataset.screen || screen.id.replace('screen','');
       host = screen.querySelector('.panel') || screen;
       if (stage !== lastStage) seen.clear();
-      rule = staticRule(stage,screen);
+      const overlay = unit === 2 ? document.getElementById('storyDialogueOverlay') : null;
+      if (visible(overlay)) {
+        const choice = first(overlay, '#storyDialogueChoices button');
+        rule = {el:choice || first(overlay, '#storyDialogueClose'),text:choice?.textContent.includes('繼續') ? '聽完對話，按這裡開始。' : '先選一句話，聽韋登醫師說。',key:stage+':dialogue'};
+        host = overlay.querySelector('.story-dialogue-card') || overlay;
+      } else rule = staticRule(stage,screen);
     }
     lastStage = stage;
     if (dock.parentNode !== host) {
@@ -218,8 +223,8 @@
     }
     setTimeout(schedule,30);
   });
-  const watched = unit===3 ? document.querySelector('.app') : document.querySelector('main');
-  if (watched) new MutationObserver(schedule).observe(watched,{attributes:true,attributeFilter:['class'],subtree:true,childList:unit===3});
+  const watched = unit===3 ? document.querySelector('.app') : document.body;
+  if (watched) new MutationObserver(schedule).observe(watched,{attributes:true,attributeFilter:['class','hidden'],subtree:true,childList:unit!==1});
   schedule();
 })();
 
