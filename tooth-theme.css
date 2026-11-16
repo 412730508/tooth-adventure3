@@ -301,3 +301,6 @@ button.choice,button.option,button.interaction-card,button.target,button.explore
   .lesson-site[data-qm-unit="3"] .station-track {gap:5px!important;}
   .lesson-site[data-qm-unit="3"] .station-track li {font-size:.76rem;padding:5px 3px;}
 }
+
+.lesson-site[data-qm-unit="3"] .app.dialogue-gate .story {width:100%!important;margin:0!important;}
+.lesson-site[data-qm-unit="3"] .app.dialogue-gate .layout {justify-content:flex-start!important;}
