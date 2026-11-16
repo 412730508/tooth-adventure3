@@ -96,6 +96,10 @@ button.choice,button.option,button.interaction-card,button.target,button.explore
   border:4px solid #d8e8e8;border-radius:43%;
 }
 #screen1 .tooth-character img,#screen2 .tooth-character img {width:100%;height:100%;object-fit:contain;}
+@media (min-width:701px) and (max-width:1000px) and (orientation:portrait) {
+  #screen1 .clinic-building,#screen2 .clinic-building {right:10%;width:170px;}
+  #screen1 .tooth-character,#screen2 .tooth-character {left:12%;width:125px;height:142px;}
+}
 
 /* Unit 2: illustrations remain framed at a useful reading size. */
 #screen1 [data-image="yabao"],#screen1 [data-image="openingScene"] {
@@ -103,18 +107,36 @@ button.choice,button.option,button.interaction-card,button.target,button.explore
 }
 #screen2 .character-card .image-slot {width:clamp(105px,13vw,138px)!important;height:clamp(105px,13vw,138px)!important;min-height:0!important;}
 #screen2 .character-card {gap:8px 14px!important;align-items:center;}
+#screen1 .hero-grid > div:last-child {
+  position:relative;display:block!important;height:clamp(255px,34vh,330px);min-width:0;
+  overflow:hidden;border:1px solid #b9d0d1;border-radius:20px;
+  background:#d9e9e8;box-shadow:0 8px 20px #334d5616;
+}
+#screen1 [data-image="openingScene"] {
+  position:absolute!important;inset:0;width:100%!important;height:100%!important;
+  margin:0!important;border:0!important;border-radius:0!important;box-shadow:none!important;
+}
+#screen1 [data-image="openingScene"] .image-media {object-fit:cover;}
+#screen1 [data-image="yabao"] {
+  position:absolute!important;right:4%;bottom:3%;z-index:1;width:32%!important;height:58%!important;
+  min-height:0!important;margin:0!important;border:0!important;background:transparent!important;
+  box-shadow:none!important;pointer-events:none;
+}
+#screen1 [data-image="yabao"] .image-media {object-fit:contain;filter:drop-shadow(0 5px 6px #294b5b55);}
 
 /* Unit 3: a compact picturebook scene and a clear, unobstructed footer. */
 .lesson-site header {position:sticky;top:0;z-index:1001;flex-wrap:wrap;background:#eaf1efed;padding:8px 4px;backdrop-filter:blur(8px);}
-.lesson-site .scene {flex:0 0 auto!important;height:clamp(215px,27vh,280px)!important;min-height:0!important;}
+.lesson-site .scene {flex:0 0 auto!important;height:clamp(200px,23vh,235px)!important;min-height:0!important;}
 .lesson-site .scene-content {width:100%;justify-content:space-evenly;gap:clamp(10px,2vw,22px);padding:10px;}
-.lesson-site .character img {width:clamp(80px,11vw,112px)!important;height:clamp(80px,11vw,112px)!important;object-fit:contain;}
+.lesson-site .character img {width:clamp(120px,17vw,155px)!important;height:clamp(120px,17vw,155px)!important;object-fit:contain;}
 .lesson-site .bubble {max-width:min(420px,50vw)!important;}
 
 @media (min-width:701px) and (max-width:1000px) and (orientation:portrait) {
   #screen1 .clinic-scene,#screen2 .clinic-scene {height:245px!important;}
   #screen2 .story-layout {grid-template-columns:1fr!important;}
-  #screen1 [data-image="yabao"],#screen1 [data-image="openingScene"] {height:235px!important;}
+  #screen1 .hero-grid > div:last-child {height:280px;}
+  #screen1 [data-image="openingScene"] {height:100%!important;}
+  #screen1 [data-image="yabao"] {height:58%!important;}
 }
 @media (max-width:700px) {
   .topbar,.panel,.story,.lesson,.card {border-radius:16px!important;}
