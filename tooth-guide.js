@@ -60,13 +60,65 @@
     9:[['.game-button','想複習，就按這裡。']]
   };
   function staticRule(stage, root) {
+    const step = Number(stage);
+    const go = first(root, '[data-go="'+(step+1)+'"]');
+    if (unit === 1) {
+      const repeat = {
+        3: ['.intro-tool:not(.visited)', '再點一個器材，四個都看完。'],
+        4: ['.intro-case:not(.viewed)', '再點一張線索卡，三張都看完。'],
+        7: ['.worry-card:not(.viewed)', '再點一張擔心卡，三張都看完。'],
+        8: ['.hotspot:not(.visited)', '再點一個診間物件。'],
+        10: ['.shield.unlocked:not(.opened)', '再點一面守護盾。']
+      }[step];
+      if (repeat) {
+        const el = first(root, repeat[0]);
+        if (el) return {el, text:repeat[1], key:stage+':repeat'};
+      }
+      if (step === 4 && !go) {
+        const answer = first(root, '.intro-quiz-option:not(.wrong)');
+        if (answer) return {el:answer, text:'想一想，再選一個答案。', key:stage+':answer'};
+      }
+      if (step === 11) {
+        const next = first(root, '[data-next-case],#finishCases');
+        if (next) return {el:next, text:'答對了，接著看下一案。', key:stage+':case-next'};
+        const answer = first(root, '.case-stage.active .options');
+        if (answer) return {el:answer, text:'看線索，選一個答案。', key:stage+':case-answer'};
+      }
+    }
+    if (unit === 2) {
+      if (step === 2 && !go) {
+        const answer = first(root, '.choice:not(.wrong)');
+        if (answer) return {el:answer, text:'再想一想，選一個答案。', key:stage+':answer'};
+      }
+      if (step === 3) {
+        const selected = first(root, '[data-timeline-card].selected');
+        const empty = first(root, '[data-timeline-slot]:not(.filled)');
+        const card = first(root, '[data-timeline-card]:not(.placed)');
+        if (selected && empty) return {el:empty, text:'把選好的卡放到空格。', key:stage+':slot'};
+        if (card && empty) return {el:card, text:'再選一張時間卡。', key:stage+':card'};
+        if (!go && !empty) {
+          const check = first(root, '#checkTimeline');
+          if (check) return {el:check, text:'四張排好了，按這裡檢查。', key:stage+':check'};
+        }
+      }
+      if (step === 7) {
+        const next = first(root, '#quizNextButton');
+        if (next) return {el:next, text:'看完回饋，按下一題。', key:stage+':quiz-next'};
+        const answer = first(root, '#quizOptions .choice:not([disabled])');
+        if (answer) return {el:answer, text:'讀題後，選一個答案。', key:stage+':quiz-answer'};
+      }
+      if (step === 8) {
+        const card = first(root, '.review-card:not(.open)');
+        if (card) return {el:card, text:'再點一張整理卡，三張都看完。', key:stage+':review'};
+      }
+    }
     const rules = (unit === 1 ? u1 : u2)[Number(stage)] || [];
     for (let i=0; i<rules.length; i++) {
       const key = stage + ':' + i;
       const el = first(root, rules[i][0]);
       if (el && (!seen.has(key) || i===rules.length-1)) return {el,text:rules[i][1],key};
     }
-    const el = first(root,'button.primary,[data-go],.game-button');
+    const el = first(root,'button.primary,[data-go],.game-button,button:not([disabled])');
     return {el,text:'找到有提示的按鈕，繼續探索。',key:stage+':end'};
   }
   function thirdRule() {
