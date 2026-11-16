@@ -2907,6 +2907,7 @@ button.secondary,.secondary { background:#f4ead8 !important; color:#4c6472 !impo
 }
 
 </style>
+  <link rel="stylesheet" href="../tooth-theme.css" />
   <link rel="stylesheet" href="../assets/fonts.css" />
 </head>
 
@@ -3808,6 +3809,7 @@ button.secondary,.secondary { background:#f4ead8 !important; color:#4c6472 !impo
         focusedElement.blur();
       }
 
+      if (number > state.screen && window.ToothCollection) window.ToothCollection.award(1, state.screen);
       state.screen = number;
       screens.forEach(function (screen) {
         const active = Number(screen.dataset.screen) === number;
@@ -3834,7 +3836,7 @@ button.secondary,.secondary { background:#f4ead8 !important; color:#4c6472 !impo
         }, 100);
       }
 
-      if (number === 14) createConfetti();
+      if (number === 14) { if (window.ToothCollection) window.ToothCollection.award(1, 14); createConfetti(); }
     }
 
     function showToast(message) {
@@ -4588,5 +4590,6 @@ button.secondary,.secondary { background:#f4ead8 !important; color:#4c6472 !impo
     document.querySelectorAll(".screen-fit").forEach(function (content) { screenFitObserver.observe(content); });
     showScreen(Number(new URLSearchParams(window.location.search).get("screen")) || 1);
   </script>
+  <script src="../tooth-collection.js"></script>
 </body>
 </html>
