@@ -46,6 +46,9 @@
   const all = groups.flatMap(g => g.items.map((entry,index)=>({key:`${g.id}-${index+1}`,name:entry[0],type:entry[1],unit:g.id})));
   const css = `<style>
     .tc-toggle{position:fixed;right:18px;bottom:18px;z-index:1000;border:2px solid #665247;border-radius:999px;background:#fff9eb;color:#26445a;padding:11px 17px;min-height:52px;font:800 16px/1.2 "Noto Sans TC","Microsoft JhengHei",sans-serif;box-shadow:0 5px 0 #ceb79c;cursor:pointer}
+    .tc-header-actions{display:flex;align-items:center;justify-content:flex-end;gap:9px;margin-left:auto}
+    .tc-header-actions .tc-toggle,.lesson-site header>.tc-toggle{position:static;right:auto;bottom:auto;min-height:42px;padding:8px 12px;border:1px solid #9fb8b2;background:#f2f8f3;box-shadow:none;font-size:14px;white-space:nowrap}
+    .lesson-site header>.tc-toggle{margin-left:auto;margin-right:8px}
     .tc-toggle:hover,.tc-toggle:focus-visible{background:#f6e8cf;outline:3px solid #457394;outline-offset:2px}
     .tc-backdrop[hidden],.tc-toast[hidden]{display:none!important}.tc-backdrop{position:fixed;inset:0;z-index:2000;background:#26343ab8;display:grid;place-items:center;padding:14px}
     .tc-book{width:min(780px,100%);max-height:min(90dvh,860px);overflow:auto;background:#fffaf0;color:#35454b;border:3px solid #69574c;border-radius:22px;padding:clamp(18px,3vw,30px);box-shadow:0 14px 0 #c8b59b;font:16px/1.5 "Noto Sans TC","Microsoft JhengHei",sans-serif}
@@ -57,13 +60,26 @@
     .tc-reward[hidden]{display:none!important}.tc-reward{position:fixed;left:50%;top:43%;z-index:1800;width:min(290px,calc(100vw - 38px));padding:20px 18px;text-align:center;border:3px solid #69574c;border-radius:23px;background:#fffaf0;color:#26445a;box-shadow:0 10px 0 #c8b59b;transform:translate(-50%,-50%);pointer-events:none;font:800 18px/1.35 "Noto Sans TC","Microsoft JhengHei",sans-serif;animation:tc-reveal .28s ease-out}
     .tc-reward svg{display:block;width:118px;height:118px;margin:auto}.tc-reward strong{display:block;font-size:1.25rem;margin:5px 0}.tc-reward small{display:block;font-size:.88rem;color:#52676f}.tc-fly{position:fixed;z-index:1900;width:72px;height:72px;pointer-events:none}.tc-fly svg{width:100%;height:100%}.tc-toggle.tc-received{animation:tc-bounce .6s ease-out}
     @keyframes tc-reveal{from{opacity:0;transform:translate(-50%,-45%) scale(.86)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}@keyframes tc-bounce{50%{transform:scale(1.14)}}
-    @media(max-width:500px){.tc-toggle{right:10px;bottom:10px;font-size:14px;padding:10px 12px}.tc-toast{right:10px;bottom:76px}.tc-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:600px){.topbar .brand-row:has(.tc-header-actions){flex-wrap:wrap}.tc-header-actions{width:100%;margin-left:0}.lesson-site header>.tc-toggle{margin-left:auto}.tc-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:500px){body>.tc-toggle{right:10px;bottom:10px;font-size:14px;padding:10px 12px}.tc-toast{right:10px;bottom:76px}}
     @media(prefers-reduced-motion:reduce){.tc-meter span{transition:none}.tc-reward,.tc-toggle.tc-received{animation:none}}
   </style>`;
   document.head.insertAdjacentHTML('beforeend',css);
   const toggle = document.createElement('button');
   toggle.type='button';toggle.className='tc-toggle';toggle.textContent='收藏冊 0 / '+all.length;
-  toggle.setAttribute('aria-haspopup','dialog');document.body.appendChild(toggle);
+  toggle.setAttribute('aria-haspopup','dialog');
+  const topbar = document.querySelector('.topbar .brand-row');
+  const lessonHeader = document.documentElement.classList.contains('lesson-site') ? document.querySelector('.app > header') : null;
+  if (topbar) {
+    const actions = document.createElement('div');
+    actions.className = 'tc-header-actions';
+    const restart = topbar.querySelector('.restart');
+    if (restart) topbar.insertBefore(actions,restart);
+    else topbar.appendChild(actions);
+    actions.appendChild(toggle);
+    if (restart) actions.appendChild(restart);
+  } else if (lessonHeader) lessonHeader.insertBefore(toggle,lessonHeader.querySelector('.top-link'));
+  else document.body.appendChild(toggle);
   const backdrop=document.createElement('div');backdrop.className='tc-backdrop';backdrop.hidden=true;
   backdrop.innerHTML='<div class="tc-book" role="dialog" aria-modal="true" aria-labelledby="tc-title"><div class="tc-head"><div><h2 id="tc-title">我的護牙收藏冊</h2><p id="tc-summary"></p></div><button class="tc-close" type="button" aria-label="關閉收藏冊">×</button></div><div class="tc-meter"><span id="tc-meter-fill"></span></div><div id="tc-groups"></div></div>';
   document.body.appendChild(backdrop);
