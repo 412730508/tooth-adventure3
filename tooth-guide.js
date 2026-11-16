@@ -87,24 +87,48 @@
     }
     if (unit === 2) {
       if (step === 2 && !go) {
-        const answer = first(root, '.choice:not(.wrong)');
-        if (answer) return {el:answer, text:'再想一想，選一個答案。', key:stage+':answer'};
+        const answer = first(root, '#babyChoices');
+        if (answer) return {el:answer, text:'想一想，再選一個答案。', key:stage+':answer'};
       }
       if (step === 3) {
         const selected = first(root, '[data-timeline-card].selected');
         const empty = first(root, '[data-timeline-slot]:not(.filled)');
         const card = first(root, '[data-timeline-card]:not(.placed)');
-        if (selected && empty) return {el:empty, text:'把選好的卡放到空格。', key:stage+':slot'};
+        if (selected && empty) return {el:first(root, '#timelineTargets'), text:'找對應的位置，放入卡片。', key:stage+':slot'};
         if (card && empty) return {el:card, text:'再選一張時間卡。', key:stage+':card'};
         if (!go && !empty) {
           const check = first(root, '#checkTimeline');
           if (check) return {el:check, text:'四張排好了，按這裡檢查。', key:stage+':check'};
         }
       }
+      if (step === 4 && !go) {
+        if (first(root, '#positionMatch')) {
+          const selected = first(root, '#positionCards .selected');
+          const card = first(root, '#positionCards .interaction-card:not(.placed)');
+          if (selected) return {el:first(root, '#positionTargets'), text:'找對應的位置，放入卡片。', key:stage+':position-target'};
+          if (card) return {el:card, text:'選一張位置卡。', key:stage+':position-card'};
+        }
+        const explore = first(root, '#positionLesson .explore-button:not(.explored)');
+        if (explore) return {el:explore, text:'點這裡，看看牙冠與牙根。', key:stage+':explore'};
+        const answer = first(root, '.choices');
+        if (answer) return {el:answer, text:'先看題目，再選答案。', key:stage+':answer'};
+      }
+      if (step === 5 && !go) {
+        const explore = first(root, '#insideLesson .explore-button:not(.explored)');
+        if (explore) return {el:explore, text:'再點一層，看看牙齒裡面。', key:stage+':explore'};
+        const open = first(root, '#openCrossSection');
+        if (open && !first(root, '#insideLesson')) return {el:open, text:'按這裡，打開牙齒剖面圖。', key:stage+':open'};
+      }
+      if (step === 6 && !go) {
+        const selected = first(root, '#assemblyCards .selected');
+        const card = first(root, '#assemblyCards .interaction-card:not(.placed)');
+        if (selected) return {el:first(root, '#assemblyTargets'), text:'找對應的位置，放入卡片。', key:stage+':assembly-target'};
+        if (card) return {el:card, text:'再選一張構造卡。', key:stage+':assembly-card'};
+      }
       if (step === 7) {
         const next = first(root, '#quizNextButton');
         if (next) return {el:next, text:'看完回饋，按下一題。', key:stage+':quiz-next'};
-        const answer = first(root, '#quizOptions .choice:not([disabled])');
+        const answer = first(root, '#quizOptions');
         if (answer) return {el:answer, text:'讀題後，選一個答案。', key:stage+':quiz-answer'};
       }
       if (step === 8) {
