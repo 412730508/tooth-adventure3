@@ -163,7 +163,7 @@ button.secondary { background:#eef1ed !important; color:#4f6e7b !important; box-
 }
 
 </style>
-  <link rel="stylesheet" href="../tooth-theme.css?v=7" />
+  <link rel="stylesheet" href="../tooth-theme.css?v=8" />
   <link rel="stylesheet" href="../assets/fonts.css" />
 </head>
 <body>
@@ -188,6 +188,7 @@ button.secondary { background:#eef1ed !important; color:#4f6e7b !important; box-
         <div class="dialogue-actions"><button id="next-dialogue" type="button">繼續對話</button><span class="progress" id="dialogue-progress">對話 1 / 3</span></div>
       </section>
       <section class="lesson" aria-labelledby="lesson-title">
+        <ol class="station-track" aria-label="第三單元六站進度"><li data-station="1"><span>1</span><b>午餐</b></li><li data-station="2"><span>2</span><b>飲料</b></li><li data-station="3"><span>3</span><b>搭配</b></li><li data-station="4"><span>4</span><b>點心</b></li><li data-station="5"><span>5</span><b>清潔</b></li><li data-station="6"><span>6</span><b>回家</b></li></ol>
         <div class="lesson-head"><span class="step-badge" id="step-number">1</span><div><h2 id="lesson-title">午餐桌上的線索</h2><p class="step-caption" id="lesson-caption">第 1 / 6 站 · 約 3 分鐘</p></div></div>
         <div class="panel" id="lesson-panel" tabindex="0" aria-live="polite"></div>
         <div class="footer-actions"><button class="secondary" id="prev-step" type="button">上一步</button><button id="next-step" type="button">下一站</button></div>
@@ -306,7 +307,7 @@ button.secondary { background:#eef1ed !important; color:#4f6e7b !important; box-
       $('next-dialogue').disabled = false;
       const gateButton = $('next-dialogue');
       gateButton.textContent = '繼續對話';
-      $('step-number').textContent = String(stepIndex + 1);
+      $('step-number').textContent = String(stepIndex + 1);\n      document.querySelectorAll('.station-track li').forEach((item) => { const n = Number(item.dataset.station); item.classList.toggle('is-current', n === stepIndex + 1); item.classList.toggle('is-done', n < stepIndex + 1); if (n === stepIndex + 1) item.setAttribute('aria-current','step'); else item.removeAttribute('aria-current'); });
       $('lesson-title').textContent = step.title;
       $('lesson-caption').textContent = step.caption;
       $('lesson-panel').innerHTML = step.html;
