@@ -360,3 +360,12 @@ button.choice,button.option,button.interaction-card,button.target,button.explore
   .lesson-site[data-qm-unit="3"] .story,.lesson-site[data-qm-unit="3"] .lesson {flex:0 0 auto!important;width:100%!important;min-width:0!important;height:auto!important;min-height:0!important;}
   .lesson-site[data-qm-unit="3"] .app.dialogue-gate .story {overflow:visible!important;}
 }
+
+/* Tablet landscape widths still need the readable single-column lesson flow. */
+@media (min-width:901px) and (max-width:1100px) {
+  .lesson-site[data-qm-unit="3"] body {height:auto!important;min-height:100dvh!important;overflow-y:auto!important;overflow-x:hidden!important;}
+  .lesson-site[data-qm-unit="3"] .app {height:auto!important;min-height:100dvh!important;overflow-x:hidden!important;}
+  .lesson-site[data-qm-unit="3"] .layout {display:flex!important;flex-direction:column!important;flex:0 0 auto!important;height:auto!important;min-height:0!important;overflow:visible!important;gap:14px!important;}
+  .lesson-site[data-qm-unit="3"] .story,.lesson-site[data-qm-unit="3"] .lesson {flex:0 0 auto!important;width:100%!important;min-width:0!important;height:auto!important;min-height:0!important;}
+  .lesson-site[data-qm-unit="3"] .app.dialogue-gate .story {overflow:visible!important;}
+}
