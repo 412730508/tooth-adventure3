@@ -163,6 +163,7 @@ button.secondary { background:#eef1ed !important; color:#4f6e7b !important; box-
 }
 
 </style>
+  <link rel="stylesheet" href="../tooth-theme.css" />
   <link rel="stylesheet" href="../assets/fonts.css" />
 </head>
 <body>
@@ -386,9 +387,10 @@ button.secondary { background:#eef1ed !important; color:#4f6e7b !important; box-
       renderDialogue();
       $('lesson-panel').focus();
     });
-    $('next-step').addEventListener('click', () => { if (stepIndex === steps.length - 1) { window.location.href = '../'; return; } stepIndex += 1; renderStep(); });
+    $('next-step').addEventListener('click', () => { if (!dialogueReady) return; if (window.ToothCollection) window.ToothCollection.award(3, stepIndex + 1); if (stepIndex === steps.length - 1) { window.location.href = '../'; return; } stepIndex += 1; renderStep(); });
     $('prev-step').addEventListener('click', () => { if (stepIndex > 0) { stepIndex -= 1; renderStep(); } });
     renderStep();
   </script>
+  <script src="../tooth-collection.js"></script>
 </body>
 </html>
