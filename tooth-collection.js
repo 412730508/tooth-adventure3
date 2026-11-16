@@ -54,8 +54,11 @@
     .tc-section{margin-top:18px}.tc-section h3{margin:0 0 8px;color:#26445a;font-size:1.13rem}.tc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(116px,1fr));gap:10px}
     .tc-item{min-height:132px;border:2px solid #c9bba7;border-radius:15px;background:#fffef9;padding:9px;text-align:center}.tc-item svg{display:block;width:70px;height:70px;margin:auto}.tc-item strong{display:block;font-size:.9rem;line-height:1.3}.tc-item small{display:block;color:#5c6c70;margin-top:2px}.tc-item.locked{background:#f2eee6;color:#6c6a67}.tc-item.locked svg{filter:grayscale(1);opacity:.38}
     .tc-toast{position:fixed;right:18px;bottom:83px;z-index:1500;max-width:min(335px,calc(100vw - 36px));border:2px solid #69574c;border-radius:15px;background:#fffaf0;padding:12px 16px;color:#26445a;font:800 16px/1.45 "Noto Sans TC","Microsoft JhengHei",sans-serif;box-shadow:0 6px 0 #c8b59b}
+    .tc-reward[hidden]{display:none!important}.tc-reward{position:fixed;left:50%;top:43%;z-index:1800;width:min(290px,calc(100vw - 38px));padding:20px 18px;text-align:center;border:3px solid #69574c;border-radius:23px;background:#fffaf0;color:#26445a;box-shadow:0 10px 0 #c8b59b;transform:translate(-50%,-50%);pointer-events:none;font:800 18px/1.35 "Noto Sans TC","Microsoft JhengHei",sans-serif;animation:tc-reveal .28s ease-out}
+    .tc-reward svg{display:block;width:118px;height:118px;margin:auto}.tc-reward strong{display:block;font-size:1.25rem;margin:5px 0}.tc-reward small{display:block;font-size:.88rem;color:#52676f}.tc-fly{position:fixed;z-index:1900;width:72px;height:72px;pointer-events:none}.tc-fly svg{width:100%;height:100%}.tc-toggle.tc-received{animation:tc-bounce .6s ease-out}
+    @keyframes tc-reveal{from{opacity:0;transform:translate(-50%,-45%) scale(.86)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}@keyframes tc-bounce{50%{transform:scale(1.14)}}
     @media(max-width:500px){.tc-toggle{right:10px;bottom:10px;font-size:14px;padding:10px 12px}.tc-toast{right:10px;bottom:76px}.tc-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-    @media(prefers-reduced-motion:reduce){.tc-meter span{transition:none}}
+    @media(prefers-reduced-motion:reduce){.tc-meter span{transition:none}.tc-reward,.tc-toggle.tc-received{animation:none}}
   </style>`;
   document.head.insertAdjacentHTML('beforeend',css);
   const toggle = document.createElement('button');
@@ -65,7 +68,8 @@
   backdrop.innerHTML='<div class="tc-book" role="dialog" aria-modal="true" aria-labelledby="tc-title"><div class="tc-head"><div><h2 id="tc-title">我的護牙收藏冊</h2><p id="tc-summary"></p></div><button class="tc-close" type="button" aria-label="關閉收藏冊">×</button></div><div class="tc-meter"><span id="tc-meter-fill"></span></div><div id="tc-groups"></div></div>';
   document.body.appendChild(backdrop);
   const toast=document.createElement('div');toast.className='tc-toast';toast.setAttribute('role','status');toast.setAttribute('aria-live','polite');toast.hidden=true;document.body.appendChild(toast);
-  let lastFocus=null,timer=0;
+  const reward=document.createElement('div');reward.className='tc-reward';reward.setAttribute('role','status');reward.setAttribute('aria-live','assertive');reward.hidden=true;document.body.appendChild(reward);
+  let lastFocus=null,timer=0,rewardTimer=0;
   function render(){
     const count=all.filter(x=>acquired.has(x.key)).length;
     toggle.textContent=`收藏冊 ${count} / ${all.length}`;
@@ -78,7 +82,24 @@
   backdrop.querySelector('.tc-close').addEventListener('click',close);
   backdrop.addEventListener('click',e=>{if(e.target===backdrop)close()});
   document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!backdrop.hidden)close()});
-  function award(unit,level){const item=all.find(x=>x.key===`${unit}-${level}`);if(!item||acquired.has(item.key))return false;acquired.add(item.key);try{localStorage.setItem(KEY,JSON.stringify([...acquired]))}catch(_){}render();toast.textContent=`新收藏：${item.name}！打開收藏冊看看。`;toast.hidden=false;clearTimeout(timer);timer=setTimeout(()=>{toast.hidden=true},4000);return true}
+  function showReward(item){
+    clearTimeout(rewardTimer);
+    document.querySelectorAll('.tc-fly').forEach(el=>el.remove());
+    reward.innerHTML=`${art(item.type)}<strong>獲得：${item.name}</strong><small>正在收進收藏冊</small>`;
+    reward.hidden=false;
+    const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+    rewardTimer=setTimeout(()=>{
+      if(reduced){reward.hidden=true;toggle.classList.add('tc-received');setTimeout(()=>toggle.classList.remove('tc-received'),650);return}
+      const start=reward.querySelector('svg').getBoundingClientRect();
+      const end=toggle.getBoundingClientRect();
+      const fly=document.createElement('div');fly.className='tc-fly';fly.innerHTML=art(item.type);fly.style.left=(start.left+start.width/2-36)+'px';fly.style.top=(start.top+start.height/2-36)+'px';document.body.appendChild(fly);
+      reward.hidden=true;
+      const dx=end.left+end.width/2-(start.left+start.width/2),dy=end.top+end.height/2-(start.top+start.height/2);
+      const animation=fly.animate([{transform:'translate(0,0) scale(1)',opacity:1},{transform:`translate(${dx}px,${dy}px) scale(.3)`,opacity:.75}],{duration:850,easing:'cubic-bezier(.2,.7,.2,1)',fill:'forwards'});
+      animation.onfinish=()=>{fly.remove();toggle.classList.add('tc-received');setTimeout(()=>toggle.classList.remove('tc-received'),650)};
+    },reduced?1700:1050);
+  }
+  function award(unit,level){const item=all.find(x=>x.key===`${unit}-${level}`);if(!item||acquired.has(item.key))return false;acquired.add(item.key);try{localStorage.setItem(KEY,JSON.stringify([...acquired]))}catch(_){}render();toast.hidden=true;showReward(item);return true}
   window.ToothCollection={award,open:()=>toggle.click(),count:()=>acquired.size};
   render();
 })();
