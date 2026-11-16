@@ -170,3 +170,20 @@ button.choice,button.option,button.interaction-card,button.target,button.explore
   .lesson-site .app:not(.dialogue-gate) .story .intro {display:none;}
   .lesson-site .app:not(.dialogue-gate) .story .dialogue-actions {margin-top:8px;}
 }
+
+/* Stack the dialogue bubble between characters when the story panel gets narrow. */
+@media (max-width:1000px) {
+  .lesson-site .app.dialogue-gate .scene-content {
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+    align-items:end!important;
+    justify-items:center!important;
+    gap:6px 12px!important;
+  }
+  .lesson-site .app.dialogue-gate .scene-content .character {grid-row:1!important;}
+  .lesson-site .app.dialogue-gate .scene-content .bubble {
+    grid-column:1/-1!important;grid-row:2!important;
+    width:100%!important;max-width:none!important;min-width:0!important;
+    white-space:normal!important;overflow-wrap:anywhere;
+  }
+}
