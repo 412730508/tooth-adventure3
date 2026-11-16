@@ -10,6 +10,8 @@
     .tg-dock img{width:53px;height:53px;object-fit:contain;flex:none}.tg-dock strong{display:block;font-size:.82rem;color:#526b76}.tg-dock p{margin:0;flex:1}.tg-show{border:2px solid #9db9c2;border-radius:10px;background:#fffaf1;color:#294a61;min-height:42px;padding:5px 10px;font:800 14px/1.2 "Noto Sans TC","Microsoft JhengHei",sans-serif;cursor:pointer}
     #screen2 .intro-story-choice{border:2px solid #c9d8d3;border-radius:14px;background:#fffdfa;box-shadow:0 3px 0 #e1e9e3;transition:border-color .18s,background-color .18s,box-shadow .18s}
     #screen2 .intro-story-choice:hover{border-color:#8faeaa;background:#f7faf6;box-shadow:0 4px 10px #294a611c}
+    #screen2 .question-box{border:1px solid #d1ded8!important;border-radius:18px!important;background:#f6f9f5!important;box-shadow:0 6px 18px #294a6114!important;padding:17px!important}
+    #screen2 .question-box h3{margin:0 0 12px;color:#315669}
     .tg-target{position:relative!important;overflow:visible!important;outline:none!important;border-radius:12px!important;box-shadow:0 4px 12px #294a6126!important;animation:tg-nudge 1.9s ease-in-out infinite!important}
     button.tg-target{border-color:#8eaead!important;border-width:2px!important;padding-right:52px!important}
     button.tg-target:is(.option,.choice,.intro-tool,.review-card,.interaction-card,.target){background-color:#f5f9f5!important}
