@@ -148,3 +148,25 @@ button.choice,button.option,button.interaction-card,button.target,button.explore
   .lesson-site .character img {width:75px!important;height:75px!important;}
 }
 
+
+/* Keep the activity readable on tablet after the picturebook dialogue. */
+@media (min-width:701px) and (max-width:1180px) {
+  .lesson-site .app:not(.dialogue-gate) .layout {
+    grid-template-columns:minmax(205px,25%) minmax(0,1fr)!important;
+    grid-template-rows:minmax(0,1fr)!important;
+  }
+  .lesson-site .app:not(.dialogue-gate) .story .scene {display:none!important;}
+  .lesson-site .app:not(.dialogue-gate) .story h1 {font-size:clamp(1.45rem,2.6vw,2rem);line-height:1.2;}
+  .lesson-site .app:not(.dialogue-gate) .story .intro {font-size:.94rem;}
+  .lesson-site .app:not(.dialogue-gate) .story .dialogue-actions {margin-top:16px;}
+}
+@media (min-width:701px) and (max-width:900px) and (orientation:portrait) {
+  .lesson-site .app:not(.dialogue-gate) .layout {
+    grid-template-columns:1fr!important;
+    grid-template-rows:auto minmax(0,1fr)!important;
+  }
+  .lesson-site .app:not(.dialogue-gate) .story {min-height:0!important;padding:14px 20px!important;}
+  .lesson-site .app:not(.dialogue-gate) .story h1 br {display:none;}
+  .lesson-site .app:not(.dialogue-gate) .story .intro {display:none;}
+  .lesson-site .app:not(.dialogue-gate) .story .dialogue-actions {margin-top:8px;}
+}
