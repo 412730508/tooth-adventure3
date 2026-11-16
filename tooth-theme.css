@@ -353,3 +353,10 @@ button.choice,button.option,button.interaction-card,button.target,button.explore
   .lesson-site[data-qm-unit="3"] .story {overflow:hidden!important;}
   .lesson-site[data-qm-unit="3"] .app {overflow-x:hidden!important;}
 }
+
+@media (min-width:761px) and (max-width:900px) {
+  .lesson-site[data-qm-unit="3"] .app {height:auto!important;min-height:100dvh!important;overflow:visible!important;}
+  .lesson-site[data-qm-unit="3"] .layout {display:flex!important;flex-direction:column!important;flex:0 0 auto!important;height:auto!important;min-height:0!important;overflow:visible!important;gap:14px!important;}
+  .lesson-site[data-qm-unit="3"] .story,.lesson-site[data-qm-unit="3"] .lesson {flex:0 0 auto!important;width:100%!important;min-width:0!important;height:auto!important;min-height:0!important;}
+  .lesson-site[data-qm-unit="3"] .app.dialogue-gate .story {overflow:visible!important;}
+}
