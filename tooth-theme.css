@@ -348,3 +348,8 @@ button.choice,button.option,button.interaction-card,button.target,button.explore
 @media (min-width:901px) {
   .lesson-site[data-qm-unit="3"] .app {overflow:visible!important;}
 }
+
+@media (min-width:761px) and (max-width:900px) {
+  .lesson-site[data-qm-unit="3"] .story {overflow:hidden!important;}
+  .lesson-site[data-qm-unit="3"] .app {overflow-x:hidden!important;}
+}
