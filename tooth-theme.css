@@ -1,0 +1,48 @@
+/* Shared pencil-and-paper palette for the three learning units. */
+:root {
+  --blue:#426d88;--blue-dark:#294a61;--navy:#294a61;
+  --sky:#c8e1e9;--orange:#c9875d;--orange-dark:#a96443;
+  --yellow:#e9d49c;--green:#7d9f88;--green-dark:#527660;
+  --red:#ba7667;--bg:#f1f5f1;--ink:#37454b;
+  --muted:#607178;--white:#fffaf1;--paper:#fffaf1;
+  --line:#d9d9cf;--shadow:0 9px 22px #344b5520;
+  --shadow-small:0 4px 12px #344b551b;
+}
+body {
+  color:var(--ink)!important;
+  background:radial-gradient(circle at 95% 8%,#f9eedb 0,transparent 36%),linear-gradient(135deg,#e8f1f1,#f3efe4)!important;
+  font-family:"Noto Sans TC","Microsoft JhengHei",sans-serif!important;
+}
+.topbar,.story,.lesson,.panel,.card {
+  border-color:#e5e2d7!important;
+  background-color:#fffaf1!important;
+  box-shadow:0 7px 20px #344b5519!important;
+}
+h1,h2,h3,.brand,.crumb { color:#294a61!important; }
+.eyebrow,.unit-label { color:#a96443!important; }
+.lead,.intro { color:#52656d!important; }
+button,.button-link { font-family:inherit; }
+button.primary,.primary,button.game-button,.game-button,#next-step,#next-dialogue,.button-link {
+  background:#c9875d!important;
+  color:#fffaf1!important;
+  border-color:#a96443!important;
+  box-shadow:0 4px 0 #a96443!important;
+}
+button.secondary,.secondary,.restart,.top-link {
+  background:#e5eeed!important;
+  color:#294a61!important;
+  border-color:#b7cdcb!important;
+}
+button:focus-visible,a:focus-visible,[tabindex]:focus-visible {outline:3px solid #426d88!important;outline-offset:3px;}
+.progress-dot.current,.progress-step.current,.step-badge {background:#dbe8e7!important;color:#294a61!important;}
+.progress-dot.done,.progress-step.done {background:#8ba993!important;color:#173d2a!important;}
+.bubble,.dialogue,.task,.callout,.feedback {border-radius:17px;}
+@media(max-width:700px) {
+  .scene-content {display:grid!important;grid-template-columns:1fr 1fr!important;gap:7px!important;align-items:end!important;}
+  .scene-content .bubble {grid-column:1/-1!important;grid-row:2!important;max-width:none!important;width:100%!important;min-width:0!important;}
+  .scene-content .character {grid-row:1!important;}
+  .scene-content .character img {width:68px!important;height:68px!important;}
+  .story .scene {min-height:190px!important;}
+}
+@media(prefers-reduced-motion:reduce) {*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
