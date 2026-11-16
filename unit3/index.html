@@ -395,7 +395,7 @@ button.secondary { background:#eef1ed !important; color:#4f6e7b !important; box-
       renderDialogue();
       $('lesson-panel').focus();
     });
-    $('next-step').addEventListener('click', () => { if (!dialogueReady) return; if (stepIndex > 0 && !completedActivities.has(stepIndex + 1)) { const hint = document.createElement('p'); hint.className = 'feedback'; hint.setAttribute('role', 'status'); hint.textContent = ['','', '請先點選兩種喝飲料的方式，完成比較。', '請先選好午餐並按「檢查我的搭配」。', '請先幫牙寶選出較合適的點心安排。', '請先選出喝完果汁後較合適的清潔做法。', '請先選一件願意試試看的護牙習慣。'][stepIndex + 1]; $('lesson-panel').appendChild(hint); hint.scrollIntoView({block:'nearest'}); return; } if (window.ToothCollection) window.ToothCollection.award(3, stepIndex + 1); if (stepIndex === steps.length - 1) { window.location.href = '../'; return; } stepIndex += 1; renderStep(); });
+    $('next-step').addEventListener('click', () => { if (!dialogueReady) return; if (stepIndex > 0 && !completedActivities.has(stepIndex + 1)) { const hint = $('station-hint') || document.createElement('p'); hint.id = 'station-hint'; hint.className = 'feedback'; hint.setAttribute('role', 'status'); hint.textContent = ['','', '請先點選兩種喝飲料的方式，完成比較。', '請先選好午餐並按「檢查我的搭配」。', '請先幫牙寶選出較合適的點心安排。', '請先選出喝完果汁後較合適的清潔做法。', '請先選一件願意試試看的護牙習慣。'][stepIndex + 1]; $('lesson-panel').appendChild(hint); hint.scrollIntoView({block:'nearest'}); return; } if (window.ToothCollection) window.ToothCollection.award(3, stepIndex + 1); if (stepIndex === steps.length - 1) { window.location.href = '../'; return; } stepIndex += 1; renderStep(); });
     $('prev-step').addEventListener('click', () => { if (stepIndex > 0) { stepIndex -= 1; renderStep(); } });
     renderStep();
   </script>
