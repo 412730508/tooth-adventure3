@@ -335,3 +335,16 @@ button.choice,button.option,button.interaction-card,button.target,button.explore
 .lesson-site[data-qm-unit="3"] .food img.food-art {width:42px!important;height:42px!important;max-width:42px!important;max-height:42px!important;object-fit:contain!important;}
 .lesson-site[data-qm-unit="3"] details {background:#fbfaf5!important;border:1px solid #d4ddd6!important;}
 .lesson-site[data-qm-unit="3"] details summary {line-height:1.5!important;}
+
+/* Unit 3 tablet portrait: stack the reading flow and remove horizontal overflow. */
+@media (min-width:761px) and (max-width:900px) {
+  .lesson-site[data-qm-unit="3"] body {height:auto!important;min-height:100dvh!important;overflow-y:auto!important;overflow-x:hidden!important;}
+  .lesson-site[data-qm-unit="3"] .app {height:auto!important;min-height:100dvh!important;overflow:visible!important;}
+  .lesson-site[data-qm-unit="3"] .layout {display:grid!important;grid-template-columns:minmax(0,1fr)!important;min-height:0!important;overflow:visible!important;}
+  .lesson-site[data-qm-unit="3"] .story,.lesson-site[data-qm-unit="3"] .lesson {width:100%!important;min-width:0!important;overflow:visible!important;}
+  .lesson-site[data-qm-unit="3"] .app:not(.dialogue-gate) .story {display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;}
+  .lesson-site[data-qm-unit="3"] .station-track {grid-template-columns:repeat(6,minmax(0,1fr))!important;}
+}
+@media (min-width:901px) {
+  .lesson-site[data-qm-unit="3"] .app {overflow:visible!important;}
+}
