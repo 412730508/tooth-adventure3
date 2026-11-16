@@ -8,9 +8,17 @@
   style.textContent = `
     .tg-dock{display:flex;align-items:center;gap:10px;margin:0 0 15px;padding:9px 12px;border:2px solid #b9cbd0;border-radius:16px;background:#eef3f1;color:#294a61;font:700 16px/1.4 "Noto Sans TC","Microsoft JhengHei",sans-serif}
     .tg-dock img{width:53px;height:53px;object-fit:contain;flex:none}.tg-dock strong{display:block;font-size:.82rem;color:#526b76}.tg-dock p{margin:0;flex:1}.tg-show{border:2px solid #9db9c2;border-radius:10px;background:#fffaf1;color:#294a61;min-height:42px;padding:5px 10px;font:800 14px/1.2 "Noto Sans TC","Microsoft JhengHei",sans-serif;cursor:pointer}
-    .tg-target{position:relative!important;overflow:visible!important;outline:3px solid #426d88!important;outline-offset:3px!important;animation:tg-nudge 1.7s ease-in-out infinite!important}
-    .tg-hand{display:inline-flex;vertical-align:middle;margin-left:5px;pointer-events:none;animation:tg-point 1.1s ease-in-out infinite}
-    @keyframes tg-nudge{0%,100%{transform:scale(1)}50%{transform:scale(1.045)}}@keyframes tg-point{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+    #screen2 .intro-story-choice{border:2px solid #c9d8d3;border-radius:14px;background:#fffdfa;box-shadow:0 3px 0 #e1e9e3;transition:border-color .18s,background-color .18s,box-shadow .18s}
+    #screen2 .intro-story-choice:hover{border-color:#8faeaa;background:#f7faf6;box-shadow:0 4px 10px #294a611c}
+    .tg-target{position:relative!important;overflow:visible!important;outline:none!important;border-radius:12px!important;box-shadow:0 4px 12px #294a6126!important;animation:tg-nudge 1.9s ease-in-out infinite!important}
+    button.tg-target{border-color:#8eaead!important;border-width:2px!important;padding-right:52px!important}
+    button.tg-target:is(.option,.choice,.intro-tool,.review-card,.interaction-card,.target){background-color:#f5f9f5!important}
+    .tg-target:not(button){box-shadow:inset 0 0 0 2px #a9c2bd,0 4px 12px #294a611a!important}
+    .tg-target:focus-visible{outline:3px solid #406d86!important;outline-offset:2px!important}
+    .tg-hand{position:absolute;right:9px;top:50%;display:grid;place-items:center;width:35px;height:35px;margin:0;border:1px solid #d4c2a8;border-radius:50%;background:#fff8eb;box-shadow:0 2px 5px #493d3522;pointer-events:none;animation:tg-point 1.5s ease-in-out infinite}
+    .tg-target:not(button)>.tg-hand{top:20px;right:7px}
+    .tg-hand svg{width:23px;height:23px}
+    @keyframes tg-nudge{0%,100%{transform:scale(1)}50%{transform:scale(1.012)}}@keyframes tg-point{0%,100%{transform:translateY(-50%) rotate(-7deg)}50%{transform:translateY(-50%) translateX(-3px) rotate(2deg)}}
     @media(max-width:560px){.tg-dock{font-size:14px;padding:7px;gap:7px}.tg-dock img{width:43px;height:43px}.tg-show{font-size:12px;padding:4px 7px}}
     @media(prefers-reduced-motion:reduce){.tg-target,.tg-hand{animation:none!important}}
   `;
