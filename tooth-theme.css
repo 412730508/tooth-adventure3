@@ -38,6 +38,7 @@ button:focus-visible,a:focus-visible,[tabindex]:focus-visible {outline:3px solid
 .progress-dot.done,.progress-step.done {background:#8ba993!important;color:#173d2a!important;}
 .bubble,.dialogue,.task,.callout,.feedback {border-radius:17px;}
 @media(max-width:700px) {
+  .progress-dot,.progress-step,.progress-count {font-size:0.875rem!important;}
   .scene-content {display:grid!important;grid-template-columns:1fr 1fr!important;gap:7px!important;align-items:end!important;}
   .scene-content .bubble {grid-column:1/-1!important;grid-row:2!important;max-width:none!important;width:100%!important;min-width:0!important;}
   .scene-content .character {grid-row:1!important;}
